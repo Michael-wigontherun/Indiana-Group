@@ -50,12 +50,12 @@ public class FunnySelenium {
             //ignores row 1
             if(array.length > 1 && array2.length <=1){
                 //separates data into separate variables
-                var = array2[0].replaceAll("\t", "");
-                var1 = array[0];
-                var2 = array[1];
-                var3 = array[2];
-                var4 = array[3];
-                var5 = array[4].replaceAll("\t", "");
+                var = (array2[0].replaceAll("\t", "")).replaceAll("\n", "");
+                var1 = (array[0].replaceAll("\t", "")).replaceAll("\n", "");
+                var2 = (array[1].replaceAll("\t", "")).replaceAll("\n", "");
+                var3 = (array[2].replaceAll("\t", "")).replaceAll("\n", "");
+                var4 = (array[3].replaceAll("\t", "")).replaceAll("\n", "");
+                var5 = (array[4].replaceAll("\t", "")).replaceAll("\n", "");
                 //prints data
                 System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
             }
@@ -63,6 +63,9 @@ public class FunnySelenium {
             data = "";
             data2 = "";
         }
+        //for testing a single line
+        //System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
+        driver.close();
     }
     
 }
