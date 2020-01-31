@@ -26,8 +26,8 @@ public class FunnySelenium {
         // Get all rows 
         List<WebElement> rows = simpleTable.findElements(By.tagName("tr")); 
         //Variables
-        String data = "";
-        String data2 = "";
+        StringBuilder data = new StringBuilder();
+        StringBuilder data2 = new StringBuilder();
         String var = "";
         String var1 = "";
         String var2 = "";
@@ -40,28 +40,30 @@ public class FunnySelenium {
             List<WebElement> cols2 = row.findElements(By.tagName("th"));
             //collects data from columns
             for (WebElement col : cols) {
-                data += col.getText() + "\t";
+                data.append(col.getText() + "\t");
             }
             for (WebElement col2 : cols2) {
-                data2 += col2.getText() + "\t";
+                data2.append(col2.getText() + "\t");
             }
-            String[] array = data.split("\t", 5);
-            String[] array2 = data2.split("\t");
+            String[] array = data.toString().replaceAll("\n", "").split("\t", 5);
+            String[] array2 = data2.toString().replaceAll("\n", "").split("\t");
             //ignores row 1
             if(array.length > 1 && array2.length <=1){
                 //separates data into separate variables
-                var = (array2[0].replaceAll("\t", "")).replaceAll("\n", "");
-                var1 = (array[0].replaceAll("\t", "")).replaceAll("\n", "");
-                var2 = (array[1].replaceAll("\t", "")).replaceAll("\n", "");
-                var3 = (array[2].replaceAll("\t", "")).replaceAll("\n", "");
-                var4 = (array[3].replaceAll("\t", "")).replaceAll("\n", "");
-                var5 = (array[4].replaceAll("\t", "")).replaceAll("\n", "");
+                var = (array2[0].replaceAll("\t", ""));
+                var1 = (array[0].replaceAll("\t", ""));
+                var2 = (array[1].replaceAll("\t", ""));
+                var3 = (array[2].replaceAll("\t", ""));
+                var4 = (array[3].replaceAll("\t", ""));
+                var5 = (array[4].replaceAll("\t", ""));
                 //prints data
                 System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
             }
             System.out.println();
-            data = "";
-            data2 = "";
+            data = null;
+            data2 = null;
+            data = new StringBuilder();
+            data2 = new StringBuilder();
         }
         //for testing a single line
         //System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
