@@ -46,6 +46,7 @@ create table LiquidatedCompanys(--No longer optorational companies
 	OOSReason varchar(41) not null,
 	OOSDate varchar(10) not null,
 	Status varchar(7) not null,
+	GeoLocation varchar(500) not null,
 	addminID nvarchar(450) not null --this is link going to be linked with the AspNetUsers dont 
 									--add when you push data into this from the website this field say
 									--update[today's date mm-dd-yyyy]
