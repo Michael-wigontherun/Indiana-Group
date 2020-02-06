@@ -5,6 +5,7 @@
  */
 package funnyselenium;
 import java.util.List;
+import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,6 +68,10 @@ public class FunnySelenium {
         }
         //for testing a single line
         //System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
+        Map<String, Double> coords;
+        coords = OpenStreetMapUtils.getInstance().getCoordinates("The White House, Washington DC");
+        System.out.println("latitude :" + coords.get("lat"));
+        System.out.println("longitude:" + coords.get("lon"));
         driver.close();
     }
     
