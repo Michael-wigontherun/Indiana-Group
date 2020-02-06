@@ -26,6 +26,7 @@ public class IndianaCSVconverter {
     public static void main(String[] args) {
         BufferedReader csvReader = null;
         try {
+            SystemKey k = new SystemKey();
             String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
             csvReader = new BufferedReader(new FileReader(pathToCsv));
             String row = csvReader.readLine();
@@ -34,11 +35,12 @@ public class IndianaCSVconverter {
             while ((row = csvReader.readLine()) != null) {
                 //System.out.println(row);
                 t.truckingComp(row, ",");
-                //System.out.println(t.toSQLInsertValues());
+                System.out.println(t.toSQLInsertValues());
+                System.out.println(t.getFullPhyAddress());
 //                String SQL = "INSERT INTO TruckingCompanies"
 //                + " VALUES ("+t.toSQLInsertValues()+");";
 //                try {
-//                    Connection con = DriverManager.getConnection("jdbc:sqlserver://wigstudentserver.database.windows.net:1433;database=IndianaTruckingCompanys;user=Wig@wigstudentserver;password=Run90009;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+//                    Connection con = DriverManager.getConnection("jdbc:sqlserver://wigstudentserver.database.windows.net:1433;database=IndianaTruckingCompanys;" + k.AzureAdminCr() +"encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
 //                    Statement stml = con.createStatement();
 //                    stml.execute(SQL);
 //                    con.close();

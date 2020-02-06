@@ -34,7 +34,7 @@ public class Test {
                     "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             System.out.println(gson.toJson(results[0].geometry.location.lat));
-            return;
+            System.out.println(gson.toJson(results[0].geometry.location.lng));
         } catch (ApiException ex) {
             System.out.println(ex.getMessage());
         } catch (InterruptedException ex) {

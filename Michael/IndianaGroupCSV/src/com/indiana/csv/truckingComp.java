@@ -5,12 +5,14 @@
  */
 package com.indiana.csv;
 
-import java.io.BufferedReader;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -409,10 +411,28 @@ public class truckingComp {
     }
 
     public void setGeoLocation() {
-        
-        this.GeoLocation = "";
+        SystemKey k = new SystemKey();
+        try {
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey(k.Key)
+                    .build();
+            GeocodingResult[] results =  GeocodingApi.geocode(context,getFullPhyAddress()).await();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
+        } catch (ApiException ex) {
+            System.out.println(ex.getMessage());
+            this.GeoLocation = "-NA-";
+        } catch (InterruptedException ex) {
+            System.out.println(ex.getMessage());
+            this.GeoLocation = "-NA-";
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            this.GeoLocation = "-NA-";
+        }
     }
-
+    public String getFullPhyAddress(){
+        return PhyStreet + " " + PhyCity + ", " + PhyState + " " + PhyZip + ", " + PhyCountry;
+    }
     public String getAddminId() {
         return AddminId;
     }
