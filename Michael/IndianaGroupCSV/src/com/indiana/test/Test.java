@@ -28,7 +28,7 @@ public class Test {
         GoogleKey k = new GoogleKey();
         try {
             GeoApiContext context = new GeoApiContext.Builder()
-                    .apiKey(k.key)
+                    .apiKey(k.Key)
                     .build();
             GeocodingResult[] results =  GeocodingApi.geocode(context,
                     "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
