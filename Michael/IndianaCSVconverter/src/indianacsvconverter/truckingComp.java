@@ -141,7 +141,9 @@ public class truckingComp {
         try{
         String[] dateArr = date.split("-");
         String month = (monthTextList.indexOf(dateArr[1]) + 1) + "";
+        if(month.length() <2)month = "0" + month;
         String day = dateArr[0];
+        if(day.length() <2)day = "0" + day;
         String year = dateArr[2];
         if(year.length() <4){
             if(Integer.parseInt(year) > 20){
@@ -170,7 +172,9 @@ public class truckingComp {
         try{
         String[] dateArr = date.split("-");
         String month = (monthTextList.indexOf(dateArr[1]) + 1) + "";
+        if(month.length() <2)month = "0" + month;
         String day = dateArr[0];
+        if(day.length() <2)day = "0" + day;
         String year = dateArr[2];
         if(year.length() <4){
             if(Integer.parseInt(year) > 20){

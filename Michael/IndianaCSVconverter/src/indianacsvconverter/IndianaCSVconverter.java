@@ -34,19 +34,16 @@ public class IndianaCSVconverter {
             truckingComp t = new truckingComp();
             int f = 0;
             while ((row = csvReader.readLine()) != null) {
-                System.out.println(row);
+                //System.out.println(row);
                 t.truckingComp(row, ",");
                 System.out.println(t.toSQLInsertValues());
                 String SQL = "INSERT INTO TruckingCompanies"
                 + " VALUES ("+t.toSQLInsertValues()+");";
                 try {
-                    Class.forName("C:\\JavaPlugins\\sqljdbc_8.2\\enu\\mssql-jdbc-8.2.0.jre8.jar");
                     Connection con = DriverManager.getConnection("jdbc:sqlserver://wigstudentserver.database.windows.net:1433;database=IndianaTruckingCompanys;user=Wig@wigstudentserver;password=Run90009;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
                     Statement stml = con.createStatement();
                     stml.execute(SQL);
                     con.close();
-                } catch (ClassNotFoundException ex) {
-                    System.out.println(ex.getMessage());
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                 }
