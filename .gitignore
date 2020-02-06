@@ -14,3 +14,5 @@
 /Michael/Test/build/
 >>>>>>> 9f0c99a1275719e9916a7b63090d34a6d3662254
 Michael/IndianaGroupCSV/src/com/indiana/test/GoogleKey.java
+*.class
+*.class
