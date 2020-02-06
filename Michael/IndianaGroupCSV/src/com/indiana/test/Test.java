@@ -25,9 +25,10 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        GoogleKey k = new GoogleKey();
         try {
             GeoApiContext context = new GeoApiContext.Builder()
-                    .apiKey("AIzaSyAtC2heFs_RhrAb4mMj3qYtG4oGJReU6FE")
+                    .apiKey(k.key)
                     .build();
             GeocodingResult[] results =  GeocodingApi.geocode(context,
                     "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
