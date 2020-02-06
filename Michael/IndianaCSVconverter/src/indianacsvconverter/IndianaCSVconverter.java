@@ -9,6 +9,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,12 +31,34 @@ public class IndianaCSVconverter {
             String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
             csvReader = new BufferedReader(new FileReader(pathToCsv));
             String row = csvReader.readLine();
+            truckingComp t = new truckingComp();
+            int f = 0;
             while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(",");
+                System.out.println(row);
+                t.truckingComp(row, ",");
+                System.out.println(t.toSQLInsertValues());
+                String SQL = "INSERT INTO TruckingCompanies"
+                + " VALUES ("+t.toSQLInsertValues()+");";
+                try {
+                    Class.forName("C:\\JavaPlugins\\sqljdbc_8.2\\enu\\mssql-jdbc-8.2.0.jre8.jar");
+                    Connection con = DriverManager.getConnection("jdbc:sqlserver://wigstudentserver.database.windows.net:1433;database=IndianaTruckingCompanys;user=Wig@wigstudentserver;password=Run90009;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+                    Statement stml = con.createStatement();
+                    stml.execute(SQL);
+                    con.close();
+                } catch (ClassNotFoundException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
                 
-                break;
-            }   
-            csvReader.close();
+                
+                
+                
+                t.clearData();
+                System.out.println(t.getAddDate());
+                f++;
+                if(f>=3)break;
+            }
         } catch (FileNotFoundException ex) {
         } catch (IOException ex) {
         } finally {

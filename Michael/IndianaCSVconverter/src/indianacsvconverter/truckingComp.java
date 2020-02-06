@@ -5,6 +5,8 @@
  */
 package indianacsvconverter;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,14 +20,79 @@ public class truckingComp {
     public truckingComp() {
         monthTextList = Arrays.asList(monthsText);
     }
+    public void truckingComp(String csvRow, String dilimiter) {
+        monthTextList = Arrays.asList(monthsText);
+        String[] data = csvRow.split(dilimiter);
+        setUsdot(data[0]);
+        setLegalName(data[1]);
+        setDbaname(data[2]);
+        setCarrierOperation(data[3]);
+        setHmFlag(data[4]);
+        setPcFlag(data[5]);
+        setPhyStreet(data[6]);
+        setPhyCity(data[7]);
+        setPhyState(data[8]);
+        setPhyZip(data[9]);
+        setPhyCountry(data[10]);
+        setMailingStreet(data[11]);
+        setMailingCity(data[12]);
+        setMailingState(data[13]);
+        setMailingZip(data[14]);
+        setMailingCountry(data[15]);
+        setTelephone(data[16]);
+        setFax(data[17]);
+        setEmailAddress(data[18]);
+        setMcs150Date(data[19]);
+        setMcs150Mileage(data[20]);
+        setMcs150MileageYear(data[21]);
+        setAddDate(data[22]);
+        setOicState(data[23]);
+        setNbrPowerUnit(data[24]);
+        setDriverTotal(data[25]);
+        setGeoLocation();
+        setAddminId("update");
+    }
+    
 
     
     public String toSQLInsertValues() {
-        return "'" + monthsText + "','" + monthTextList + "','" + Usdot + "','" + LegalName + "','" + Dbaname + "','" + CarrierOperation + "',"
+        return "'" + Usdot + "','" + LegalName + "','" + Dbaname + "','" + CarrierOperation + "',"
              + "'" + HmFlag + "','" + PcFlag + "','" + PhyStreet + "','" + PhyCity + "','" + PhyState + "','" + PhyZip + "','" + PhyCountry + "',"
              + "'" + MailingStreet + "','" + MailingCity + "','" + MailingState + "','" + MailingZip + "','" + MailingCountry + "','" + Telephone + "',"
              + "'" + Fax + "','" + EmailAddress + "','" + Mcs150Date + "'," + Mcs150Mileage + ",'" + Mcs150MileageYear + "','" + AddDate + "',"
-             + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AddminId;
+             + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AddminId + "'";
+    }
+
+    
+    public void clearData() {
+        Usdot = null;
+        LegalName = null;
+        Dbaname = null;
+        CarrierOperation = null;
+        HmFlag = null;
+        PcFlag = null;
+        PhyStreet = null;
+        PhyCity = null;
+        PhyState = null;
+        PhyZip = null;
+        PhyCountry = null;
+        MailingStreet = null;
+        MailingCity = null;
+        MailingState = null;
+        MailingZip = null;
+        MailingCountry = null;
+        Telephone = null;
+        Fax = null;
+        EmailAddress = null;
+        Mcs150Date = null;
+        Mcs150Mileage = null;
+        Mcs150MileageYear = null;
+        AddDate = null;
+        OicState = null;
+        NbrPowerUnit = null;
+        DriverTotal = null;
+        GeoLocation = null;
+        AddminId = null;
     }
     
     private String Usdot;
@@ -92,7 +159,7 @@ public class truckingComp {
     public String getMcs150Date(){
         return Mcs150Date;
     }
-    private int Mcs150Mileage;
+    private String Mcs150Mileage;
     private String Mcs150MileageYear;
     private String AddDate;
     public void setAddDate(String date){
@@ -122,8 +189,8 @@ public class truckingComp {
         return AddDate;
     }
     private String OicState;
-    private int NbrPowerUnit;
-    private int DriverTotal;
+    private String NbrPowerUnit;
+    private String DriverTotal;
     private String GeoLocation;
     private String AddminId;
 
@@ -148,6 +215,9 @@ public class truckingComp {
     }
 
     public void setDbaname(String Dbaname) {
+        if(stringIsEmpty(Dbaname)){
+            Dbaname = "";
+        }
         this.Dbaname = Dbaname;
     }
 
@@ -244,6 +314,9 @@ public class truckingComp {
     }
 
     public void setTelephone(String Telephone) {
+        if(stringIsEmpty(Telephone)){
+            Telephone = "";
+        }
         this.Telephone = Telephone;
     }
 
@@ -252,6 +325,9 @@ public class truckingComp {
     }
 
     public void setFax(String Fax) {
+        if(stringIsEmpty(Fax)){
+            Fax = "";
+        }
         this.Fax = Fax;
     }
 
@@ -260,14 +336,20 @@ public class truckingComp {
     }
 
     public void setEmailAddress(String EmailAddress) {
+        if(stringIsEmpty(EmailAddress)){
+            EmailAddress = "";
+        }
         this.EmailAddress = EmailAddress;
     }
 
-    public int getMcs150Mileage() {
+    public String getMcs150Mileage() {
         return Mcs150Mileage;
     }
 
-    public void setMcs150Mileage(int Mcs150Mileage) {
+    public void setMcs150Mileage(String Mcs150Mileage) {
+        if(stringIsEmpty(Mcs150Mileage)){
+            Mcs150Mileage = "NULL";
+        }
         this.Mcs150Mileage = Mcs150Mileage;
     }
 
@@ -276,6 +358,9 @@ public class truckingComp {
     }
 
     public void setMcs150MileageYear(String Mcs150MileageYear) {
+        if(stringIsEmpty(Mcs150MileageYear)){
+            Mcs150MileageYear = "";
+        }
         this.Mcs150MileageYear = Mcs150MileageYear;
     }
 
@@ -287,19 +372,25 @@ public class truckingComp {
         this.OicState = OicState;
     }
 
-    public int getNbrPowerUnit() {
+    public String getNbrPowerUnit() {
         return NbrPowerUnit;
     }
 
-    public void setNbrPowerUnit(int NbrPowerUnit) {
+    public void setNbrPowerUnit(String NbrPowerUnit) {
+        if(stringIsEmpty(NbrPowerUnit)){
+            NbrPowerUnit = "NULL";
+        }
         this.NbrPowerUnit = NbrPowerUnit;
     }
 
-    public int getDriverTotal() {
+    public String getDriverTotal() {
         return DriverTotal;
     }
 
-    public void setDriverTotal(int DriverTotal) {
+    public void setDriverTotal(String DriverTotal) {
+        if(stringIsEmpty(DriverTotal)){
+            DriverTotal = "NULL";
+        }
         this.DriverTotal = DriverTotal;
     }
 
@@ -307,8 +398,8 @@ public class truckingComp {
         return GeoLocation;
     }
 
-    public void setGeoLocation(String GeoLocation) {
-        this.GeoLocation = GeoLocation;
+    public void setGeoLocation() {
+        this.GeoLocation = "";
     }
 
     public String getAddminId() {
@@ -316,8 +407,20 @@ public class truckingComp {
     }
 
     public void setAddminId(String AddminId) {
+        if(AddminId.equalsIgnoreCase("update")){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate localDate = LocalDate.now();
+            AddminId = "update"+dtf.format(localDate);
+        }
         this.AddminId = AddminId;
     }
-    
-    
+    private boolean stringIsEmpty(String string){
+        if(string.equals("")){
+            return true;
+        }
+        if(string == null){
+            return true;
+        }
+        return false;
+    }
 }
