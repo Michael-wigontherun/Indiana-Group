@@ -13,11 +13,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-<<<<<<< HEAD
 import java.util.logging.Level;
 import java.util.logging.Logger;
-=======
->>>>>>> 9f0c99a1275719e9916a7b63090d34a6d3662254
 
 /**
  *
