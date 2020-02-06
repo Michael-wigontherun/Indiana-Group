@@ -33,7 +33,8 @@ public class Test {
             GeocodingResult[] results =  GeocodingApi.geocode(context,
                     "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            System.out.println(gson.toJson(results[0].addressComponents));
+            System.out.println(gson.toJson(results[0].geometry.location.lat));
+            
         } catch (ApiException ex) {
             System.out.println(ex.getMessage());
         } catch (InterruptedException ex) {
