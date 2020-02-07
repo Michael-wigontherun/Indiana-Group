@@ -25,12 +25,12 @@ public class IndianaCSVconverter {
      */
     public static void main(String[] args) {
         BufferedReader csvReader = null;
+        truckingComp t = new truckingComp();
         try {
             SystemKey k = new SystemKey();
             String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
             csvReader = new BufferedReader(new FileReader(pathToCsv));
             String row = csvReader.readLine();
-            truckingComp t = new truckingComp();
             int f = 0;
             while ((row = csvReader.readLine()) != null) {
                 //System.out.println(row);

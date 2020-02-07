@@ -20,13 +20,18 @@ import java.util.List;
 
 /**
  *
- * @author Owner
+ * @author Michael
  */
 public class truckingComp {
     private String[] monthsText = new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private List<String> monthTextList;
+    SystemKey k = new SystemKey();
+    GeoApiContext context;
     public truckingComp() {
         monthTextList = Arrays.asList(monthsText);
+        context = new GeoApiContext.Builder()
+                .apiKey(k.Key)
+                .build();
     }
     public void truckingComp(String csvRow, String dilimiter) {
         monthTextList = Arrays.asList(monthsText);
@@ -411,21 +416,11 @@ public class truckingComp {
     }
 
     public void setGeoLocation() {
-        SystemKey k = new SystemKey();
         try {
-            GeoApiContext context = new GeoApiContext.Builder()
-                    .apiKey(k.Key)
-                    .build();
             GeocodingResult[] results =  GeocodingApi.geocode(context,getFullPhyAddress()).await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
-        } catch (ApiException ex) {
-            System.out.println(ex.getMessage());
-            this.GeoLocation = "-NA-";
-        } catch (InterruptedException ex) {
-            System.out.println(ex.getMessage());
-            this.GeoLocation = "-NA-";
-        } catch (IOException ex) {
+        } catch (ApiException | IOException | InterruptedException ex) {
             System.out.println(ex.getMessage());
             this.GeoLocation = "-NA-";
         }
@@ -454,4 +449,5 @@ public class truckingComp {
         }
         return false;
     }
+
 }

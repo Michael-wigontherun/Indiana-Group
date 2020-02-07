@@ -25,23 +25,8 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GoogleKey k = new GoogleKey();
-        try {
-            GeoApiContext context = new GeoApiContext.Builder()
-                    .apiKey(k.Key)
-                    .build();
-            GeocodingResult[] results =  GeocodingApi.geocode(context,
-                    "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            System.out.println(gson.toJson(results[0].geometry.location.lat));
-            System.out.println(gson.toJson(results[0].geometry.location.lng));
-        } catch (ApiException ex) {
-            System.out.println(ex.getMessage());
-        } catch (InterruptedException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        testingclass t = new testingclass();
+        t.test();
     }
     
 }
