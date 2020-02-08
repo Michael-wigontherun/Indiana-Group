@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -229,7 +230,8 @@ public class truckingComp {
     }
 
     public void setLegalName(String LegalName) {
-        this.LegalName = LegalName;
+
+        this.LegalName = LegalName.replaceAll("'","''");
     }
 
     public String getDbaname() {
@@ -429,8 +431,19 @@ public class truckingComp {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
         } catch (ApiException | IOException | InterruptedException ex) {
+            System.out.println("\n\n\n\n\n");
             System.out.println(ex.getMessage());
             this.GeoLocation = "-NA-";
+            System.out.println("Could not find address defaulted to \"-NA-\"");
+            Scanner k = new Scanner(System.in);
+            String s = "";
+            System.out.println("Enter longitude and latitude manually in [lat:lng] format or 999 to skip");
+            if((s = k.nextLine()).equals("999")){
+                this.GeoLocation = "-NA-";
+            }
+            else{
+                this.GeoLocation = s;
+            }
         }
     }
     /**

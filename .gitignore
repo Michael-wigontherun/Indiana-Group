@@ -19,3 +19,6 @@ Michael/IndianaGroupCSV/src/com/indiana/test/GoogleKey.java
 Michael/IndianaGroupCSV/src/com/indiana/csv/GoogleKey.java
 Michael/IndianaGroupCSV/src/com/indiana/csv/SystemKey.java
 *.class
+Michael/IndianaGroupCSV/out/production/IndianaGroupCSV/com/indiana/csv/IndianaCSVconverter.class
+Michael/IndianaGroupCSV/out/production/IndianaGroupCSV/com/indiana/csv/truckingComp.class
+Michael/IndianaGroupCSV/out/production/IndianaGroupCSV/com/indiana/test/Test.class
