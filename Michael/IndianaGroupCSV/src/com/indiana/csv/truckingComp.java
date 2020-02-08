@@ -25,17 +25,47 @@ import java.util.List;
 public class truckingComp {
     private String[] monthsText = new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private List<String> monthTextList;
-    SystemKey k = new SystemKey();
-    GeoApiContext context;
-    public truckingComp() {
+    private GeoApiContext context;
+
+    /**
+     * Default constructor sets list and context
+     * @param Key is your google API Key
+     */
+    public truckingComp(String Key) {
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
-                .apiKey(k.Key)
+                .apiKey(Key)
                 .build();
     }
-    public void truckingComp(String csvRow, String dilimiter) {
+    /**
+     * Sets list, context, and all collums to there needed data spaces
+     * @param Key is your google API Key
+     * @param csvRow - Row data set of 26 rows
+     * @param delimiter - The delimiter used in the csv
+     * @param addminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * Intended collum structure
+     * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
+     * dates are to be input'd as [DD/MM/YYYY]
+     */
+    public truckingComp(String Key, String csvRow, String delimiter, String addminID) {
         monthTextList = Arrays.asList(monthsText);
-        String[] data = csvRow.split(dilimiter);
+        context = new GeoApiContext.Builder()
+                .apiKey(Key)
+                .build();
+        csvRowDataSet(csvRow,delimiter, addminID);
+    }
+    /**
+     * Sets all rows to there needed data spaces
+     * @param csvRow - Row data set of 26 rows
+     * @param delimiter - The delimiter used in the csv
+     * @param addminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * Intended collum structure
+     * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
+     * dates are to be input'd as [DD/MM/YYYY]
+     */
+    public void csvRowDataSet(String csvRow, String delimiter, String addminID) {
+        monthTextList = Arrays.asList(monthsText);
+        String[] data = csvRow.split(delimiter);
         setUsdot(data[0]);
         setLegalName(data[1]);
         setDbaname(data[2]);
@@ -63,11 +93,17 @@ public class truckingComp {
         setNbrPowerUnit(data[24]);
         setDriverTotal(data[25]);
         setGeoLocation();
-        setAddminId("update");
+        setAddminId(addminID);
     }
-    
 
-    
+
+    /**
+     *
+     * @return's intended data structure for SQL insert
+     * Intended collum structure
+     * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
+     * dates are to be input'd as [DD/MM/YYYY]
+     */
     public String toSQLInsertValues() {
         return "'" + Usdot + "','" + LegalName + "','" + Dbaname + "','" + CarrierOperation + "',"
              + "'" + HmFlag + "','" + PcFlag + "','" + PhyStreet + "','" + PhyCity + "','" + PhyState + "','" + PhyZip + "','" + PhyCountry + "',"
@@ -76,7 +112,11 @@ public class truckingComp {
              + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AddminId + "'";
     }
 
-    
+    /**
+     * For optimization of single row enter not for list's
+     * Run this method when starting a new insert
+     * Do not use if you are creating a list of this object
+     */
     public void clearData() {
         Usdot = null;
         LegalName = null;
@@ -118,11 +158,16 @@ public class truckingComp {
     private String PhyCity;
     private String PhyState;
     private String PhyZip;
-    public void setPhyZip(String zip){
-        if(zip.length() > 5){
-            zip = zip.substring(0, 5);
+
+    /**
+     * Method to format PhyZip to a length of 5
+     * @param PhyZip - is _PHY_ZIP_
+     */
+    public void setPhyZip(String PhyZip){
+        if(PhyZip.length() > 5){
+            PhyZip = PhyZip.trim().substring(0, 5);
         }
-        PhyZip = zip;
+        this.PhyZip = PhyZip;
     }
     public String getPhyZip(){
         return PhyZip;
@@ -132,11 +177,11 @@ public class truckingComp {
     private String MailingCity;
     private String MailingState;
     private String MailingZip;
-    public void setMailingZip(String zip){
-        if(zip.length() > 5){
-            zip = zip.substring(0, 5);
+    public void setMailingZip(String MailingZip){
+        if(MailingZip.length() > 5){
+            MailingZip = MailingZip.trim().substring(0, 5);
         }
-        MailingZip = zip;
+        this.MailingZip = MailingZip;
     }
     public String getMailingZip(){
         return MailingZip;
@@ -146,61 +191,21 @@ public class truckingComp {
     private String Fax;
     private String EmailAddress;
     private String Mcs150Date;
-    public void setMcs150Date(String date){
-        if(date.equals("") || date == null){
-            Mcs150Date = "-NA-";
-            return;
-        }
-        try{
-        String[] dateArr = date.split("-");
-        String month = (monthTextList.indexOf(dateArr[1]) + 1) + "";
-        if(month.length() <2)month = "0" + month;
-        String day = dateArr[0];
-        if(day.length() <2)day = "0" + day;
-        String year = dateArr[2];
-        if(year.length() <4){
-            if(Integer.parseInt(year) > 20){
-                year = "19" + year;
-            }
-            else{
-                year = "20"+year;
-            }
-        }
-        Mcs150Date = month+"/"+day+"/"+year;
-        }catch(Exception e){
-            Mcs150Date = "-NA-";
-        }
+
+    public void setMcs150Date(String Mcs150Date){
+
+        this.Mcs150Date = dateBulder(Mcs150Date);
+
     }
     public String getMcs150Date(){
         return Mcs150Date;
     }
+
     private String Mcs150Mileage;
     private String Mcs150MileageYear;
     private String AddDate;
-    public void setAddDate(String date){
-        if(date.equals("") || date == null){
-            AddDate = "-NA-";
-            return;
-        }
-        try{
-        String[] dateArr = date.split("-");
-        String month = (monthTextList.indexOf(dateArr[1]) + 1) + "";
-        if(month.length() <2)month = "0" + month;
-        String day = dateArr[0];
-        if(day.length() <2)day = "0" + day;
-        String year = dateArr[2];
-        if(year.length() <4){
-            if(Integer.parseInt(year) > 20){
-                year = "19" + year;
-            }
-            else{
-                year = "20"+year;
-            }
-        }
-        AddDate = month+"/"+day+"/"+year;
-        }catch(Exception e){
-            AddDate = "-NA-";
-        }
+    public void setAddDate(String AddDate){
+        this.AddDate = dateBulder(AddDate);
     }
     public String getAddDate(){
         return AddDate;
@@ -415,7 +420,29 @@ public class truckingComp {
         return GeoLocation;
     }
 
+    /**
+     * only call if full Phy address data is added
+     */
     public void setGeoLocation() {
+        try {
+            GeocodingResult[] results =  GeocodingApi.geocode(context,getFullPhyAddress()).await();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
+        } catch (ApiException | IOException | InterruptedException ex) {
+            System.out.println(ex.getMessage());
+            this.GeoLocation = "-NA-";
+        }
+    }
+    /**
+     * use only when you have not added Phy address data
+     * after uses you do not need to call or add Phy address data
+     */
+    public void setGeoLocation(String PhyStreet,String PhyCity,String PhyState, String PhyZip, String PhyCountry) {
+        setPhyStreet(PhyStreet);
+        setPhyCity(PhyCity);
+        setPhyState(PhyState);
+        setPhyZip(PhyZip);
+        setPhyCountry(PhyCountry);
         try {
             GeocodingResult[] results =  GeocodingApi.geocode(context,getFullPhyAddress()).await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -432,8 +459,12 @@ public class truckingComp {
         return AddminId;
     }
 
+    /**
+     * Makes addmin id if there is no admin and its a normal update or "" to make it apply default update to database
+     * @param AddminId
+     */
     public void setAddminId(String AddminId) {
-        if(AddminId.equalsIgnoreCase("update")){
+        if(AddminId.equalsIgnoreCase("update") || AddminId.equals("")){
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDate localDate = LocalDate.now();
             AddminId = "update"+dtf.format(localDate);
@@ -444,10 +475,38 @@ public class truckingComp {
         if(string.equals("")){
             return true;
         }
-        if(string == null){
+        else if(string == null){
             return true;
         }
         return false;
     }
+    private String dateBulder(String date){
+        if(stringIsEmpty(date)){
+            return "-NA-";
+        }
+        String month;
+        String day;
+        String year;
+        try{
+            String[] dateArr = date.split("-");
+            month = (monthTextList.indexOf(dateArr[1]) + 1) + "";
+            if(month.length() <2) month = "0" + month;
 
+            day = dateArr[0];
+            if(day.length() <2) day = "0" + day;
+
+            year = dateArr[2];
+            if(year.length() <4){
+                if(Integer.parseInt(year) > 20){
+                    year = "19" + year;
+                }
+                else{
+                    year = "20"+year;
+                }
+            }
+        }catch(Exception e){
+            return "-NA-";
+        }
+        return month+"/"+day+"/"+year;
+    }
 }

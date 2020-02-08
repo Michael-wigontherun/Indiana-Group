@@ -9,10 +9,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -25,22 +21,20 @@ public class IndianaCSVconverter {
      */
     public static void main(String[] args) {
         BufferedReader csvReader = null;
-        truckingComp t = new truckingComp();
+        SystemKey k = new SystemKey();
+        truckingComp t = new truckingComp(k.Key);
         try {
-            SystemKey k = new SystemKey();
             String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
             csvReader = new BufferedReader(new FileReader(pathToCsv));
             String row = csvReader.readLine();
             int f = 0;
             while ((row = csvReader.readLine()) != null) {
                 //System.out.println(row);
-                t.truckingComp(row, ",");
-                System.out.println(t.toSQLInsertValues());
-                System.out.println(t.getFullPhyAddress());
-//                String SQL = "INSERT INTO TruckingCompanies"
-//                + " VALUES ("+t.toSQLInsertValues()+");";
+                t.csvRowDataSet(row, ",","update");
+                String SQL = String.format("INSERT INTO TruckingCompanies VALUES (%s);", t.toSQLInsertValues());
+                System.out.println(SQL);
 //                try {
-//                    Connection con = DriverManager.getConnection("jdbc:sqlserver://wigstudentserver.database.windows.net:1433;database=IndianaTruckingCompanys;" + k.AzureAdminCr() +"encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
+//                    Connection con = DriverManager.getConnection(k.azureConnectionString);
 //                    Statement stml = con.createStatement();
 //                    stml.execute(SQL);
 //                    con.close();
@@ -49,7 +43,6 @@ public class IndianaCSVconverter {
 //                }
                 
                 t.clearData();
-                //System.out.println(t.getAddDate());
                 break;
 //                f++;
 //                if(f>=3)break;
