@@ -42,28 +42,28 @@ public class truckingComp {
      * @param Key is your google API Key
      * @param csvRow - Row data set of 26 rows
      * @param delimiter - The delimiter used in the csv
-     * @param addminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * @param adminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
      * Intended collum structure
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public truckingComp(String Key, String csvRow, String delimiter, String addminID) {
+    public truckingComp(String Key, String csvRow, String delimiter, String adminID) {
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
                 .apiKey(Key)
                 .build();
-        csvRowDataSet(csvRow,delimiter, addminID);
+        csvRowDataSet(csvRow,delimiter, adminID);
     }
     /**
      * Sets all rows to there needed data spaces
      * @param csvRow - Row data set of 26 rows
      * @param delimiter - The delimiter used in the csv
-     * @param addminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * @param adminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
      * Intended collum structure
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public void csvRowDataSet(String csvRow, String delimiter, String addminID) {
+    public void csvRowDataSet(String csvRow, String delimiter, String adminID) {
         monthTextList = Arrays.asList(monthsText);
         String[] data = csvRow.split(delimiter);
         setUsdot(data[0]);
@@ -93,7 +93,7 @@ public class truckingComp {
         setNbrPowerUnit(data[24]);
         setDriverTotal(data[25]);
         setGeoLocation();
-        setAddminId(addminID);
+        setAddminId(adminID);
     }
 
 

@@ -43,7 +43,7 @@ public class IndianaCSVconverter {
 //                }
                 
                 t.clearData();
-                break;
+                //break;
 //                f++;
 //                if(f>=3)break;
             }
