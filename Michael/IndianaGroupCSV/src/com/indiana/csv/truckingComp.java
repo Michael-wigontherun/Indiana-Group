@@ -33,6 +33,8 @@ public class truckingComp {
     private boolean fail = false;
     private boolean askGeo = false;
 
+    private int collumIndex = 0;
+
     private String Usdot = "";
     private String LegalName = "";
     private String Dbaname = "";
@@ -108,7 +110,7 @@ public class truckingComp {
         csvRowDataSet(csvRow,delimiter, adminID, collumIndex);
     }
 
-    private int collumIndex = 0;
+
     /**
      * Sets all rows to there needed data spaces
      * @param csvRow - Row data set of 26 rows
