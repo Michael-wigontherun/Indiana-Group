@@ -173,7 +173,7 @@ public class truckingComp {
                     + "'" + Fax + "','" + EmailAddress + "','" + Mcs150Date + "'," + Mcs150Mileage + ",'" + Mcs150MileageYear + "','" + AddDate + "',"
                     + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AdminId + "'";
         String SQL = String.format("INSERT INTO TruckingCompanies VALUES (%s);", s);
-        if (fail) return SQL + "\n--Above failed due to invalid data structure due at collum index: " + collumIndex;
+        if (fail) return "--" + SQL + "\n--Above failed due to invalid data structure due at collum index: " + collumIndex;
         return SQL;
     }
 
