@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author Owner
+ * @author Michael
  */
 public class IndianaCSVconverter {
 
@@ -27,7 +27,7 @@ public class IndianaCSVconverter {
     public static void main(String[] args) {
         BufferedReader csvReader = null;
         SystemKey k = new SystemKey();
-        truckingComp t = new truckingComp(k.Key);
+        truckingComp t = new truckingComp(k.Key, false);
         List<String> ErrorInserts = new ArrayList<String>();
         String outputLocation = "F:\\IndianaGroup\\Indiana-Group\\Michael\\IndianaGroupCSV\\";
         Connection con = null;
@@ -39,8 +39,8 @@ public class IndianaCSVconverter {
             con = DriverManager.getConnection(k.azureConnectionString);
             while ((row = csvReader.readLine()) != null) {
                 //System.out.println(row);
-                t.csvRowDataSet(row, ",","update");
-                String SQL = String.format("INSERT INTO TruckingCompanies VALUES (%s);", t.toSQLInsertValues());
+                t.csvRowDataSet(row, ",","update", f);
+                String SQL = t.toSQLInsert();
                 System.out.println(SQL);
                 try {
                     Statement stml = con.createStatement();
@@ -51,9 +51,9 @@ public class IndianaCSVconverter {
                 }
                 
                 t.clearData();
-                //break;
-//                f++;
-//                if(f>=3)break;
+                f++;
+//                if(f>=1)
+//                    break;
             }
         } catch (FileNotFoundException ex) {
         } catch (IOException ex) {
@@ -72,7 +72,7 @@ public class IndianaCSVconverter {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
             LocalDate localDate = LocalDate.now();
-            String file = outputLocation+dtf.format(localDate)+"_Error_List.sql";
+            String file = outputLocation + dtf.format(localDate)+"_Error_List.sql";
             PrintWriter fileWriter = null;
             try {
                 fileWriter = new PrintWriter(file);

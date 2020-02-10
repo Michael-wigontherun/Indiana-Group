@@ -4,7 +4,7 @@ use IndianaTruckingCompanys;
 go
 drop table TruckingCompanies
 create table TruckingCompanies(--Trucking companies that are currently in oporation
-	USDOT varchar(6) primary key not null,
+	USDOT varchar(10) primary key not null,
 	LegalName varchar(200) not null,
 	DBAName varchar(200),
 	CARRIER_OPERATION_ varchar(1) not null,
@@ -38,7 +38,7 @@ create table TruckingCompanies(--Trucking companies that are currently in oporat
 go
 drop table ChameleonCompanies
 create table ChameleonCompanies(--Trucking companies that are oporational but are expected to be chameleon companies
-	USDOT varchar(6) primary key not null,
+	USDOT varchar(10) primary key not null,
 	LegalName varchar(200) not null,
 	PHY_STREET_ varchar(500) not null,
 	PHY_CITY_ varchar(50) not null,
@@ -59,7 +59,7 @@ create table ChameleonCompanies(--Trucking companies that are oporational but ar
 go
 drop table LiquidatedCompanys
 create table LiquidatedCompanys(--No longer optorational companies
-	USDOT varchar(6) primary key not null,
+	USDOT varchar(10) primary key not null,
 	LegalNameDBAName varchar(200) not null,
 	Address varchar(500) not null,
 	OOSReason varchar(41) not null,

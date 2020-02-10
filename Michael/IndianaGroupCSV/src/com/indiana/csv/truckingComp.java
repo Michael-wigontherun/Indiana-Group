@@ -13,6 +13,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -26,13 +27,62 @@ import java.util.Scanner;
 public class truckingComp {
     private String[] monthsText = new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private List<String> monthTextList;
+
     private GeoApiContext context;
 
+    private boolean fail = false;
+    private boolean askGeo = false;
+
+    private String Usdot = "";
+    private String LegalName = "";
+    private String Dbaname = "";
+    private String CarrierOperation = "";
+    private String HmFlag = "";
+    private String PcFlag = "";
+    private String PhyStreet = "";
+    private String PhyCity = "";
+    private String PhyState = "";
+    private String PhyZip = "";
+    private String PhyCountry = "";
+    private String MailingStreet = "";
+    private String MailingCity = "";
+    private String MailingState = "";
+    private String MailingZip = "";
+    private String MailingCountry = "";
+    private String Telephone = "";
+    private String Fax = "";
+    private String EmailAddress = "";
+    private String Mcs150Date = "";
+    private String Mcs150Mileage = "NULL";
+    private String Mcs150MileageYear = "";
+    private String AddDate = "";
+    private String OicState = "";
+    private String NbrPowerUnit = "NULL";
+    private String DriverTotal = "NULL";
+    private String GeoLocation = "";
+    private String AdminId = "";
+    /**
+     * This method genorates a csv with the correct order of collums
+     * this will open the file explorer with the "TruckingCompany.csv" file selected
+     * @param outputPath - The path to where it is to be outputted to with \\ at the end
+     */
+    public void createCSV(String outputPath){
+        String file = outputPath+"TruckingCompany.csv";
+        try {
+            PrintWriter writer = new PrintWriter(file);
+            writer.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
+            writer.close();
+            Runtime.getRuntime().exec("explorer.exe /select, " + file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Default constructor sets list and context
      * @param Key is your google API Key
      */
-    public truckingComp(String Key) {
+    public truckingComp(String Key, boolean askGeo) {
+        this.askGeo = askGeo;
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
                 .apiKey(Key)
@@ -40,21 +90,25 @@ public class truckingComp {
     }
     /**
      * Sets list, context, and all collums to there needed data spaces
-     * @param Key is your google API Key
+     * @param Key - your google API Key
      * @param csvRow - Row data set of 26 rows
      * @param delimiter - The delimiter used in the csv
-     * @param adminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * @param adminID - addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * @param askGeo - true if you want to be asked if you want to manually input cowardinates on google fail
      * Intended collum structure
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public truckingComp(String Key, String csvRow, String delimiter, String adminID) {
+    public truckingComp(String Key, String csvRow, String delimiter, String adminID, int collumIndex, boolean askGeo) {
+        this.askGeo = askGeo;
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
                 .apiKey(Key)
                 .build();
-        csvRowDataSet(csvRow,delimiter, adminID);
+        csvRowDataSet(csvRow,delimiter, adminID, collumIndex);
     }
+
+    private int collumIndex = 0;
     /**
      * Sets all rows to there needed data spaces
      * @param csvRow - Row data set of 26 rows
@@ -64,39 +118,44 @@ public class truckingComp {
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public void csvRowDataSet(String csvRow, String delimiter, String adminID) {
+    public void csvRowDataSet(String csvRow, String delimiter, String adminID, int collumIndex){
+        this.collumIndex = collumIndex;
         monthTextList = Arrays.asList(monthsText);
         String[] data = csvRow.split(delimiter);
-        setUsdot(data[0]);
-        setLegalName(data[1]);
-        setDbaname(data[2]);
-        setCarrierOperation(data[3]);
-        setHmFlag(data[4]);
-        setPcFlag(data[5]);
-        setPhyStreet(data[6]);
-        setPhyCity(data[7]);
-        setPhyState(data[8]);
-        setPhyZip(data[9]);
-        setPhyCountry(data[10]);
-        setMailingStreet(data[11]);
-        setMailingCity(data[12]);
-        setMailingState(data[13]);
-        setMailingZip(data[14]);
-        setMailingCountry(data[15]);
-        setTelephone(data[16]);
-        setFax(data[17]);
-        setEmailAddress(data[18]);
-        setMcs150Date(data[19]);
-        setMcs150Mileage(data[20]);
-        setMcs150MileageYear(data[21]);
-        setAddDate(data[22]);
-        setOicState(data[23]);
-        setNbrPowerUnit(data[24]);
-        setDriverTotal(data[25]);
-        setGeoLocation();
-        setAddminId(adminID);
+        try{
+            setUsdot(data[0]);
+            setLegalName(data[1]);
+            setDbaname(data[2]);
+            setCarrierOperation(data[3]);
+            setHmFlag(data[4]);
+            setPcFlag(data[5]);
+            setPhyStreet(data[6]);
+            setPhyCity(data[7]);
+            setPhyState(data[8]);
+            setPhyZip(data[9]);
+            setPhyCountry(data[10]);
+            setGeoLocation();
+            setMailingStreet(data[11]);
+            setMailingCity(data[12]);
+            setMailingState(data[13]);
+            setMailingZip(data[14]);
+            setMailingCountry(data[15]);
+            setTelephone(data[16]);
+            setFax(data[17]);
+            setEmailAddress(data[18]);
+            setMcs150Date(data[19]);
+            setMcs150Mileage(data[20]);
+            setMcs150MileageYear(data[21]);
+            setAddDate(data[22]);
+            setOicState(data[23]);
+            setNbrPowerUnit(data[24]);
+            setDriverTotal(data[25]);
+        }catch (Exception ex) {
+            fail = true;
+        }finally {
+            setAdminId(adminID);
+        }
     }
-
 
     /**
      *
@@ -105,12 +164,15 @@ public class truckingComp {
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public String toSQLInsertValues() {
-        return "'" + Usdot + "','" + LegalName + "','" + Dbaname + "','" + CarrierOperation + "',"
-             + "'" + HmFlag + "','" + PcFlag + "','" + PhyStreet + "','" + PhyCity + "','" + PhyState + "','" + PhyZip + "','" + PhyCountry + "',"
-             + "'" + MailingStreet + "','" + MailingCity + "','" + MailingState + "','" + MailingZip + "','" + MailingCountry + "','" + Telephone + "',"
-             + "'" + Fax + "','" + EmailAddress + "','" + Mcs150Date + "'," + Mcs150Mileage + ",'" + Mcs150MileageYear + "','" + AddDate + "',"
-             + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AddminId + "'";
+    public String toSQLInsert() {
+        String s = "'" + Usdot + "','" + LegalName + "','" + Dbaname + "','" + CarrierOperation + "',"
+                    + "'" + HmFlag + "','" + PcFlag + "','" + PhyStreet + "','" + PhyCity + "','" + PhyState + "','" + PhyZip + "','" + PhyCountry + "',"
+                    + "'" + MailingStreet + "','" + MailingCity + "','" + MailingState + "','" + MailingZip + "','" + MailingCountry + "','" + Telephone + "',"
+                    + "'" + Fax + "','" + EmailAddress + "','" + Mcs150Date + "'," + Mcs150Mileage + ",'" + Mcs150MileageYear + "','" + AddDate + "',"
+                    + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AdminId + "'";
+        String SQL = String.format("INSERT INTO TruckingCompanies VALUES (%s);", s);
+        if (fail) return SQL + "\n--Above failed due to invalid data structure due at collum index: " + collumIndex;
+        return SQL;
     }
 
     /**
@@ -119,46 +181,37 @@ public class truckingComp {
      * Do not use if you are creating a list of this object
      */
     public void clearData() {
-        Usdot = null;
-        LegalName = null;
-        Dbaname = null;
-        CarrierOperation = null;
-        HmFlag = null;
-        PcFlag = null;
-        PhyStreet = null;
-        PhyCity = null;
-        PhyState = null;
-        PhyZip = null;
-        PhyCountry = null;
-        MailingStreet = null;
-        MailingCity = null;
-        MailingState = null;
-        MailingZip = null;
-        MailingCountry = null;
-        Telephone = null;
-        Fax = null;
-        EmailAddress = null;
-        Mcs150Date = null;
-        Mcs150Mileage = null;
-        Mcs150MileageYear = null;
-        AddDate = null;
-        OicState = null;
-        NbrPowerUnit = null;
-        DriverTotal = null;
-        GeoLocation = null;
-        AddminId = null;
+        Usdot = "";
+        LegalName = "";
+        Dbaname = "";
+        CarrierOperation = "";
+        HmFlag = "";
+        PcFlag = "";
+        PhyStreet = "";
+        PhyCity = "";
+        PhyState = "";
+        PhyZip = "";
+        PhyCountry = "";
+        MailingStreet = "";
+        MailingCity = "";
+        MailingState = "";
+        MailingZip = "";
+        MailingCountry = "";
+        Telephone = "";
+        Fax = "";
+        EmailAddress = "";
+        Mcs150Date = "";
+        Mcs150Mileage = "NULL";
+        Mcs150MileageYear = "";
+        AddDate = "";
+        OicState = "";
+        NbrPowerUnit = "NULL";
+        DriverTotal = "NULL";
+        GeoLocation = "";
+        setAdminId("update");
+        fail = false;
     }
     
-    private String Usdot;
-    private String LegalName;
-    private String Dbaname;
-    private String CarrierOperation;
-    private String HmFlag;
-    private String PcFlag;
-    private String PhyStreet;
-    private String PhyCity;
-    private String PhyState;
-    private String PhyZip;
 
     /**
      * Method to format PhyZip to a length of 5
@@ -173,11 +226,10 @@ public class truckingComp {
     public String getPhyZip(){
         return PhyZip;
     }
-    private String PhyCountry;
-    private String MailingStreet;
-    private String MailingCity;
-    private String MailingState;
-    private String MailingZip;
+    /**
+     * Method to format PhyZip to a length of 5
+     * @param MailingZip - is _MAILING_ZIP_
+     */
     public void setMailingZip(String MailingZip){
         if(MailingZip.length() > 5){
             MailingZip = MailingZip.trim().substring(0, 5);
@@ -187,35 +239,27 @@ public class truckingComp {
     public String getMailingZip(){
         return MailingZip;
     }
-    private String MailingCountry;
-    private String Telephone;
-    private String Fax;
-    private String EmailAddress;
-    private String Mcs150Date;
-
+    /**
+     * Sets date to [MM-DD-YYYY]
+     * @param Mcs150Date - _MCS150_DATE_ must be in [DD-MMM-YYYY]
+     */
     public void setMcs150Date(String Mcs150Date){
-
         this.Mcs150Date = dateBulder(Mcs150Date);
-
     }
     public String getMcs150Date(){
         return Mcs150Date;
     }
-
-    private String Mcs150Mileage;
-    private String Mcs150MileageYear;
-    private String AddDate;
+    /**
+     * Sets date to [MM-DD-YYYY]
+     * @param AddDate - _ADD_DATE_ must be in [DD-MMM-YYYY]
+     */
     public void setAddDate(String AddDate){
         this.AddDate = dateBulder(AddDate);
     }
     public String getAddDate(){
         return AddDate;
     }
-    private String OicState;
-    private String NbrPowerUnit;
-    private String DriverTotal;
-    private String GeoLocation;
-    private String AddminId;
+
 
     public String getUsdot() {
         return Usdot;
@@ -230,7 +274,6 @@ public class truckingComp {
     }
 
     public void setLegalName(String LegalName) {
-
         this.LegalName = LegalName.replaceAll("'","''");
     }
 
@@ -242,7 +285,7 @@ public class truckingComp {
         if(stringIsEmpty(Dbaname)){
             Dbaname = "";
         }
-        this.Dbaname = Dbaname;
+        this.Dbaname = Dbaname.replaceAll("'","''");
     }
 
     public String getCarrierOperation() {
@@ -430,21 +473,32 @@ public class truckingComp {
             GeocodingResult[] results =  GeocodingApi.geocode(context,getFullPhyAddress()).await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
-        } catch (ApiException | IOException | InterruptedException ex) {
-            System.out.println("\n\n\n\n\n");
-            System.out.println(ex.getMessage());
-            this.GeoLocation = "-NA-";
-            System.out.println("Could not find address defaulted to \"-NA-\"");
-            Scanner k = new Scanner(System.in);
-            String s = "";
-            System.out.println("Enter longitude and latitude manually in [lat:lng] format or 999 to skip");
-            if((s = k.nextLine()).equals("999")){
+        } catch (ApiException | IOException | InterruptedException | ArrayIndexOutOfBoundsException ex) {
+            if(askGeo == true) {
+                System.out.println("\n\n\n\n\n");
+                System.out.println(ex.getMessage());
                 this.GeoLocation = "-NA-";
+                System.out.println("Could not find address defaulted to \"-NA-\"");
+                System.out.println(getFullPhyAddress());
+                Scanner k = new Scanner(System.in);
+                String s = "";
+                System.out.println("Enter longitude and latitude manually in [lat:lng] format or 999 to skip");
+                if ((s = k.nextLine()).equals("999")) {
+                    this.GeoLocation = "-NA-";
+                } else {
+                    this.GeoLocation = s;
+                }
             }
-            else{
-                this.GeoLocation = s;
-            }
+            else this.GeoLocation = "-NA-";
         }
+    }
+
+    /**
+     * For manual input of coordinates in [lat:long]
+     * @param coordinates of the physical address in [lat:lng] format
+     */
+    public void setGeoLocation(String coordinates){
+        this.GeoLocation = coordinates;
     }
     /**
      * use only when you have not added Phy address data
@@ -465,24 +519,29 @@ public class truckingComp {
             this.GeoLocation = "-NA-";
         }
     }
+
+    /**
+     *
+     * @return the full physical address string
+     */
     public String getFullPhyAddress(){
         return PhyStreet + " " + PhyCity + ", " + PhyState + " " + PhyZip + ", " + PhyCountry;
     }
-    public String getAddminId() {
-        return AddminId;
+    public String getAdminId() {
+        return AdminId;
     }
 
     /**
-     * Makes addmin id if there is no admin and its a normal update or "" to make it apply default update to database
-     * @param AddminId
+     * Makes admin id if there is no admin and its a normal update or "" to make it apply default update to database
+     * @param AdminId - Admin id
      */
-    public void setAddminId(String AddminId) {
-        if(AddminId.equalsIgnoreCase("update") || AddminId.equals("")){
+    public void setAdminId(String AdminId) {
+        if(AdminId.equalsIgnoreCase("update") || AdminId.equals("")){
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDate localDate = LocalDate.now();
-            AddminId = "update"+dtf.format(localDate);
+            AdminId = "update"+dtf.format(localDate);
         }
-        this.AddminId = AddminId;
+        this.AdminId = AdminId;
     }
     private boolean stringIsEmpty(String string){
         if(string.equals("")){
