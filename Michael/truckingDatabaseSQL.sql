@@ -60,7 +60,8 @@ go
 drop table LiquidatedCompanys
 create table LiquidatedCompanys(--No longer optorational companies
 	USDOT varchar(10) primary key not null,
-	LegalNameDBAName varchar(200) not null,
+	LegalName varchar(200) not null,
+	DBAName varchar(200) not null,
 	Address varchar(500) not null,
 	OOSReason varchar(41) not null,
 	OOSDate varchar(10) not null,
