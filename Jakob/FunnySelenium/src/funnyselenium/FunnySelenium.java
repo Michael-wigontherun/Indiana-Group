@@ -5,13 +5,18 @@
  */
 package funnyselenium;
 import java.util.List;
-import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chrome.ChromeDriver;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+
+import java.io.IOException;
 /**
  *
  * @author shatt
@@ -35,6 +40,8 @@ public class FunnySelenium {
         String var3 = "";
         String var4 = "";
         String var5 = "";
+        String var6 = "";
+        int count = 0;
         //runs through the rows
         for (WebElement row : rows) { 
             List<WebElement> cols = row.findElements(By.tagName("td"));
@@ -57,8 +64,23 @@ public class FunnySelenium {
                 var3 = (array[2].replaceAll("\t", ""));
                 var4 = (array[3].replaceAll("\t", ""));
                 var5 = (array[4].replaceAll("\t", ""));
+                //geocodes the addresses
+                //commented out so that credits are not wasted
+                /*GeoApiContext context;
+                GoogleKey k = new GoogleKey();
+                try {
+                    context = new GeoApiContext.Builder()
+                            .apiKey(k.Key)
+                            .build();
+                    GeocodingResult[] results =  GeocodingApi.geocode(context, var2).await();
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    var6 = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
+                } catch (ApiException | InterruptedException | IOException ex) {
+                    System.out.println(ex.getMessage());
+                }*/
                 //prints data
-                System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
+                System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | "  + var6 + " | " + var4 + " | " + var5 + " | ");
+                count++;
             }
             System.out.println();
             data = null;
@@ -68,10 +90,7 @@ public class FunnySelenium {
         }
         //for testing a single line
         //System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | " + var4 + " | " + var5 + " | ");
-        Map<String, Double> coords;
-        coords = OpenStreetMapUtils.getInstance().getCoordinates("The White House, Washington DC");
-        System.out.println("latitude :" + coords.get("lat"));
-        System.out.println("longitude:" + coords.get("lon"));
+        System.out.println(count);
         driver.close();
     }
     
