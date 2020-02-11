@@ -33,7 +33,7 @@ public class truckingComp {
     private boolean fail = false;
     private boolean askGeo = false;
 
-    private int collumIndex = 0;
+    private int columnIndex = 0;
 
     private String Usdot = "";
     private String LegalName = "";
@@ -101,16 +101,14 @@ public class truckingComp {
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public truckingComp(String Key, String csvRow, String delimiter, String adminID, int collumIndex, boolean askGeo) {
+    public truckingComp(String Key, String csvRow, String delimiter, String adminID, int columnIndex, boolean askGeo) {
         this.askGeo = askGeo;
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
                 .apiKey(Key)
                 .build();
-        csvRowDataSet(csvRow,delimiter, adminID, collumIndex);
+        csvRowDataSet(csvRow,delimiter, adminID, columnIndex);
     }
-
-
     /**
      * Sets all rows to there needed data spaces
      * @param csvRow - Row data set of 26 rows
@@ -121,7 +119,7 @@ public class truckingComp {
      * dates are to be input'd as [DD/MM/YYYY]
      */
     public void csvRowDataSet(String csvRow, String delimiter, String adminID, int collumIndex){
-        this.collumIndex = collumIndex;
+        this.columnIndex = collumIndex;
         monthTextList = Arrays.asList(monthsText);
         String[] data = csvRow.split(delimiter);
         try{
@@ -173,7 +171,7 @@ public class truckingComp {
                     + "'" + Fax + "','" + EmailAddress + "','" + Mcs150Date + "'," + Mcs150Mileage + ",'" + Mcs150MileageYear + "','" + AddDate + "',"
                     + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AdminId + "'";
         String SQL = String.format("INSERT INTO TruckingCompanies VALUES (%s);", s);
-        if (fail) return "--" + SQL + "\n--Above failed due to invalid data structure due at collum index: " + collumIndex;
+        if (fail) return "--" + SQL + "\n--Above failed due to invalid data structure due at collum index: " + columnIndex;
         return SQL;
     }
 
@@ -476,14 +474,14 @@ public class truckingComp {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
         } catch (ApiException | IOException | InterruptedException | ArrayIndexOutOfBoundsException ex) {
-            if(askGeo == true) {
+            if(askGeo) {
                 System.out.println("\n\n\n\n\n");
                 System.out.println(ex.getMessage());
                 this.GeoLocation = "-NA-";
                 System.out.println("Could not find address defaulted to \"-NA-\"");
                 System.out.println(getFullPhyAddress());
                 Scanner k = new Scanner(System.in);
-                String s = "";
+                String s;
                 System.out.println("Enter longitude and latitude manually in [lat:lng] format or 999 to skip");
                 if ((s = k.nextLine()).equals("999")) {
                     this.GeoLocation = "-NA-";
@@ -547,9 +545,6 @@ public class truckingComp {
     }
     private boolean stringIsEmpty(String string){
         if(string.equals("")){
-            return true;
-        }
-        else if(string == null){
             return true;
         }
         return false;
