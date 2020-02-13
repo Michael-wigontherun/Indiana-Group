@@ -12,10 +12,14 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -25,6 +29,66 @@ import java.util.Scanner;
  * @author Michael
  */
 public class truckingComp {
+    /**
+     * Static method to pull the trucking company data from csv
+     * @param csvLocation - location of csv file and name and extension of file
+     * @param errorOutputLocation - location to output the errored files will open on
+     * @param executeAmount - amount of rows you want executed, -1 if you dont want it to stop until end of file
+     */
+    public static void TruckingMainWindowsConsole(String csvLocation,String errorOutputLocation,int executeAmount){
+        //for sql
+        BufferedReader csvReader = null;
+        SystemKey k = new SystemKey();
+        truckingComp t = new truckingComp(k.Key, false);
+        List<String> ErrorInserts = new ArrayList<String>();
+        Connection con = null;
+        //for PrintWriter
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        LocalDate localDate = LocalDate.now();
+        String file = errorOutputLocation + dtf.format(localDate)+"_Error_List.sql";
+        PrintWriter fileWriter = null;
+        try {
+            fileWriter = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //--------
+        try {
+            csvReader = new BufferedReader(new FileReader(csvLocation));
+            String row = csvReader.readLine();
+            int f = 0;
+            con = DriverManager.getConnection(k.azureConnectionString);
+            while ((row = csvReader.readLine()) != null) {
+                t.csvRowDataSet(row, ",","update", f);
+                String SQL = t.toSQLInsert();
+                System.out.println(SQL);
+                try {
+                    Statement stml = con.createStatement();
+                    stml.execute(SQL);
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    fileWriter.write(SQL+"\n");
+                    System.out.println("Outputting to output sql file.");
+                }
+                t.clearData();
+                f++;
+                if(f==executeAmount)break;
+            }
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                csvReader.close();
+                con.close();
+                fileWriter.close();
+                Runtime.getRuntime().exec("explorer.exe /select, "+file);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
     private String[] monthsText = new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private List<String> monthTextList;
 
@@ -171,7 +235,7 @@ public class truckingComp {
                     + "'" + Fax + "','" + EmailAddress + "','" + Mcs150Date + "'," + Mcs150Mileage + ",'" + Mcs150MileageYear + "','" + AddDate + "',"
                     + "'" + OicState + "'," + NbrPowerUnit + "," + DriverTotal + ",'" + GeoLocation + "','" + AdminId + "'";
         String SQL = String.format("INSERT INTO TruckingCompanies VALUES (%s);", s);
-        if (fail) return "--" + SQL + "\n--Above failed due to invalid data structure due at collum index: " + columnIndex;
+        if (fail) return "?--" + SQL + "\n--Above failed due to invalid data structure due at collum index: " + columnIndex;
         return SQL;
     }
 
@@ -474,6 +538,7 @@ public class truckingComp {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             this.GeoLocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
         } catch (ApiException | IOException | InterruptedException | ArrayIndexOutOfBoundsException ex) {
+            System.out.println(ex.getMessage());
             if(askGeo) {
                 System.out.println("\n\n\n\n\n");
                 System.out.println(ex.getMessage());

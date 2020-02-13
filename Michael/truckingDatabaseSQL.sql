@@ -39,19 +39,6 @@ go
 drop table ChameleonCompanies
 create table ChameleonCompanies(--Trucking companies that are oporational but are expected to be chameleon companies
 	USDOT varchar(10) primary key not null,
-	LegalName varchar(200) not null,
-	PHY_STREET_ varchar(500) not null,
-	PHY_CITY_ varchar(50) not null,
-	PHY_STATE_ varchar(2) not null,
-	PHY_ZIP_ varchar(10) not null,
-	PHY_COUNTRY_ varchar(2) not null,
-	MAILING_STREET_ varchar(500) not null,
-	MAILING_CITY_ varchar(50) not null,
-	MAILING_STATE_ varchar(2) not null,
-	MAILING_ZIP_ varchar(10) not null,
-	MAILING_COUNTRY_ varchar(2) not null,
-	TELEPHONE_ varchar(10) not null,
-	GeoLocation varchar(500) not null,
 	addminID nvarchar(450) not null --this is link going to be linked with the AspNetUsers dont 
 									--add when you push data into this from the website this field say
 									--update[today's date mm-dd-yyyy]
