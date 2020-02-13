@@ -187,6 +187,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     /**
      * Default constructor sets list and context
      * @param Key is your google API Key
+     * @param askGeo is if you want to manually input coordinates on fail
      */
     public truckingCompaniesCSV(String Key, boolean askGeo) {
         this.askGeo = askGeo;
@@ -198,33 +199,36 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     /**
      * Sets list, context, and all collums to there needed data spaces
      * @param Key - your google API Key
+     * @param askGeo is if you want to manually input coordinates on fail
      * @param csvRow - Row data set of 26 rows
      * @param delimiter - The delimiter used in the csv
      * @param adminID - addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
      * @param askGeo - true if you want to be asked if you want to manually input cowardinates on google fail
+     * @param rowIndex - the row index of the record in the csv
      * Intended collum structure
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public truckingCompaniesCSV(String Key, String csvRow, String delimiter, String adminID, int columnIndex, boolean askGeo) {
+    public truckingCompaniesCSV(String Key, String csvRow, String delimiter, String adminID, int rowIndex, boolean askGeo) {
         this.askGeo = askGeo;
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
                 .apiKey(Key)
                 .build();
-        csvRowDataSet(csvRow,delimiter, adminID, columnIndex);
+        csvRowDataSet(csvRow,delimiter, adminID, rowIndex);
     }
     /**
      * Sets all rows to there needed data spaces
      * @param csvRow - Row data set of 26 rows
      * @param delimiter - The delimiter used in the csv
-     * @param adminID is addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * @param adminID - addmin's ID or if automated update input "update" or empty String to apply "update[MM/DD/YYYY]" to addmin ID
+     * @param rowIndex - the row index of the record in the csv
      * Intended collum structure
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public void csvRowDataSet(String csvRow, String delimiter, String adminID, int collumIndex){
-        this.columnIndex = collumIndex;
+    public void csvRowDataSet(String csvRow, String delimiter, String adminID, int rowIndex){
+        this.columnIndex = rowIndex;
         monthTextList = Arrays.asList(monthsText);
         String[] data = csvRow.split(delimiter);
         try{
