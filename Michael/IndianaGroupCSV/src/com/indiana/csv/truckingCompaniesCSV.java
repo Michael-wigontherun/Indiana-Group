@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.indiana.csv;
+import com.indiana.TruckingCompanies;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,19 +29,19 @@ import java.util.Scanner;
  *
  * @author Michael
  */
-public class truckingComp {
+public class truckingCompaniesCSV extends TruckingCompanies {
     /**
      * Static method to pull the trucking company data from csv
+     * Recommended if you do not have sufficient ram
      * @param csvLocation - location of csv file and name and extension of file
      * @param errorOutputLocation - location to output the errored files will open on
      * @param executeAmount - amount of rows you want executed, -1 if you dont want it to stop until end of file
      */
-    public static void TruckingMainWindowsConsole(String csvLocation,String errorOutputLocation,int executeAmount){
+    public static void TruckingMainWindowsConsoleQueryWReading(String csvLocation, String errorOutputLocation, int executeAmount){
         //for sql
         BufferedReader csvReader = null;
         SystemKey k = new SystemKey();
-        truckingComp t = new truckingComp(k.Key, false);
-        List<String> ErrorInserts = new ArrayList<String>();
+        truckingCompaniesCSV t = new truckingCompaniesCSV(k.Key, false);
         Connection con = null;
         //for PrintWriter
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
@@ -89,6 +90,73 @@ public class truckingComp {
             }
         }
     }
+    /**
+     * Static method to pull the trucking company data from csv to a list than querying
+     * @param csvLocation - location of csv file and name and extension of file
+     * @param errorOutputLocation - location to output the errored files will open on
+     * @param executeAmount - amount of rows you want executed, -1 if you dont want it to stop until end of file
+     */
+    public static void TruckingMainWindowsConsoleListTQuery(String csvLocation, String errorOutputLocation, int executeAmount){
+        //for sql
+        BufferedReader csvReader = null;
+        SystemKey k = new SystemKey();
+        truckingCompaniesCSV t = new truckingCompaniesCSV(k.Key, false);
+        List<String> SQLList = new ArrayList<String>();
+        Connection con = null;
+        Statement stml;
+        String SQL = "";
+        //for PrintWriter
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        LocalDate localDate = LocalDate.now();
+        String file = errorOutputLocation + dtf.format(localDate)+"_Error_List.sql";
+        PrintWriter fileWriter = null;
+        try {
+            fileWriter = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //--------
+        try {
+            csvReader = new BufferedReader(new FileReader(csvLocation));
+            String row = csvReader.readLine();
+            int f = 0;
+            while ((row = csvReader.readLine()) != null) {
+                t.csvRowDataSet(row, ",","update", f);
+                SQL = t.toSQLInsert();
+                System.out.println(SQL);
+                SQLList.add(SQL);
+
+                t.clearData();
+                f++;
+                if(f==executeAmount)break;
+            }
+            con = DriverManager.getConnection(k.azureConnectionString);
+            try {
+                for(String sql: SQLList) {
+                    stml = con.createStatement();
+                    stml.execute(sql);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                fileWriter.write(SQL+"\n");
+                System.out.println("Outputting to output sql file.");
+            }
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                csvReader.close();
+                con.close();
+                fileWriter.close();
+                Runtime.getRuntime().exec("explorer.exe /select, "+file);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     private String[] monthsText = new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private List<String> monthTextList;
 
@@ -99,34 +167,7 @@ public class truckingComp {
 
     private int columnIndex = 0;
 
-    private String Usdot = "";
-    private String LegalName = "";
-    private String Dbaname = "";
-    private String CarrierOperation = "";
-    private String HmFlag = "";
-    private String PcFlag = "";
-    private String PhyStreet = "";
-    private String PhyCity = "";
-    private String PhyState = "";
-    private String PhyZip = "";
-    private String PhyCountry = "";
-    private String MailingStreet = "";
-    private String MailingCity = "";
-    private String MailingState = "";
-    private String MailingZip = "";
-    private String MailingCountry = "";
-    private String Telephone = "";
-    private String Fax = "";
-    private String EmailAddress = "";
-    private String Mcs150Date = "";
-    private String Mcs150Mileage = "NULL";
-    private String Mcs150MileageYear = "";
-    private String AddDate = "";
-    private String OicState = "";
-    private String NbrPowerUnit = "NULL";
-    private String DriverTotal = "NULL";
-    private String GeoLocation = "";
-    private String AdminId = "";
+
     /**
      * This method genorates a csv with the correct order of collums
      * this will open the file explorer with the "TruckingCompany.csv" file selected
@@ -147,7 +188,7 @@ public class truckingComp {
      * Default constructor sets list and context
      * @param Key is your google API Key
      */
-    public truckingComp(String Key, boolean askGeo) {
+    public truckingCompaniesCSV(String Key, boolean askGeo) {
         this.askGeo = askGeo;
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
@@ -165,7 +206,7 @@ public class truckingComp {
      * USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_
      * dates are to be input'd as [DD/MM/YYYY]
      */
-    public truckingComp(String Key, String csvRow, String delimiter, String adminID, int columnIndex, boolean askGeo) {
+    public truckingCompaniesCSV(String Key, String csvRow, String delimiter, String adminID, int columnIndex, boolean askGeo) {
         this.askGeo = askGeo;
         monthTextList = Arrays.asList(monthsText);
         context = new GeoApiContext.Builder()
@@ -287,9 +328,6 @@ public class truckingComp {
         }
         this.PhyZip = PhyZip;
     }
-    public String getPhyZip(){
-        return PhyZip;
-    }
     /**
      * Method to format PhyZip to a length of 5
      * @param MailingZip - is _MAILING_ZIP_
@@ -300,18 +338,12 @@ public class truckingComp {
         }
         this.MailingZip = MailingZip;
     }
-    public String getMailingZip(){
-        return MailingZip;
-    }
     /**
      * Sets date to [MM-DD-YYYY]
      * @param Mcs150Date - _MCS150_DATE_ must be in [DD-MMM-YYYY]
      */
     public void setMcs150Date(String Mcs150Date){
         this.Mcs150Date = dateBulder(Mcs150Date);
-    }
-    public String getMcs150Date(){
-        return Mcs150Date;
     }
     /**
      * Sets date to [MM-DD-YYYY]
@@ -320,128 +352,17 @@ public class truckingComp {
     public void setAddDate(String AddDate){
         this.AddDate = dateBulder(AddDate);
     }
-    public String getAddDate(){
-        return AddDate;
-    }
-
-
-    public String getUsdot() {
-        return Usdot;
-    }
-
-    public void setUsdot(String Usdot) {
-        this.Usdot = Usdot;
-    }
-
-    public String getLegalName() {
-        return LegalName;
-    }
 
     public void setLegalName(String LegalName) {
         this.LegalName = LegalName.replaceAll("'","''");
     }
 
-    public String getDbaname() {
-        return Dbaname;
-    }
 
     public void setDbaname(String Dbaname) {
         if(stringIsEmpty(Dbaname)){
             Dbaname = "";
         }
         this.Dbaname = Dbaname.replaceAll("'","''");
-    }
-
-    public String getCarrierOperation() {
-        return CarrierOperation;
-    }
-
-    public void setCarrierOperation(String CarrierOperation) {
-        this.CarrierOperation = CarrierOperation;
-    }
-
-    public String getHmFlag() {
-        return HmFlag;
-    }
-
-    public void setHmFlag(String HmFlag) {
-        this.HmFlag = HmFlag;
-    }
-
-    public String getPcFlag() {
-        return PcFlag;
-    }
-
-    public void setPcFlag(String PcFlag) {
-        this.PcFlag = PcFlag;
-    }
-
-    public String getPhyStreet() {
-        return PhyStreet;
-    }
-
-    public void setPhyStreet(String PhyStreet) {
-        this.PhyStreet = PhyStreet;
-    }
-
-    public String getPhyCity() {
-        return PhyCity;
-    }
-
-    public void setPhyCity(String PhyCity) {
-        this.PhyCity = PhyCity;
-    }
-
-    public String getPhyState() {
-        return PhyState;
-    }
-
-    public void setPhyState(String PhyState) {
-        this.PhyState = PhyState;
-    }
-
-    public String getPhyCountry() {
-        return PhyCountry;
-    }
-
-    public void setPhyCountry(String PhyCountry) {
-        this.PhyCountry = PhyCountry;
-    }
-
-    public String getMailingStreet() {
-        return MailingStreet;
-    }
-
-    public void setMailingStreet(String MailingStreet) {
-        this.MailingStreet = MailingStreet;
-    }
-
-    public String getMailingCity() {
-        return MailingCity;
-    }
-
-    public void setMailingCity(String MailingCity) {
-        this.MailingCity = MailingCity;
-    }
-
-    public String getMailingState() {
-        return MailingState;
-    }
-
-    public void setMailingState(String MailingState) {
-        this.MailingState = MailingState;
-    }
-
-    public String getMailingCountry() {
-        return MailingCountry;
-    }
-
-    public void setMailingCountry(String MailingCountry) {
-        this.MailingCountry = MailingCountry;
-    }
-
-    public String getTelephone() {
-        return Telephone;
     }
 
     public void setTelephone(String Telephone) {
@@ -451,19 +372,11 @@ public class truckingComp {
         this.Telephone = Telephone;
     }
 
-    public String getFax() {
-        return Fax;
-    }
-
     public void setFax(String Fax) {
         if(stringIsEmpty(Fax)){
             Fax = "";
         }
         this.Fax = Fax;
-    }
-
-    public String getEmailAddress() {
-        return EmailAddress;
     }
 
     public void setEmailAddress(String EmailAddress) {
@@ -473,19 +386,11 @@ public class truckingComp {
         this.EmailAddress = EmailAddress;
     }
 
-    public String getMcs150Mileage() {
-        return Mcs150Mileage;
-    }
-
     public void setMcs150Mileage(String Mcs150Mileage) {
         if(stringIsEmpty(Mcs150Mileage)){
             Mcs150Mileage = "NULL";
         }
         this.Mcs150Mileage = Mcs150Mileage;
-    }
-
-    public String getMcs150MileageYear() {
-        return Mcs150MileageYear;
     }
 
     public void setMcs150MileageYear(String Mcs150MileageYear) {
@@ -495,18 +400,6 @@ public class truckingComp {
         this.Mcs150MileageYear = Mcs150MileageYear;
     }
 
-    public String getOicState() {
-        return OicState;
-    }
-
-    public void setOicState(String OicState) {
-        this.OicState = OicState;
-    }
-
-    public String getNbrPowerUnit() {
-        return NbrPowerUnit;
-    }
-
     public void setNbrPowerUnit(String NbrPowerUnit) {
         if(stringIsEmpty(NbrPowerUnit)){
             NbrPowerUnit = "NULL";
@@ -514,19 +407,11 @@ public class truckingComp {
         this.NbrPowerUnit = NbrPowerUnit;
     }
 
-    public String getDriverTotal() {
-        return DriverTotal;
-    }
-
     public void setDriverTotal(String DriverTotal) {
         if(stringIsEmpty(DriverTotal)){
             DriverTotal = "NULL";
         }
         this.DriverTotal = DriverTotal;
-    }
-
-    public String getGeoLocation() {
-        return GeoLocation;
     }
 
     /**
@@ -557,14 +442,6 @@ public class truckingComp {
             else this.GeoLocation = "-NA-";
         }
     }
-
-    /**
-     * For manual input of coordinates in [lat:long]
-     * @param coordinates of the physical address in [lat:lng] format
-     */
-    public void setGeoLocation(String coordinates){
-        this.GeoLocation = coordinates;
-    }
     /**
      * use only when you have not added Phy address data
      * after uses you do not need to call or add Phy address data
@@ -592,10 +469,6 @@ public class truckingComp {
     public String getFullPhyAddress(){
         return PhyStreet + " " + PhyCity + ", " + PhyState + " " + PhyZip + ", " + PhyCountry;
     }
-    public String getAdminId() {
-        return AdminId;
-    }
-
     /**
      * Makes admin id if there is no admin and its a normal update or "" to make it apply default update to database
      * @param AdminId - Admin id

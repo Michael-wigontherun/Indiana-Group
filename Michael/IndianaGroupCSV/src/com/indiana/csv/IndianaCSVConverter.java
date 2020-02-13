@@ -5,21 +5,11 @@
  */
 package com.indiana.csv;
 
-import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Michael
  */
-public class IndianaCSVconverter {
+public class IndianaCSVConverter {
 
     /**
      * @param args the command line arguments
@@ -27,7 +17,7 @@ public class IndianaCSVconverter {
     public static void main(String[] args) {
         String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
         String outputLocation = "F:\\IndianaGroup\\Indiana-Group\\Michael\\IndianaGroupCSV\\";
-        truckingComp.TruckingMainWindowsConsole(pathToCsv,outputLocation,-1);
+        truckingCompaniesCSV.TruckingMainWindowsConsoleQueryWReading(pathToCsv,outputLocation,-1);
 
     }
     
