@@ -17,7 +17,7 @@ public class IndianaCSVConverter {
     public static void main(String[] args) {
         String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
         String outputLocation = "F:\\IndianaGroup\\Indiana-Group\\Michael\\IndianaGroupCSV\\";
-        truckingCompaniesCSV.TruckingMainWindowsConsoleQueryWReading(pathToCsv,outputLocation,-1);
+        //truckingCompaniesCSV.TruckingMainWindowsConsoleQueryWReading(pathToCsv,outputLocation,-1);
 
     }
     

@@ -6,16 +6,16 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
+import com.indiana.SystemKey;
 
 import java.io.IOException;
 
 public class testingclass {
     GeoApiContext context;
     public void test(){
-        GoogleKey k = new GoogleKey();
         try {
             context = new GeoApiContext.Builder()
-                    .apiKey(k.Key)
+                    .apiKey(SystemKey.Key)
                     .build();
             GeocodingResult[] results =  GeocodingApi.geocode(context,
                     "1600 Amphitheatre Parkway Mountain View, CA 94043").await();

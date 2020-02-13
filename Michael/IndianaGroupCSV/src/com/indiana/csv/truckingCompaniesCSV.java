@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.indiana.csv;
+import com.indiana.SystemKey;
 import com.indiana.TruckingCompanies;
 
 import com.google.gson.Gson;
@@ -14,10 +15,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,8 +38,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     public static void TruckingMainWindowsConsoleQueryWReading(String csvLocation, String errorOutputLocation, int executeAmount){
         //for sql
         BufferedReader csvReader = null;
-        SystemKey k = new SystemKey();
-        truckingCompaniesCSV t = new truckingCompaniesCSV(k.Key, false);
+        truckingCompaniesCSV t = new truckingCompaniesCSV(SystemKey.Key, false);
         Connection con = null;
         //for PrintWriter
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
@@ -58,7 +55,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
             csvReader = new BufferedReader(new FileReader(csvLocation));
             String row = csvReader.readLine();
             int f = 0;
-            con = DriverManager.getConnection(k.azureConnectionString);
+            con = DriverManager.getConnection(SystemKey.azureConnectionString);
             while ((row = csvReader.readLine()) != null) {
                 t.csvRowDataSet(row, ",","update", f);
                 String SQL = t.toSQLInsert();
@@ -99,8 +96,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     public static void TruckingMainWindowsConsoleListTQuery(String csvLocation, String errorOutputLocation, int executeAmount){
         //for sql
         BufferedReader csvReader = null;
-        SystemKey k = new SystemKey();
-        truckingCompaniesCSV t = new truckingCompaniesCSV(k.Key, false);
+        truckingCompaniesCSV t = new truckingCompaniesCSV(SystemKey.Key, false);
         List<String> SQLList = new ArrayList<String>();
         Connection con = null;
         Statement stml;
@@ -121,6 +117,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
             String row = csvReader.readLine();
             int f = 0;
             while ((row = csvReader.readLine()) != null) {
+                if(f==executeAmount)break;
                 t.csvRowDataSet(row, ",","update", f);
                 SQL = t.toSQLInsert();
                 System.out.println(SQL);
@@ -128,9 +125,8 @@ public class truckingCompaniesCSV extends TruckingCompanies {
 
                 t.clearData();
                 f++;
-                if(f==executeAmount)break;
             }
-            con = DriverManager.getConnection(k.azureConnectionString);
+            con = DriverManager.getConnection(SystemKey.azureConnectionString);
             try {
                 for(String sql: SQLList) {
                     stml = con.createStatement();
@@ -157,6 +153,81 @@ public class truckingCompaniesCSV extends TruckingCompanies {
         }
     }
 
+    /**
+     * Static method to run though entire csv and output records that did not go through to new csv called "failedToPossess.csv"
+     * @param csvLocation - location of csv file and name and extension of file
+     * @param CSVOutputLocation - location to output the un inserted records
+     */
+    public static void TruckingUnloadedCompanies(String csvLocation, String CSVOutputLocation){
+        BufferedReader csvReader = null;
+        SystemKey k = new SystemKey();
+        truckingCompaniesCSV t = new truckingCompaniesCSV(k.Key, false);
+        List<String> csvRowList = new ArrayList<String>();
+        Connection con = null;
+        Statement stml;
+        ResultSet rs;
+        String SQL = "";
+        //for PrintWriter
+        String file = CSVOutputLocation + "failedToPossess.csv";
+        PrintWriter fileWriter = null;
+        //--------
+        try {
+            csvReader = new BufferedReader(new FileReader(csvLocation));
+            String row = csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                csvRowList.add(row);
+            }
+            csvReader.close();
+            fileWriter = new PrintWriter(file);
+            fileWriter.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
+            con = DriverManager.getConnection(k.azureConnectionString);
+            for(String usDot: csvRowList) {
+                try {
+                    String[] data = usDot.split("'");
+                    SQL = "select usdot from TruckingCompanies where usdot = '" + data[0] + "'";
+                    stml = con.createStatement();
+                    rs = stml.executeQuery(SQL);
+                    if(!rs.next()){
+                        fileWriter.write(usDot);
+                    }
+                } catch (SQLException ignored) {}
+            }
+        } catch (IOException ignored) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+                fileWriter.close();
+                Runtime.getRuntime().exec("explorer.exe /select, "+file);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Static method to generate a csv with the correct order of columns
+     * this will open the file explorer with the "TruckingCompany.csv" file selected
+     * @param outputPath - The path to where it is to be outputted
+     * @param openFile - true if you want to open file in windows file explorer, false does not open in explorer
+     * @return's filepath with file like: "C:\TruckingCompany.csv" or the error with ? at index[0] if fails
+     */
+    public static String createCSV(String outputPath, boolean openFile){
+        String file = outputPath+"\\TruckingCompany.csv";
+        try {
+            PrintWriter writer = new PrintWriter(file);
+            writer.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
+            writer.close();
+            if(openFile) {
+                Runtime.getRuntime().exec("explorer.exe /select, " + file);
+            }
+            return file;
+        } catch (IOException e) {
+            return "?" + e.getMessage();
+        }
+    }
+
     private String[] monthsText = new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private List<String> monthTextList;
 
@@ -168,22 +239,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     private int columnIndex = 0;
 
 
-    /**
-     * This method genorates a csv with the correct order of collums
-     * this will open the file explorer with the "TruckingCompany.csv" file selected
-     * @param outputPath - The path to where it is to be outputted to with \\ at the end
-     */
-    public void createCSV(String outputPath){
-        String file = outputPath+"TruckingCompany.csv";
-        try {
-            PrintWriter writer = new PrintWriter(file);
-            writer.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
-            writer.close();
-            Runtime.getRuntime().exec("explorer.exe /select, " + file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     /**
      * Default constructor sets list and context
      * @param Key is your google API Key
