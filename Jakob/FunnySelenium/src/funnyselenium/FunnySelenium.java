@@ -34,13 +34,14 @@ public class FunnySelenium {
         //Variables
         StringBuilder data = new StringBuilder();
         StringBuilder data2 = new StringBuilder();
-        String var = "";
-        String var1 = "";
-        String var2 = "";
-        String var3 = "";
-        String var4 = "";
-        String var5 = "";
-        String var6 = "";
+        String ID = "";
+        String LegalName = "";
+        String Address = "";
+        String OOSReason = "";
+        String OOSDate = "";
+        String Status = "";
+        String Geolocation = "";
+        String DBAName = "";
         int count = 0;
         //runs through the rows
         for (WebElement row : rows) { 
@@ -53,17 +54,24 @@ public class FunnySelenium {
             for (WebElement col2 : cols2) {
                 data2.append(col2.getText() + "\t");
             }
-            String[] array = data.toString().replaceAll("\n", "").split("\t", 5);
+            String[] array = data.toString().split("\t", 5);
             String[] array2 = data2.toString().replaceAll("\n", "").split("\t");
             //ignores row 1
             if(array.length > 1 && array2.length <=1){
                 //separates data into separate variables
-                var = (array2[0].replaceAll("\t", ""));
-                var1 = (array[0].replaceAll("\t", ""));
-                var2 = (array[1].replaceAll("\t", ""));
-                var3 = (array[2].replaceAll("\t", ""));
-                var4 = (array[3].replaceAll("\t", ""));
-                var5 = (array[4].replaceAll("\t", ""));
+                ID = (array2[0].replaceAll("\t", "").replaceAll(" ", ""));
+                String[] array3 = (array[0].replaceAll("\t", "").split("\n"));
+                LegalName = array3[0];
+                if(array3[1].equals(" ")){
+                    DBAName = array3[1].replace(" ", "");
+                }
+                else{
+                    DBAName = array3[1];
+                }
+                Address = (array[1].replaceAll("\t", "").replaceAll("\n", ""));
+                OOSReason = (array[2].replaceAll("\t", "").replaceAll("\n", ""));
+                OOSDate = (array[3].replaceAll("\t", "").replaceAll("\n", ""));
+                Status = (array[4].replaceAll("\t", "").replaceAll("\n", ""));
                 //geocodes the addresses
                 //commented out so that credits are not wasted
                 /*GeoApiContext context;
@@ -72,14 +80,14 @@ public class FunnySelenium {
                     context = new GeoApiContext.Builder()
                             .apiKey(k.Key)
                             .build();
-                    GeocodingResult[] results =  GeocodingApi.geocode(context, var2).await();
+                    GeocodingResult[] results =  GeocodingApi.geocode(context, Address).await();
                     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    var6 = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
+                    Geolocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
                 } catch (ApiException | InterruptedException | IOException ex) {
                     System.out.println(ex.getMessage());
                 }*/
                 //prints data
-                System.out.print(var + " | " + var1 + " | " + var2 + " | " + var3 + " | "  + var6 + " | " + var4 + " | " + var5 + " | ");
+                System.out.print(ID + " | " + LegalName + " |" + DBAName + "| " + Address + " | " + OOSReason + " | " + OOSDate + " | " + Status + " | " + Geolocation + " | ");
                 count++;
             }
             System.out.println();
