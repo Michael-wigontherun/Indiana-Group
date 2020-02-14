@@ -28,6 +28,8 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Map<String,String> SQLMap = new HashMap<>();
+        System.out.println(SQLMap.containsKey("d"));
     }
 
 

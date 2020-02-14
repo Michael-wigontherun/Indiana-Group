@@ -3,13 +3,14 @@ go
 use IndianaTruckingCompanys;
 go
 drop table TruckingCompanies
+-- if anyone drops this table they are the ones paying for the geoscraping
 create table TruckingCompanies(--Trucking companies that are currently in oporation
 	USDOT varchar(10) primary key not null,
 	LegalName varchar(200) not null,
 	DBAName varchar(200),
-	CARRIER_OPERATION_ varchar(1) not null,
-	HM_FLAG_ varchar(1) not null,
-	PC_FLAG_ varchar(1) not null,
+	CARRIER_OPERATION_ varchar(5) not null,
+	HM_FLAG_ varchar(5) not null,
+	PC_FLAG_ varchar(5) not null,
 	PHY_STREET_ varchar(500) not null,
 	PHY_CITY_ varchar(50) not null,
 	PHY_STATE_ varchar(2) not null,
@@ -58,3 +59,5 @@ create table LiquidatedCompanys(--No longer optorational companies
 									--add when you push data into this from the website this field say
 									--update[today's date mm-dd-yyyy]
 );
+
+--insert into TruckingCompanies values('1000283','CORNERSTONE CONCRETE CONSTRUCTION INC','','C','N','N','25 MANCHESTER DR','TRAFALGAR','IN','46181','US','25 MANCHESTER DR','TRAFALGAR','IN','46181','US','(317) 878-9954','','','01/23/2002',0,'','01/23/2002','IN', 1,1,'39.40675170000001:-86.15590019999999','update02/12/2020')

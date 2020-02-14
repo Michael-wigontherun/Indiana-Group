@@ -173,12 +173,13 @@ public class truckingCompaniesCSV extends TruckingCompanies {
         Statement stml = null;
         ResultSet rs = null;
         String SQL = "";
-        Map<String,String> SQLMap = new HashMap<>();
+        Map<String,String> SQLMap = new HashMap();
         //for PrintWriter
         String file = CSVOutputLocation + "\\failedToPossess.csv";
         PrintWriter fileWriter = null;
         //--------
         try {
+            //read csv
             csvReader = new BufferedReader(new FileReader(csvLocation));
             System.out.println("csv opened.");
             String row = csvReader.readLine();
@@ -188,10 +189,14 @@ public class truckingCompaniesCSV extends TruckingCompanies {
             System.out.println(csvRowList.size() + " records added to memory from csv.");
             csvReader.close();
             System.out.println("csv closed.");
+            //end csv read
 
+            //start csv writer
             fileWriter = new PrintWriter(file);
             System.out.println("\"failedToPossess.csv\" created or opened at \"" + CSVOutputLocation + "\"");
-            fileWriter.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
+            fileWriter.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_\n");
+
+            //start database pull
             try {
                 con = DriverManager.getConnection(SystemKey.azureConnectionString);
                 System.out.println("Database Connected!");
@@ -199,7 +204,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
                 stml = con.createStatement();
                 rs = stml.executeQuery(SQL);
                 while (rs.next()){
-                    SQLMap.put(rs.getString(1),rs.getString(1));
+                    SQLMap.put(rs.getString(1),"found");
                 }
                 System.out.println(SQLMap.size() + " records written to memory from database");
             } catch (SQLException ex) {
@@ -216,16 +221,24 @@ public class truckingCompaniesCSV extends TruckingCompanies {
                     con.close();
                 }
             }
+            System.out.println(SQLMap.size());
+            System.out.println(SQLMap.containsKey("w"));
+            //end database pull
+            System.out.println("Parsing through map.");
+            String s = "";
             for(String usDot: csvRowList) {
-                String[] data = usDot.split("'");
-                if(SQLMap.containsKey(data[0])){
-                    fileWriter.write(usDot);
+                //String[] data = usDot.split("'");
+                String[] data = usDot.split(",");
+                s = SQLMap.get(data[0]);
+                if(!SQLMap.containsKey(data[0])){
+                    fileWriter.write(usDot+"\n");
                 }
             }
+            //write csv end
         } catch (Throwable ex) {
             if (fileWriter != null) {
                 fileWriter.close();
-                Runtime.getRuntime().exec("explorer.exe /select, "+file);
+                //Runtime.getRuntime().exec("explorer.exe /select, "+file);
             }
             throw ex;
         } finally {
