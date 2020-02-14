@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -26,29 +28,6 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Connection connection = null;
-        Statement insertStmt = null;
-        Statement selectStmt = null;
-        try
-        {
-            connection = DriverManager.getConnection(SystemKey.azureConnectionString);
-            selectStmt = connection.createStatement();
-            ResultSet rs = selectStmt.executeQuery("SELECT * from TruckingCompanies where usdot = '1000283'");
-            if(!rs.next()){
-                System.out.println("Is empty");
-            }
-            else System.out.println(rs.getString(1));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                selectStmt.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 

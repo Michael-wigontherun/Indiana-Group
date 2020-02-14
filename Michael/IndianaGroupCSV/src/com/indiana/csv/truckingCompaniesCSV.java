@@ -13,15 +13,13 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 
 import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -65,22 +63,28 @@ public class truckingCompaniesCSV extends TruckingCompanies {
                     stml.execute(SQL);
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
-                    fileWriter.write(SQL+"\n");
-                    System.out.println("Outputting to output sql file.");
+                    if (fileWriter != null) {
+                        fileWriter.write(SQL+"\n");
+                        System.out.println("Outputting to output sql file.");
+                    }
                 }
                 t.clearData();
                 f++;
                 if(f==executeAmount)break;
             }
-        } catch (FileNotFoundException ex) {
-        } catch (IOException ex) {
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (IOException | SQLException ex) {
+            ex.printStackTrace();
         } finally {
             try {
-                csvReader.close();
-                con.close();
-                fileWriter.close();
+                if (csvReader != null) {
+                    csvReader.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
                 Runtime.getRuntime().exec("explorer.exe /select, "+file);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -137,15 +141,19 @@ public class truckingCompaniesCSV extends TruckingCompanies {
                 fileWriter.write(SQL+"\n");
                 System.out.println("Outputting to output sql file.");
             }
-        } catch (FileNotFoundException ex) {
-        } catch (IOException ex) {
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                csvReader.close();
-                con.close();
-                fileWriter.close();
+                if (csvReader != null) {
+                    csvReader.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
                 Runtime.getRuntime().exec("explorer.exe /select, "+file);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -158,50 +166,72 @@ public class truckingCompaniesCSV extends TruckingCompanies {
      * @param csvLocation - location of csv file and name and extension of file
      * @param CSVOutputLocation - location to output the un inserted records
      */
-    public static void TruckingUnloadedCompanies(String csvLocation, String CSVOutputLocation){
+    public static void TruckingUnloadedCompanies(String csvLocation, String CSVOutputLocation) throws Throwable {
         BufferedReader csvReader = null;
-        SystemKey k = new SystemKey();
-        truckingCompaniesCSV t = new truckingCompaniesCSV(k.Key, false);
         List<String> csvRowList = new ArrayList<String>();
         Connection con = null;
-        Statement stml;
-        ResultSet rs;
+        Statement stml = null;
+        ResultSet rs = null;
         String SQL = "";
+        Map<String,String> SQLMap = new HashMap<>();
         //for PrintWriter
-        String file = CSVOutputLocation + "failedToPossess.csv";
+        String file = CSVOutputLocation + "\\failedToPossess.csv";
         PrintWriter fileWriter = null;
         //--------
         try {
             csvReader = new BufferedReader(new FileReader(csvLocation));
+            System.out.println("csv opened.");
             String row = csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
                 csvRowList.add(row);
             }
+            System.out.println(csvRowList.size() + " records added to memory from csv.");
             csvReader.close();
+            System.out.println("csv closed.");
+
             fileWriter = new PrintWriter(file);
+            System.out.println("\"failedToPossess.csv\" created or opened at \"" + CSVOutputLocation + "\"");
             fileWriter.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
-            con = DriverManager.getConnection(k.azureConnectionString);
-            for(String usDot: csvRowList) {
-                try {
-                    String[] data = usDot.split("'");
-                    SQL = "select usdot from TruckingCompanies where usdot = '" + data[0] + "'";
-                    stml = con.createStatement();
-                    rs = stml.executeQuery(SQL);
-                    if(!rs.next()){
-                        fileWriter.write(usDot);
-                    }
-                } catch (SQLException ignored) {}
-            }
-        } catch (IOException ignored) {
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
             try {
-                con.close();
+                con = DriverManager.getConnection(SystemKey.azureConnectionString);
+                System.out.println("Database Connected!");
+                SQL = "select usdot from TruckingCompanies";
+                stml = con.createStatement();
+                rs = stml.executeQuery(SQL);
+                while (rs.next()){
+                    SQLMap.put(rs.getString(1),rs.getString(1));
+                }
+                System.out.println(SQLMap.size() + " records written to memory from database");
+            } catch (SQLException ex) {
+                System.out.println("System closing");
+                throw ex;
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stml != null) {
+                    stml.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            }
+            for(String usDot: csvRowList) {
+                String[] data = usDot.split("'");
+                if(SQLMap.containsKey(data[0])){
+                    fileWriter.write(usDot);
+                }
+            }
+        } catch (Throwable ex) {
+            if (fileWriter != null) {
                 fileWriter.close();
                 Runtime.getRuntime().exec("explorer.exe /select, "+file);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            }
+            throw ex;
+        } finally {
+            if (fileWriter != null) {
+                fileWriter.close();
+                Runtime.getRuntime().exec("explorer.exe /select, "+file);
             }
         }
     }
