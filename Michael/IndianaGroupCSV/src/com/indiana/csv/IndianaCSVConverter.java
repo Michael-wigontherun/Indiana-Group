@@ -18,12 +18,12 @@ public class IndianaCSVConverter {
         String pathToCsv = "F:\\IndianaGroup\\Indiana-Group\\Michael\\indiana.csv";
         String outputLocation = "F:\\IndianaGroup\\Indiana-Group\\Michael\\IndianaGroupCSV";
         //truckingCompaniesCSV.TruckingMainWindowsConsoleQueryWReading(pathToCsv,outputLocation,-1);
-        try {
-            truckingCompaniesCSV.TruckingUnloadedCompanies(pathToCsv,outputLocation);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
+//        try {
+//            truckingCompaniesCSV.TruckingUnloadedCompanies(pathToCsv,outputLocation);
+//        } catch (Throwable throwable) {
+//            throwable.printStackTrace();
+//        }
+        truckingCompaniesCSV.GetFailedGeoLocations(outputLocation);
     }
     
 }

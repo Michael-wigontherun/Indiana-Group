@@ -10,10 +10,9 @@ import com.indiana.SystemKey;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +27,7 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Map<String,String> SQLMap = new HashMap<>();
-        System.out.println(SQLMap.containsKey("d"));
+        System.out.println(String.format("sgsdgsfdg"," 4 "));
     }
 
 

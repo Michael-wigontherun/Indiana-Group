@@ -30,7 +30,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
      * Static method to pull the trucking company data from csv
      * Recommended if you do not have sufficient ram
      * @param csvLocation - location of csv file and name and extension of file
-     * @param errorOutputLocation - location to output the errored files will open on
+     * @param errorOutputLocation - location to output the errored files will open on windows - "_Error_List[date].sql"
      * @param executeAmount - amount of rows you want executed, -1 if you dont want it to stop until end of file
      */
     public static void TruckingMainWindowsConsoleQueryWReading(String csvLocation, String errorOutputLocation, int executeAmount){
@@ -39,9 +39,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
         truckingCompaniesCSV t = new truckingCompaniesCSV(SystemKey.Key, false);
         Connection con = null;
         //for PrintWriter
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        LocalDate localDate = LocalDate.now();
-        String file = errorOutputLocation + dtf.format(localDate)+"_Error_List.sql";
+        String file = errorOutputLocation + String.format("_Error_List%s.sql", getDateStatic());
         PrintWriter fileWriter = null;
         try {
             fileWriter = new PrintWriter(file);
@@ -94,7 +92,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     /**
      * Static method to pull the trucking company data from csv to a list than querying
      * @param csvLocation - location of csv file and name and extension of file
-     * @param errorOutputLocation - location to output the errored files will open on
+     * @param errorOutputLocation - location to output the errored files will open on windows - "_Error_List[date].sql"
      * @param executeAmount - amount of rows you want executed, -1 if you dont want it to stop until end of file
      */
     public static void TruckingMainWindowsConsoleListTQuery(String csvLocation, String errorOutputLocation, int executeAmount){
@@ -106,9 +104,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
         Statement stml;
         String SQL = "";
         //for PrintWriter
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        LocalDate localDate = LocalDate.now();
-        String file = errorOutputLocation + dtf.format(localDate)+"_Error_List.sql";
+        String file = errorOutputLocation + String.format("_Error_List%s.sql", getDateStatic());
         PrintWriter fileWriter = null;
         try {
             fileWriter = new PrintWriter(file);
@@ -162,7 +158,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
     }
 
     /**
-     * Static method to run though entire csv and output records that did not go through to new csv called "failedToPossess.csv"
+     * Static method to run though entire csv and output records that did not go through to new csv called "failedToPossess[date].csv"
      * @param csvLocation - location of csv file and name and extension of file
      * @param CSVOutputLocation - location to output the un inserted records
      */
@@ -173,9 +169,9 @@ public class truckingCompaniesCSV extends TruckingCompanies {
         Statement stml = null;
         ResultSet rs = null;
         String SQL = "";
-        Map<String,String> SQLMap = new HashMap();
+        Map<String,String> SQLMap = new HashMap<String,String>();
         //for PrintWriter
-        String file = CSVOutputLocation + "\\failedToPossess.csv";
+        String file = CSVOutputLocation + String.format("\\failedToPossess%s.sql", getDateStatic());
         PrintWriter fileWriter = null;
         //--------
         try {
@@ -193,7 +189,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
 
             //start csv writer
             fileWriter = new PrintWriter(file);
-            System.out.println("\"failedToPossess.csv\" created or opened at \"" + CSVOutputLocation + "\"");
+            System.out.println(String.format("\"%s\" created or opened at \"" + CSVOutputLocation + "\"",String.format("\\failedToPossess%s.sql", getDateStatic())));
             fileWriter.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_\n");
 
             //start database pull
@@ -238,7 +234,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
         } catch (Throwable ex) {
             if (fileWriter != null) {
                 fileWriter.close();
-                //Runtime.getRuntime().exec("explorer.exe /select, "+file);
+                Runtime.getRuntime().exec("explorer.exe /select, "+file);
             }
             throw ex;
         } finally {
@@ -251,13 +247,13 @@ public class truckingCompaniesCSV extends TruckingCompanies {
 
     /**
      * Static method to generate a csv with the correct order of columns
-     * this will open the file explorer with the "TruckingCompany.csv" file selected
+     * this will open the file explorer with the "TruckingCompany[date].csv" file selected
      * @param outputPath - The path to where it is to be outputted
      * @param openFile - true if you want to open file in windows file explorer, false does not open in explorer
      * @return's filepath with file like: "C:\TruckingCompany.csv" or the error with ? at index[0] if fails
      */
     public static String createCSV(String outputPath, boolean openFile){
-        String file = outputPath+"\\TruckingCompany.csv";
+        String file = outputPath+String.format("\\TruckingCompany%s.csv", getDateStatic());
         try {
             PrintWriter writer = new PrintWriter(file);
             writer.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_");
@@ -268,6 +264,49 @@ public class truckingCompaniesCSV extends TruckingCompanies {
             return file;
         } catch (IOException e) {
             return "?" + e.getMessage();
+        }
+    }
+
+    /**
+     *  This method outputs "TruckingGeolocationFailures[date].csv" to a specified location containing all rows that google did not find the coordinates for
+     * @param outputPath - the path to the folder to output to
+     */
+    public static void GetFailedGeoLocations(String outputPath){
+        String file = outputPath+String.format("\\TruckingGeolocationFailures%s.csv", getDateStatic());
+        PrintWriter writer = null;
+        Connection con = null;
+        Statement stml = null;
+        ResultSet rs = null;
+        String SQL;
+        try {
+            con = DriverManager.getConnection(SystemKey.azureConnectionString);
+            System.out.println("Database Connected!");
+            SQL = "select * from TruckingCompanies where GeoLocation = '-NA-'";
+            stml = con.createStatement();
+            rs = stml.executeQuery(SQL);
+            writer = new PrintWriter(file);
+            writer.write("USDOT,_LEGAL_NAME_,_DBA_NAME_,_CARRIER_OPERATION_,_HM_FLAG_,_PC_FLAG_,_PHY_STREET_,_PHY_CITY_,_PHY_STATE_,_PHY_ZIP_,_PHY_COUNTRY_,_MAILING_STREET_,_MAILING_CITY_,_MAILING_STATE_,_MAILING_ZIP_,_MAILING_COUNTRY_,_TELEPHONE_,_FAX_,_EMAIL_ADDRESS_,_MCS150_DATE_,_MCS150_MILEAGE_,_MCS150_MILEAGE_YEAR_,_ADD_DATE_,_OIC_STATE_,_NBR_POWER_UNIT_,_DRIVER_TOTAL_\n");
+            while (rs.next()){
+                writer.write(rs.getString(1)+","+rs.getString(2)+","+rs.getString(3)+","+rs.getString(4)+","+rs.getString(5)+","+rs.getString(6)+","+
+                        rs.getString(7)+","+rs.getString(8)+","+rs.getString(9)+","+rs.getString(10)+","+rs.getString(11)+","+rs.getString(12)+","+
+                        rs.getString(13)+","+rs.getString(14)+","+rs.getString(15)+","+rs.getString(16)+","+rs.getString(17)+","+rs.getString(18)+","+
+                        rs.getString(19)+","+rs.getString(20)+","+rs.getString(21)+","+rs.getString(22)+","+rs.getString(23)+","+rs.getString(24)+","
+                        +rs.getString(25)+","+rs.getString(26)+","+rs.getString(27)+","+rs.getString(28)+"\n");
+            }
+            Runtime.getRuntime().exec("explorer.exe /select, " + file);
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }finally {
+            if (writer != null) {
+                writer.close();
+            }
+            try {
+                rs.close();
+                stml.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -578,9 +617,7 @@ public class truckingCompaniesCSV extends TruckingCompanies {
      */
     public void setAdminId(String AdminId) {
         if(AdminId.equalsIgnoreCase("update") || AdminId.equals("")){
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-            LocalDate localDate = LocalDate.now();
-            AdminId = "update"+dtf.format(localDate);
+            AdminId = "update"+getDate();
         }
         this.AdminId = AdminId;
     }
@@ -618,5 +655,15 @@ public class truckingCompaniesCSV extends TruckingCompanies {
             return "-NA-";
         }
         return month+"/"+day+"/"+year;
+    }
+    private static String getDateStatic(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        return  dtf.format(localDate).replaceAll("/","-");
+    }
+    private String getDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        return  dtf.format(localDate).replaceAll("/","-");
     }
 }
