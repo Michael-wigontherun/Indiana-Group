@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Indiana.Data;
 using Indiana.Models;
+using System.Security.Claims;
+using System.Diagnostics;
 
 namespace Indiana.Controllers
 {
@@ -22,9 +24,23 @@ namespace Indiana.Controllers
         // GET: TruckingCompanies
         public async Task<IActionResult> Index()
         {
-            ViewData["list"] = await Database.TruckingCompanies.Take(20).ToListAsync();
+            //ViewData["list"] = await Database.TruckingCompanies.Take(20).ToListAsync();
+
+            ViewData["UserID"] = getCurrentUserID();
+            var applicationDbContext = Database.TruckingCompanies;
+            List<TruckingCompanies> list = await applicationDbContext.ToListAsync();
+            //list = addUserNames(list);
+            //ViewData["SearchString"] = "";
+            ViewData["Page"] = 1;
+            ViewData["pages"] = GetPageAmount(list.Count());
+            ViewData["SelectedPlatform"] = -1;
+            ViewData["SelectedGame"] = -1;
+            ViewData["list"] =
+                getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"]);
+            getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
             return View();
         }
+
 
         // GET: TruckingCompanies/Details/5
         public async Task<IActionResult> Details(string id)
@@ -150,5 +166,100 @@ namespace Indiana.Controllers
         {
             return Database.TruckingCompanies.Any(e => e.Usdot == id);
         }
+        public string getCurrentUserID()
+        {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            return claim?.Value;
+        }
+        public string getCurrentUserName()
+        {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claimID = claim?.Value;
+            return Database.Users.Where(u => u.Id == claimID).Single().UserName;
+        }
+        public List<T> getCurrentPage<T>(List<T> list, int page, int pages)
+        {
+            if (page == 0 || page > pages)
+            {
+                page = 1;
+            }
+            int pageStart = (page - 1) * 100;
+            int pageEnd = page * 100;
+            List<T> temp = new List<T>();
+            if (page <= 1)
+            {
+                pageStart = 0;
+            }
+            if (page == pages)
+            {
+                pageEnd = list.Count();
+            }
+            for (int i = pageStart; i < pageEnd; i++)
+            {
+                temp.Add(list.ElementAt(i));
+
+            }
+            return temp;
+        }
+        public List<int> getPageOptions(int page, int pages)
+        {
+            List<int> list = new List<int>();
+            if (page < 10)
+            {
+                page -= 5;
+                page = Clamp(page, 1, pages);
+                for (int i = page; i <= page + 10; i++)
+                {
+                    list.Add(i);
+                }
+            }
+            else if (page > pages - 10)
+            {
+                page += 5;
+                page = Clamp(page, 1, pages);
+                for (int i = page - 10; i <= page; i++)
+                {
+                    list.Add(i);
+                }
+            }
+            else
+            {
+                page -= 5;
+                for (int i = page; i <= page + 10; i++)
+                {
+                    list.Add(i);
+                }
+            }
+            return list;
+        }
+        public int Clamp(int value, int min, int max)
+        {
+            if (min <= value && value <= max)
+            {
+                return value;
+            }
+            else if (value < min)
+            {
+                return min;
+            }
+            else
+            {
+                return max;
+            }
+        }
+
+        public int GetPageAmount(int listCount)
+        {
+            int i = listCount / 10;
+            if (listCount % 10 != 0)
+            {
+                i += 1;
+            }
+            return i;
+        }
     }
-}
+    }
+
+
