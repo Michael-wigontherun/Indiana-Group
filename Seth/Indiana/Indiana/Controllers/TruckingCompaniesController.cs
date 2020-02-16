@@ -22,7 +22,8 @@ namespace Indiana.Controllers
         // GET: TruckingCompanies
         public async Task<IActionResult> Index()
         {
-            return View(await Database.TruckingCompanies.ToListAsync());
+            ViewData["list"] = await Database.TruckingCompanies.Take(20).ToListAsync();
+            return View();
         }
 
         // GET: TruckingCompanies/Details/5
