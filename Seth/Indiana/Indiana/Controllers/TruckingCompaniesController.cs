@@ -21,20 +21,21 @@ namespace Indiana.Controllers
             Database = context;
         }
 
-        
+        //this is a variable to change the amount of rows per page
+        public int countPerPage = 100;
         public async Task<IActionResult> Index()
         {
             //if you add something here you must do it in post index
 
+            //below is for pagination
             //do not touch below
-            ViewData["UserID"] = getCurrentUserID();
+            ViewData["UserID"] = GetCurrentUserID();
             List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = 1;
-            ViewData["pages"] = GetPageAmount(list.Count());
+            ViewData["pages"] = GetPageAmount(list.Count(), countPerPage);
             ViewData["pageList"] = getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
             ViewData["list"] =
-                getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"]);
-            Debug.WriteLine("\n\n\n\nmain\n\n\n\n");
+                getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"], countPerPage);
             return View();
             //do not touch above
         }
@@ -43,15 +44,15 @@ namespace Indiana.Controllers
         {
             //if you add something here you must do it in main index
 
+            //below is for pagination
             //do not touch below
-            ViewData["UserID"] = getCurrentUserID();
+            ViewData["UserID"] = GetCurrentUserID();
             List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = page;
-            ViewData["pages"] = GetPageAmount(list.Count());
+            ViewData["pages"] = GetPageAmount(list.Count(), countPerPage);
             ViewData["pageList"] = getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
-            Debug.WriteLine($"\n\n\n\n\n{(int)ViewData["Page"]}\n{(int)ViewData["pages"]}\n\n\n\n\n");
             ViewData["list"] =
-                getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"]);
+                getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"], countPerPage);
             return View();
             //do not touch above
         }
@@ -180,73 +181,69 @@ namespace Indiana.Controllers
         {
             return Database.TruckingCompanies.Any(e => e.Usdot == id);
         }
-        public string getCurrentUserID()
+        public string GetCurrentUserID()
         {
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             return claim?.Value;
         }
-        public string getCurrentUserName()
+        public string GetCurrentUserName()
         {
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var claimID = claim?.Value;
             return Database.Users.Where(u => u.Id == claimID).Single().UserName;
         }
-        public List<T> getCurrentPage<T>(List<T> list, int page, int pages)
+        public List<T> getCurrentPage<T>(List<T> list, int page, int pages, int countPerPage)
         {
             if (page == 0 || page > pages)
             {
                 page = 1;
             }
-            int pageStart = (page - 1) * 100;
-            int pageEnd = page * 100;
-            Debug.WriteLine($"\n\n\n\n\n{pageStart}\n{pageEnd}\n\n\n\n\n");
+            int pageStart = (page - 1) * countPerPage;
             List<T> temp = new List<T>();
             if (page == 1)
             {
                 pageStart = 0;
             }
-            if (page == pages)
-            {
-                pageEnd = list.Count();
-            }
-            Debug.WriteLine($"\n\n\n\n\n{pageStart}\n{pageEnd}\n\n\n\n\n");
-            for (int i = pageStart; i < pageEnd; i++)
+            for (int i = pageStart; i < list.Count(); i++)
             {
                 temp.Add(list.ElementAt(i));
-
+                if(temp.Count() == countPerPage)
+                {
+                    break;
+                }
             }
             return temp;
         }
         public List<int> getPageOptions(int page, int pages)
         {
-            List<int> list = new List<int>();
+            int start;
+            int controller;
             if (page < 10)
             {
                 page -= 5;
                 page = Clamp(page, 1, pages);
-                for (int i = page; i <= page + 10; i++)
-                {
-                    list.Add(i);
-                }
+                start = page;
+                controller = page + 10;
             }
             else if (page > pages - 10)
             {
                 page += 5;
                 page = Clamp(page, 1, pages);
-                for (int i = page - 10; i <= page; i++)
-                {
-                    list.Add(i);
-                }
+                start = page - 10;
+                controller = page;
             }
             else
             {
                 page -= 5;
-                for (int i = page; i <= page + 10; i++)
-                {
-                    list.Add(i);
-                }
+                start = page;
+                controller = page + 10;
+            }
+            List<int> list = new List<int>();
+            for (int i = start; i <= controller; i++)
+            {
+                list.Add(i);
             }
             return list;
         }
@@ -266,16 +263,16 @@ namespace Indiana.Controllers
             }
         }
 
-        public int GetPageAmount(int listCount)
+        public int GetPageAmount(int listCount, int countPerPage)
         {
-            int i = listCount / 10;
-            if (listCount % 10 != 0)
+            int i = listCount / countPerPage;
+            if (listCount % countPerPage != 0)
             {
                 i += 1;
             }
             return i;
         }
     }
-    }
+}
 
 
