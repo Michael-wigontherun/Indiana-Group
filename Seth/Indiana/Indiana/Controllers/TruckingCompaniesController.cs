@@ -21,26 +21,40 @@ namespace Indiana.Controllers
             Database = context;
         }
 
-        // GET: TruckingCompanies
+        
         public async Task<IActionResult> Index()
         {
-            //ViewData["list"] = await Database.TruckingCompanies.Take(20).ToListAsync();
+            //if you add something here you must do it in post index
 
+            //do not touch below
             ViewData["UserID"] = getCurrentUserID();
-            var applicationDbContext = Database.TruckingCompanies;
-            List<TruckingCompanies> list = await applicationDbContext.ToListAsync();
-            //list = addUserNames(list);
-            //ViewData["SearchString"] = "";
+            List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = 1;
             ViewData["pages"] = GetPageAmount(list.Count());
-            ViewData["SelectedPlatform"] = -1;
-            ViewData["SelectedGame"] = -1;
+            ViewData["pageList"] = getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
             ViewData["list"] =
                 getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"]);
-            getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
+            Debug.WriteLine("\n\n\n\nmain\n\n\n\n");
             return View();
+            //do not touch above
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(int page)
+        {
+            //if you add something here you must do it in main index
 
+            //do not touch below
+            ViewData["UserID"] = getCurrentUserID();
+            List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
+            ViewData["Page"] = page;
+            ViewData["pages"] = GetPageAmount(list.Count());
+            ViewData["pageList"] = getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
+            Debug.WriteLine($"\n\n\n\n\n{(int)ViewData["Page"]}\n{(int)ViewData["pages"]}\n\n\n\n\n");
+            ViewData["list"] =
+                getCurrentPage(list, (int)ViewData["Page"], (int)ViewData["pages"]);
+            return View();
+            //do not touch above
+        }
 
         // GET: TruckingCompanies/Details/5
         public async Task<IActionResult> Details(string id)
@@ -187,8 +201,9 @@ namespace Indiana.Controllers
             }
             int pageStart = (page - 1) * 100;
             int pageEnd = page * 100;
+            Debug.WriteLine($"\n\n\n\n\n{pageStart}\n{pageEnd}\n\n\n\n\n");
             List<T> temp = new List<T>();
-            if (page <= 1)
+            if (page == 1)
             {
                 pageStart = 0;
             }
@@ -196,6 +211,7 @@ namespace Indiana.Controllers
             {
                 pageEnd = list.Count();
             }
+            Debug.WriteLine($"\n\n\n\n\n{pageStart}\n{pageEnd}\n\n\n\n\n");
             for (int i = pageStart; i < pageEnd; i++)
             {
                 temp.Add(list.ElementAt(i));
