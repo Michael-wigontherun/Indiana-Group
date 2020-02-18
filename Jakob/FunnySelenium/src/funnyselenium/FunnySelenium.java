@@ -83,7 +83,7 @@ public class FunnySelenium {
                 Status = (array[4].replaceAll("\t", "").replaceAll("\n", ""));
                 //geocodes the addresses
                 //commented out so that credits are not wasted
-                /*GeoApiContext context;
+                GeoApiContext context;
                 GoogleKey k = new GoogleKey();
                 try {
                     context = new GeoApiContext.Builder()
@@ -94,12 +94,13 @@ public class FunnySelenium {
                     Geolocation = gson.toJson(results[0].geometry.location.lat) + ":" + gson.toJson(results[0].geometry.location.lng);
                 } catch (ApiException | InterruptedException | IOException ex) {
                     System.out.println(ex.getMessage());
-                }*/
+                    Geolocation = "-NA-";
+                }
                 //prints data
                 String today = getDate();
                 SQL = "insert into LiquidatedCompanys values('" + ID + "', '" + LegalName + "', '" + DBAName + "', '" + Address + "', '" + OOSReason + "', '" + OOSDate + "', '" + Status + "', '" + Geolocation + "', '" + today + "')";
                 Statement stml = con.createStatement();
-                //stml.execute(SQL);
+                stml.execute(SQL);
                 System.out.print(SQL);
                 count++;
             }
