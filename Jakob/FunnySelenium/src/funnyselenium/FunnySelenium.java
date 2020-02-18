@@ -17,17 +17,25 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author shatt
  */
 public class FunnySelenium {
     public static WebDriver driver;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\chromeDriver\\chromedriver.exe");
         System.out.println("Test Iniatiated");
         driver = new ChromeDriver();
         driver.get("https://li-public.fmcsa.dot.gov/LIVIEW/pkg_oos_process.prc_list?pv_vpath=LIVIEW&pv_show_all=N&pn_dotno=&pn_docket=&pv_legalname=&s_state=INUS");
+        GoogleKey j = new GoogleKey();
+        Connection con = DriverManager.getConnection(j.ConString);
         WebElement simpleTable = driver.findElement(By.xpath("/html/body/font/table[2]/tbody")); 
         // Get all rows 
         List<WebElement> rows = simpleTable.findElements(By.tagName("tr")); 
@@ -42,6 +50,7 @@ public class FunnySelenium {
         String Status = "";
         String Geolocation = "";
         String DBAName = "";
+        String SQL = "";
         int count = 0;
         //runs through the rows
         for (WebElement row : rows) { 
@@ -87,7 +96,11 @@ public class FunnySelenium {
                     System.out.println(ex.getMessage());
                 }*/
                 //prints data
-                System.out.print(ID + " | " + LegalName + " |" + DBAName + "| " + Address + " | " + OOSReason + " | " + OOSDate + " | " + Status + " | " + Geolocation + " | ");
+                String today = getDate();
+                SQL = "insert into LiquidatedCompanys values('" + ID + "', '" + LegalName + "', '" + DBAName + "', '" + Address + "', '" + OOSReason + "', '" + OOSDate + "', '" + Status + "', '" + Geolocation + "', '" + today + "')";
+                Statement stml = con.createStatement();
+                //stml.execute(SQL);
+                System.out.print(SQL);
                 count++;
             }
             System.out.println();
@@ -101,5 +114,9 @@ public class FunnySelenium {
         System.out.println(count);
         driver.close();
     }
-    
+    private static String getDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        return  "update" + dtf.format(localDate).replaceAll("/","-");
+    }
 }
