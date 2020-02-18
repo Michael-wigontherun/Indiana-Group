@@ -15,7 +15,7 @@ namespace Indiana.Controllers
     public class TruckingCompaniesController : Controller
     {
         private readonly ApplicationDbContext Database;
-
+        
         public TruckingCompaniesController(ApplicationDbContext context)
         {
             Database = context;
