@@ -23,13 +23,17 @@ import java.util.ArrayList;
 public class FunnySelenium {
     public static WebDriver driver;
     public static void main(String[] args) throws SQLException {
-        stripData();
+        //stripData();
+        compareTables();
     }
     //gets the current date for one variable
     private static String getDate(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.now();
         return  "update" + dtf.format(localDate).replaceAll("/","-");
+    }
+    private static void compareTables(){
+        
     }
     private static void stripData() throws SQLException{
         //Code to strip data from table
