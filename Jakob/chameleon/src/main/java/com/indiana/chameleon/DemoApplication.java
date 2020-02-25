@@ -17,12 +17,15 @@ public class DemoApplication {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public List<LiquidTable> compareTable() {
 		List response = new ArrayList<LiquidTable>();
-		List response2 = new ArrayList<LiquidTable>();
+		List response2 = new ArrayList<TruckingTable>();
+		Connect database = new Connect();
 		String SQL;
 		SQL = "select * from LiquidatedCompanys";
 		LiquidTable table = new LiquidTable();
+		TruckingTable truck = new TruckingTable();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(database.connection);
             Statement stmt = conn.createStatement();
 			ResultSet records = stmt.executeQuery(SQL);
 			while(records.next()){
@@ -35,7 +38,16 @@ public class DemoApplication {
 				table.OOSDate = records.getString("OOSDate");
 				table.Status = records.getString("Status");
 				table.GeoLocation = records.getString("GeoLocation");
-				table.adminID = records.getString("adminID");
+				table.adminID = records.getString("addminID");
+				response.add(table);
+			}
+			SQL = "select * from TruckingCompanies";
+			ResultSet records2 = stmt.executeQuery(SQL);
+
+			while(records.next()){
+				truck = new TruckingTable();
+				
+				response2.add(truck);
 			}
 		} 
 		catch (ClassNotFoundException e) {
