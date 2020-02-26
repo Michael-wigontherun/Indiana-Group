@@ -23,10 +23,24 @@ import java.util.ArrayList;
 public class FunnySelenium {
     public static WebDriver driver;
     public static void main(String[] args) throws SQLException {
+        //stripData();
+        compareTables();
+    }
+    //gets the current date for one variable
+    private static String getDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        return  "update" + dtf.format(localDate).replaceAll("/","-");
+    }
+    private static void compareTables(){
+        
+    }
+    private static void stripData() throws SQLException{
+        //Code to strip data from table
         System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\chromeDriver\\chromedriver.exe");
         System.out.println("Test Iniatiated");
         driver = new ChromeDriver();
-       driver.get("https://li-public.fmcsa.dot.gov/LIVIEW/pkg_oos_process.prc_list?pv_vpath=LIVIEW&pv_show_all=N&pn_dotno=&pn_docket=&pv_legalname=&s_state=INUS");
+        driver.get("https://li-public.fmcsa.dot.gov/LIVIEW/pkg_oos_process.prc_list?pv_vpath=LIVIEW&pv_show_all=N&pn_dotno=&pn_docket=&pv_legalname=&s_state=INUS");
         ArrayList<String> usdotID = new ArrayList();
         usdotID.add("");
         GoogleKey j = new GoogleKey();
@@ -128,11 +142,5 @@ public class FunnySelenium {
         //prints count so that the amount of inserted rows is visible
         System.out.println(count);
         driver.close();
-    }
-    //gets the current date for one variable
-    private static String getDate(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate localDate = LocalDate.now();
-        return  "update" + dtf.format(localDate).replaceAll("/","-");
     }
 }
