@@ -16,6 +16,12 @@
     </div>
 </form>
 <!--Do not mess with this code above-->
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table table-striped table-bordered table-hover table-sm">
     <thead>
         <tr>
@@ -30,14 +36,7 @@
                 @Html.DisplayNameFor(model => model.Dbaname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CARRIER_OPERATION_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HM_FLAG_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.PC_FLAG_)
+                Carrier<br /> Operation
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PHY_STREET_)
@@ -70,6 +69,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.PHY_COUNTRY_)
                 <br />
+                ---
+                <br />
                 @Html.DisplayNameFor(model => model.MAILING_COUNTRY_)
             </th>
             <th>
@@ -84,31 +85,17 @@
                 @Html.DisplayNameFor(model => model.EMAIL_ADDRESS_)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MCS150_DATE_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MCS150_MILEAGE_)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.MCS150_MILEAGE_YEAR_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayNameFor(model => model.MCS150_MILEAGE_)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ADD_DATE_)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OIC_STATE_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NBR_POWER_UNIT_)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GeoLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.addminID)
             </th>
             <th></th>
         </tr>
@@ -116,106 +103,93 @@
     <tbody>
         @foreach (var item in (List<TruckingCompanies>)(ViewData["List"]))
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usdot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LegalName)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.Dbaname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CARRIER_OPERATION_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HM_FLAG_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.PC_FLAG_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_STREET_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_STREET_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_CITY_)
-                <br /> 
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_CITY_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_STATE_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_STATE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_ZIP_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_ZIP_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_COUNTRY_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_COUNTRY_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TELEPHONE_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.FAX_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.EMAIL_ADDRESS_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MCS150_DATE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_YEAR_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ADD_DATE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OIC_STATE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NBR_POWER_UNIT_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GeoLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.addminID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Usdot">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usdot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LegalName)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Dbaname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CARRIER_OPERATION_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHY_STREET_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.MAILING_STREET_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHY_CITY_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.MAILING_CITY_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHY_STATE_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.MAILING_STATE_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHY_ZIP_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.MAILING_ZIP_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHY_COUNTRY_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.MAILING_COUNTRY_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TELEPHONE_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.FAX_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.EMAIL_ADDRESS_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_YEAR_)
+                    <br />
+                    ---
+                    <br />
+                    @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADD_DATE_)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
+                </td>
+                <td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
+                    }
+                    |
+                    <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
+                    |
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
