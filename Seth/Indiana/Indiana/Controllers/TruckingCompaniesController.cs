@@ -29,6 +29,7 @@ namespace Indiana.Controllers
 
             //below is for pagination
             //do not touch below
+            ViewData["SearchString"] = "";
             ViewData["UserID"] = GetCurrentUserID();
             List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = 1;
@@ -40,14 +41,22 @@ namespace Indiana.Controllers
             //do not touch above
         }
         [HttpPost]
-        public async Task<IActionResult> Index(int page)
+        public async Task<IActionResult> Index(int page, string keyword = "")
         {
             //if you add something here you must do it in main index
 
             //below is for pagination
             //do not touch below
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+            ViewData["SearchString"] = keyword;
+            List<TruckingCompanies> list = await Database.TruckingCompanies
+                .Where(b => b.LegalName.Contains(keyword) == true || 
+                b.Dbaname.Contains(keyword) == true)
+                .ToListAsync();
             ViewData["UserID"] = GetCurrentUserID();
-            List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = page;
             ViewData["pages"] = GetPageAmount(list.Count(), countPerPage);
             ViewData["pageList"] = getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
