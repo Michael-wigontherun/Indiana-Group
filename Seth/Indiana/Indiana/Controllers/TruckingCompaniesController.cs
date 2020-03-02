@@ -29,6 +29,11 @@ namespace Indiana.Controllers
 
             //below is for pagination
             //do not touch below
+            ViewData["currenthmflag"] = "";
+            ViewData["hmflaglist"] = new List<string>() { "Y", "N" };
+            ViewData["currentpcflag"] = "";
+            ViewData["pcflaglist"] = new List<string>() { "Y", "N" };
+            ViewData["SearchString"] = "";
             ViewData["UserID"] = GetCurrentUserID();
             List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = 1;
@@ -40,14 +45,72 @@ namespace Indiana.Controllers
             //do not touch above
         }
         [HttpPost]
-        public async Task<IActionResult> Index(int page)
+        public async Task<IActionResult> Index(int page, string keyword, String hmflag, String pcflag) 
         {
             //if you add something here you must do it in main index
 
             //below is for pagination
             //do not touch below
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+            if (hmflag == null)
+            {
+                hmflag = "";
+            }
+            if (pcflag == null)
+            {
+                pcflag = "";
+            }
+            List<TruckingCompanies> list;
+            if (keyword != "" && hmflag != "" && pcflag != "") {
+                list = await Database.TruckingCompanies
+                    .Where(b => b.LegalName.Contains(keyword) == true ||
+                    b.Dbaname.Contains(keyword) == true)
+                    .Where(b => b.HM_FLAG_ == hmflag)
+                    .Where(b => b.PC_FLAG_ == pcflag).ToListAsync();
+            }
+            else if (keyword == "" && hmflag == "" && pcflag != "")
+            {
+                list = await Database.TruckingCompanies
+                    .Where(b => b.PC_FLAG_ == pcflag).ToListAsync();
+            }
+            else if (keyword == "" && hmflag != "" && pcflag == "")
+            {
+                list = await Database.TruckingCompanies
+                    .Where(b => b.HM_FLAG_ == hmflag).ToListAsync();
+            }
+            else if (keyword != "" && hmflag != "" && pcflag == "")
+            {
+                list = await Database.TruckingCompanies
+                    .Where(b => b.LegalName.Contains(keyword) == true ||
+                    b.Dbaname.Contains(keyword) == true)
+                    .Where(b => b.HM_FLAG_ == hmflag).ToListAsync();
+            }
+            else if (keyword != "" && hmflag == "" && pcflag != "")
+            {
+                list = await Database.TruckingCompanies
+                    .Where(b => b.LegalName.Contains(keyword) == true ||
+                    b.Dbaname.Contains(keyword) == true)
+                    .Where(b => b.PC_FLAG_ == pcflag).ToListAsync();
+            }
+            else if (keyword != "" && hmflag == "" && pcflag == "")
+            {
+                list = await Database.TruckingCompanies
+                    .Where(b => b.LegalName.Contains(keyword) == true ||
+                    b.Dbaname.Contains(keyword) == true).ToListAsync();
+            }
+            else
+            {
+                list = await Database.TruckingCompanies.ToListAsync();
+            }
+            ViewData["currenthmflag"] = hmflag;
+            ViewData["hmflaglist"] = new List<string>() { "Y", "N" };
+            ViewData["currentpcflag"] = pcflag;
+            ViewData["pcflaglist"] = new List<string>() { "Y", "N" };
+            ViewData["SearchString"] = keyword;
             ViewData["UserID"] = GetCurrentUserID();
-            List<TruckingCompanies> list = await Database.TruckingCompanies.ToListAsync();
             ViewData["Page"] = page;
             ViewData["pages"] = GetPageAmount(list.Count(), countPerPage);
             ViewData["pageList"] = getPageOptions((int)ViewData["Page"], (int)ViewData["pages"]);
