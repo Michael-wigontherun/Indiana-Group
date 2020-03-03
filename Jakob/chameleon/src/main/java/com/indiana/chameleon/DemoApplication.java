@@ -18,12 +18,16 @@ public class DemoApplication {
 	public List<LiquidTable> compareTable() {
 		List response = new ArrayList<LiquidTable>();
 		List response2 = new ArrayList<TruckingTable>();
+		List response3 = new ArrayList<Chameleon>();
+		Connection conn;
 		String SQL;
 		SQL = "select * from LiquidatedCompanys";
 		LiquidTable table = new LiquidTable();
 		TruckingTable truck = new TruckingTable();
+		Chameleon cham = new Chameleon();
 		try {
-            Connection conn = DriverManager.getConnection(ConnectionString.connectionString);
+            conn = DriverManager.getConnection(ConnectionString.connectionString);
+
             Statement stmt = conn.createStatement();
 			ResultSet records = stmt.executeQuery(SQL);
 			while(records.next()){
@@ -41,11 +45,28 @@ public class DemoApplication {
 			}
 			SQL = "select * from TruckingCompanies";
 			ResultSet records2 = stmt.executeQuery(SQL);
-
 			while(records.next()){
 				truck = new TruckingTable();
-				
+				truck.USDOT = records2.getString("USDOT");
+				truck.LegalName = records2.getString("LegalName");
+				truck.DBAName = records2.getString("DBAName");
+				truck.MCS150_Date = records2.getString("MCS150_Date");
+				truck.PHY_STREET_ = records2.getString("PHY_STREET_");
+				truck.PHY_CITY_ = records2.getString("PHY_CITY_");
+				truck.PHY_STATE_ = records2.getString("PHY_STATE_");
+				truck.PHY_ZIP_ = records2.getString("PHY_ZIP_");
+				truck.GeoLocation = records2.getString("GeoLocation");
+				truck.Address = truck.PHY_STREET_ + " " + truck.PHY_CITY_ + ", " + truck.PHY_STATE_ + " " + truck.PHY_ZIP_;
 				response2.add(truck);
+				for(int x = 0; x < response.size(); x++){
+					cham = new Chameleon();
+					if ((truck.Address.equals(((LiquidTable) response.get(x)).Address))
+							&& (truck.GeoLocation.equals(((LiquidTable) response.get(x)).GeoLocation))) {
+						cham.USDOT = truck.USDOT;
+						cham.adminID= "3/2/2020";
+						response3.add(cham);
+					}
+				}
 			}
 		} 
 		catch (ClassNotFoundException e) {
@@ -55,7 +76,7 @@ public class DemoApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return response;
+		return response3;
 	}
 
 }
