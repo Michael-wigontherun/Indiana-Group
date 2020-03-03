@@ -23,14 +23,16 @@ using Indiana.Models;
 
 #line default
 #line hidden
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"789b701090536cc43809f61ada441d88f0bd87fd", @"/Views/ChameleonCompanies/Index.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"143e23e51f68a1afdca11cfb890368678871c840", @"/Views/ChameleonCompanies/Index.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ac064a92acf5a4afadc4d0f453fe79576e450585", @"/Views/_ViewImports.cshtml")]
     public class Views_ChameleonCompanies_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<Indiana.Models.ChameleonCompanies>>
     {
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Edit", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Details", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Delete", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Index", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Edit", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_4 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Details", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_5 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Delete", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         #line hidden
         #pragma warning disable 0169
         private string __tagHelperStringValueBuffer;
@@ -49,6 +51,8 @@ using Indiana.Models;
                 return __backed__tagHelperScopeManager;
             }
         }
+        private global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper;
+        private global::Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
@@ -62,16 +66,114 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(98, 18, true);
-            WriteLiteral("\r\n<h1>Index</h1>\r\n");
+            BeginContext(98, 59, true);
+            WriteLiteral("\r\n<h1>Index</h1>\r\n<!--Do not mess with this code below-->\r\n");
             EndContext();
-#line 8 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+            BeginContext(157, 713, false);
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "143e23e51f68a1afdca11cfb890368678871c8405767", async() => {
+                BeginContext(196, 176, true);
+                WriteLiteral("\r\n    <div class=\"form-group col\" style=\"padding-right:1em;\">\r\n        <input class=\"form-control select-custom-me\" type=\"text\" name=\"keyword\" id=\"keyword\" placeholder=\"Search\"");
+                EndContext();
+                BeginWriteAttribute("value", " value=\"", 372, "\"", 405, 1);
+#line 11 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+WriteAttributeValue("", 380, ViewData["SearchString"], 380, 25, false);
+
+#line default
+#line hidden
+                EndWriteAttribute();
+                BeginContext(406, 162, true);
+                WriteLiteral(" />\r\n    </div>\r\n    <div class=\"form-group col\">\r\n        <button type=\"search\" class=\"btn btn-primary\">Search</button>\r\n    </div>\r\n    <div class=\"form-row\">\r\n");
+                EndContext();
+#line 17 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+         foreach (int i in (List<int>)(ViewData["pageList"]))
+        {
+
+#line default
+#line hidden
+                BeginContext(642, 31, true);
+                WriteLiteral("            <input type=\"radio\"");
+                EndContext();
+                BeginWriteAttribute("id", " id=\"", 673, "\"", 686, 3);
+                WriteAttributeValue("", 678, "page{", 678, 5, true);
+#line 19 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+WriteAttributeValue("", 683, i, 683, 2, false);
+
+#line default
+#line hidden
+                WriteAttributeValue("", 685, "}", 685, 1, true);
+                EndWriteAttribute();
+                BeginContext(687, 19, true);
+                WriteLiteral(" name=\"page\" hidden");
+                EndContext();
+                BeginWriteAttribute("value", " value=\"", 706, "\"", 716, 1);
+#line 19 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+WriteAttributeValue("", 714, i, 714, 2, false);
+
+#line default
+#line hidden
+                EndWriteAttribute();
+                BeginContext(717, 95, true);
+                WriteLiteral(" onchange=\"this.form.submit();\">\r\n            <label class=\"btn-link\" style=\"padding-right:5px\"");
+                EndContext();
+                BeginWriteAttribute("for", " for=\"", 812, "\"", 826, 3);
+                WriteAttributeValue("", 818, "page{", 818, 5, true);
+#line 20 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+WriteAttributeValue("", 823, i, 823, 2, false);
+
+#line default
+#line hidden
+                WriteAttributeValue("", 825, "}", 825, 1, true);
+                EndWriteAttribute();
+                BeginContext(827, 1, true);
+                WriteLiteral(">");
+                EndContext();
+                BeginContext(829, 1, false);
+#line 20 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+                                                                        Write(i);
+
+#line default
+#line hidden
+                EndContext();
+                BeginContext(830, 10, true);
+                WriteLiteral("</label>\r\n");
+                EndContext();
+#line 21 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+        }
+
+#line default
+#line hidden
+                BeginContext(851, 12, true);
+                WriteLiteral("    </div>\r\n");
+                EndContext();
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper.Method = (string)__tagHelperAttribute_0.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_0);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper.Action = (string)__tagHelperAttribute_1.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            EndContext();
+            BeginContext(870, 43, true);
+            WriteLiteral("\r\n<!--Do not mess with this code above-->\r\n");
+            EndContext();
+#line 25 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
+
  if (User.IsInRole("Administrator"))
 {
 
 #line default
 #line hidden
-            BeginContext(157, 17, true);
+            BeginContext(954, 17, true);
             WriteLiteral("    <p>\r\n        ");
             EndContext();
             BeginContext(174, 37, false);
@@ -83,8 +185,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_0.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_0);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_2.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -93,7 +195,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(211, 12, true);
+            BeginContext(1008, 12, true);
             WriteLiteral("\r\n    </p>\r\n");
             EndContext();
 #line 13 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
@@ -101,8 +203,8 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(226, 240, true);
-            WriteLiteral("    <table class=\"table table-striped table-bordered table-hover table-sm\">\r\n        <thead>\r\n            <tr>\r\n                <th>\r\n\r\n                </th>\r\n                <th></th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n");
+            BeginContext(1023, 204, true);
+            WriteLiteral("<table class=\"table table-striped table-bordered table-hover table-sm\">\r\n    <thead>\r\n        <tr>\r\n            <th>\r\n\r\n            </th>\r\n            <th></th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
             EndContext();
 #line 24 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
              foreach (var item in Model)
@@ -110,8 +212,8 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(523, 101, true);
-            WriteLiteral("                <tr>\r\n                    <td>\r\n                    </td>\r\n                    <td>\r\n");
+            BeginContext(1276, 85, true);
+            WriteLiteral("            <tr>\r\n                <td>\r\n                </td>\r\n                <td>\r\n");
             EndContext();
 #line 30 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
                          if (User.IsInRole("Administrator"))
@@ -119,8 +221,8 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(713, 28, true);
-            WriteLiteral("                            ");
+            BeginContext(1442, 24, true);
+            WriteLiteral("                        ");
             EndContext();
             BeginContext(741, 56, false);
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "789b701090536cc43809f61ada441d88f0bd87fd7706", async() => {
@@ -131,13 +233,14 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_1.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_3.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_3);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
             }
             BeginWriteTagHelperAttribute();
+
 #line 32 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
                                                    WriteLiteral(item.Usdot);
 
@@ -154,7 +257,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(797, 2, true);
+            BeginContext(1522, 2, true);
             WriteLiteral("\r\n");
             EndContext();
 #line 33 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
@@ -162,8 +265,8 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(826, 51, true);
-            WriteLiteral("                        |\r\n                        ");
+            BeginContext(1547, 43, true);
+            WriteLiteral("                    |\r\n                    ");
             EndContext();
             BeginContext(877, 62, false);
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "789b701090536cc43809f61ada441d88f0bd87fd10365", async() => {
@@ -174,8 +277,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_2.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_4.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_4);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -197,8 +300,8 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(939, 29, true);
-            WriteLiteral("\r\n                        |\r\n");
+            BeginContext(1652, 25, true);
+            WriteLiteral("\r\n                    |\r\n");
             EndContext();
 #line 37 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
                          if (User.IsInRole("Administrator"))
@@ -206,8 +309,8 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(1057, 28, true);
-            WriteLiteral("                            ");
+            BeginContext(1758, 24, true);
+            WriteLiteral("                        ");
             EndContext();
             BeginContext(1085, 60, false);
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "789b701090536cc43809f61ada441d88f0bd87fd13096", async() => {
@@ -218,8 +321,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_3.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_3);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_5.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_5);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -241,7 +344,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(1145, 2, true);
+            BeginContext(1842, 2, true);
             WriteLiteral("\r\n");
             EndContext();
 #line 40 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
@@ -249,16 +352,17 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(1174, 50, true);
-            WriteLiteral("                    </td>\r\n                </tr>\r\n");
+            BeginContext(1867, 42, true);
+            WriteLiteral("                </td>\r\n            </tr>\r\n");
             EndContext();
+
 #line 43 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\ChameleonCompanies\Index.cshtml"
             }
 
 #line default
 #line hidden
-            BeginContext(1239, 32, true);
-            WriteLiteral("        </tbody>\r\n    </table>\r\n");
+            BeginContext(1920, 24, true);
+            WriteLiteral("    </tbody>\r\n</table>\r\n");
             EndContext();
         }
         #pragma warning restore 1998

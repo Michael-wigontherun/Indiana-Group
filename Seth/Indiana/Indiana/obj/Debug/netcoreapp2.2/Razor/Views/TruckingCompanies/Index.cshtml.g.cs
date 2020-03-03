@@ -23,6 +23,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
+
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1c717efa7de0d3fad7674f8a494d2a687daaaee9", @"/Views/TruckingCompanies/Index.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ac064a92acf5a4afadc4d0f453fe79576e450585", @"/Views/_ViewImports.cshtml")]
     public class Views_TruckingCompanies_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<Indiana.Models.TruckingCompanies>>
@@ -344,6 +345,7 @@ WriteAttributeValue("", 417, ViewData["SearchString"], 417, 25, false);
 
 #line default
 #line hidden
+
                 BeginContext(2207, 31, true);
                 WriteLiteral("            <input type=\"radio\"");
                 EndContext();
@@ -366,6 +368,7 @@ WriteAttributeValue("", 2279, i, 2279, 2, false);
 #line default
 #line hidden
                 EndWriteAttribute();
+
                 BeginContext(2282, 95, true);
                 WriteLiteral(" onchange=\"this.form.submit();\">\r\n            <label class=\"btn-link\" style=\"padding-right:5px\"");
                 EndContext();
@@ -388,6 +391,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
 #line default
 #line hidden
                 EndContext();
+
                 BeginContext(2395, 10, true);
                 WriteLiteral("</label>\r\n");
                 EndContext();
@@ -396,6 +400,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
 
 #line default
 #line hidden
+
                 BeginContext(2416, 12, true);
                 WriteLiteral("    </div>\r\n");
                 EndContext();
@@ -417,6 +422,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
+
             BeginContext(2435, 43, true);
             WriteLiteral("\r\n<!--Do not mess with this code above-->\r\n");
             EndContext();
@@ -426,6 +432,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
 
 #line default
 #line hidden
+
             BeginContext(2519, 17, true);
             WriteLiteral("    <p>\r\n        ");
             EndContext();
@@ -448,6 +455,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
+
             BeginContext(2573, 12, true);
             WriteLiteral("\r\n    </p>\r\n");
             EndContext();
@@ -884,6 +892,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
 
 #line default
 #line hidden
+
             BeginContext(8124, 24, true);
             WriteLiteral("                        ");
             EndContext();
@@ -903,6 +912,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
             }
             BeginWriteTagHelperAttribute();
+
 #line 226 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\TruckingCompanies\Index.cshtml"
                                                WriteLiteral(item.Usdot);
 
@@ -919,6 +929,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
+
             BeginContext(8204, 2, true);
             WriteLiteral("\r\n");
             EndContext();
@@ -927,6 +938,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
 
 #line default
 #line hidden
+
             BeginContext(8229, 43, true);
             WriteLiteral("                    |\r\n                    ");
             EndContext();
@@ -946,6 +958,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
             }
             BeginWriteTagHelperAttribute();
+
 #line 229 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\TruckingCompanies\Index.cshtml"
                                               WriteLiteral(item.Usdot);
 
@@ -971,6 +984,7 @@ WriteAttributeValue("", 2388, i, 2388, 2, false);
 
 #line default
 #line hidden
+
             BeginContext(8440, 24, true);
             WriteLiteral("                        ");
             EndContext();

@@ -23,14 +23,16 @@ using Indiana.Models;
 
 #line default
 #line hidden
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0b9a68dd035aa2bd20be3c8fc47656ea965852c4", @"/Views/LiquidatedCompanys/Index.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d46871da7306ebda29adf79499f3614b0367e306", @"/Views/LiquidatedCompanys/Index.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ac064a92acf5a4afadc4d0f453fe79576e450585", @"/Views/_ViewImports.cshtml")]
     public class Views_LiquidatedCompanys_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<Indiana.Models.LiquidatedCompanys>>
     {
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Edit", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Details", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Delete", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "post", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Index", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Edit", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_4 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Details", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_5 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Delete", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         #line hidden
         #pragma warning disable 0169
         private string __tagHelperStringValueBuffer;
@@ -49,6 +51,8 @@ using Indiana.Models;
                 return __backed__tagHelperScopeManager;
             }
         }
+        private global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper;
+        private global::Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
@@ -62,16 +66,113 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(98, 20, true);
-            WriteLiteral("\r\n<h1>Index</h1>\r\n\r\n");
+            BeginContext(98, 59, true);
+            WriteLiteral("\r\n<h1>Index</h1>\r\n<!--Do not mess with this code below-->\r\n");
             EndContext();
-#line 9 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+            BeginContext(157, 713, false);
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d46871da7306ebda29adf79499f3614b0367e3065767", async() => {
+                BeginContext(196, 176, true);
+                WriteLiteral("\r\n    <div class=\"form-group col\" style=\"padding-right:1em;\">\r\n        <input class=\"form-control select-custom-me\" type=\"text\" name=\"keyword\" id=\"keyword\" placeholder=\"Search\"");
+                EndContext();
+                BeginWriteAttribute("value", " value=\"", 372, "\"", 405, 1);
+#line 11 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+WriteAttributeValue("", 380, ViewData["SearchString"], 380, 25, false);
+
+#line default
+#line hidden
+                EndWriteAttribute();
+                BeginContext(406, 162, true);
+                WriteLiteral(" />\r\n    </div>\r\n    <div class=\"form-group col\">\r\n        <button type=\"search\" class=\"btn btn-primary\">Search</button>\r\n    </div>\r\n    <div class=\"form-row\">\r\n");
+                EndContext();
+#line 17 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+         foreach (int i in (List<int>)(ViewData["pageList"]))
+        {
+
+#line default
+#line hidden
+                BeginContext(642, 31, true);
+                WriteLiteral("            <input type=\"radio\"");
+                EndContext();
+                BeginWriteAttribute("id", " id=\"", 673, "\"", 686, 3);
+                WriteAttributeValue("", 678, "page{", 678, 5, true);
+#line 19 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+WriteAttributeValue("", 683, i, 683, 2, false);
+
+#line default
+#line hidden
+                WriteAttributeValue("", 685, "}", 685, 1, true);
+                EndWriteAttribute();
+                BeginContext(687, 19, true);
+                WriteLiteral(" name=\"page\" hidden");
+                EndContext();
+                BeginWriteAttribute("value", " value=\"", 706, "\"", 716, 1);
+#line 19 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+WriteAttributeValue("", 714, i, 714, 2, false);
+
+#line default
+#line hidden
+                EndWriteAttribute();
+                BeginContext(717, 95, true);
+                WriteLiteral(" onchange=\"this.form.submit();\">\r\n            <label class=\"btn-link\" style=\"padding-right:5px\"");
+                EndContext();
+                BeginWriteAttribute("for", " for=\"", 812, "\"", 826, 3);
+                WriteAttributeValue("", 818, "page{", 818, 5, true);
+#line 20 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+WriteAttributeValue("", 823, i, 823, 2, false);
+
+#line default
+#line hidden
+                WriteAttributeValue("", 825, "}", 825, 1, true);
+                EndWriteAttribute();
+                BeginContext(827, 1, true);
+                WriteLiteral(">");
+                EndContext();
+                BeginContext(829, 1, false);
+#line 20 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+                                                                        Write(i);
+
+#line default
+#line hidden
+                EndContext();
+                BeginContext(830, 10, true);
+                WriteLiteral("</label>\r\n");
+                EndContext();
+#line 21 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
+        }
+
+#line default
+#line hidden
+                BeginContext(851, 12, true);
+                WriteLiteral("    </div>\r\n");
+                EndContext();
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper.Method = (string)__tagHelperAttribute_0.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_0);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper.Action = (string)__tagHelperAttribute_1.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            EndContext();
+            BeginContext(870, 43, true);
+            WriteLiteral("\r\n<!--Do not mess with this code above-->\r\n");
+            EndContext();
+#line 25 "D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
  if (User.IsInRole("Administrator"))
 {
 
 #line default
 #line hidden
-            BeginContext(159, 17, true);
+            BeginContext(954, 17, true);
             WriteLiteral("    <p>\r\n        ");
             EndContext();
             BeginContext(176, 37, false);
@@ -83,8 +184,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_0.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_0);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_2.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -93,7 +194,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(213, 12, true);
+            BeginContext(1008, 12, true);
             WriteLiteral("\r\n    </p>\r\n");
             EndContext();
 #line 14 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -101,7 +202,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(228, 134, true);
+            BeginContext(1023, 134, true);
             WriteLiteral("<table class=\"table table-striped table-bordered table-hover table-sm\">\r\n    <thead>\r\n        <tr>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(363, 41, false);
@@ -111,7 +212,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(404, 55, true);
+            BeginContext(1199, 55, true);
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(460, 45, false);
@@ -121,7 +222,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(505, 42, true);
+            BeginContext(1300, 42, true);
             WriteLiteral("\r\n                <br />\r\n                ");
             EndContext();
             BeginContext(548, 43, false);
@@ -131,7 +232,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(591, 55, true);
+            BeginContext(1386, 55, true);
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(647, 43, false);
@@ -141,7 +242,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(690, 55, true);
+            BeginContext(1485, 55, true);
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(746, 45, false);
@@ -151,7 +252,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(791, 55, true);
+            BeginContext(1586, 55, true);
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(847, 43, false);
@@ -161,7 +262,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(890, 55, true);
+            BeginContext(1685, 55, true);
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(946, 42, false);
@@ -171,7 +272,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(988, 55, true);
+            BeginContext(1783, 55, true);
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
             EndContext();
             BeginContext(1044, 47, false);
@@ -181,7 +282,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1091, 86, true);
+            BeginContext(1886, 86, true);
             WriteLiteral("\r\n            </th>\r\n            <th></th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n");
             EndContext();
 #line 45 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -190,7 +291,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(1226, 60, true);
+            BeginContext(2021, 60, true);
             WriteLiteral("            <tr>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1287, 40, false);
@@ -200,7 +301,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1327, 67, true);
+            BeginContext(2122, 67, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1395, 44, false);
@@ -210,7 +311,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1439, 50, true);
+            BeginContext(2234, 50, true);
             WriteLiteral("\r\n                    <br />\r\n                    ");
             EndContext();
             BeginContext(1490, 42, false);
@@ -220,7 +321,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1532, 67, true);
+            BeginContext(2327, 67, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1600, 42, false);
@@ -230,7 +331,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1642, 67, true);
+            BeginContext(2437, 67, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1710, 44, false);
@@ -240,7 +341,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1754, 67, true);
+            BeginContext(2549, 67, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1822, 42, false);
@@ -250,7 +351,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1864, 67, true);
+            BeginContext(2659, 67, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(1932, 41, false);
@@ -260,7 +361,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(1973, 67, true);
+            BeginContext(2768, 67, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
             EndContext();
             BeginContext(2041, 46, false);
@@ -270,7 +371,7 @@ using Indiana.Models;
 #line default
 #line hidden
             EndContext();
-            BeginContext(2087, 47, true);
+            BeginContext(2882, 47, true);
             WriteLiteral("\r\n                </td>\r\n                <td>\r\n");
             EndContext();
 #line 72 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -279,7 +380,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(2215, 24, true);
+            BeginContext(3010, 24, true);
             WriteLiteral("                        ");
             EndContext();
             BeginContext(2239, 56, false);
@@ -291,8 +392,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_1.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_3.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_3);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -314,7 +415,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(2295, 2, true);
+            BeginContext(3090, 2, true);
             WriteLiteral("\r\n");
             EndContext();
 #line 75 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -322,7 +423,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(2320, 43, true);
+            BeginContext(3115, 43, true);
             WriteLiteral("                    |\r\n                    ");
             EndContext();
             BeginContext(2363, 62, false);
@@ -334,8 +435,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_2.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_4.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_4);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -357,7 +458,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(2425, 25, true);
+            BeginContext(3220, 25, true);
             WriteLiteral("\r\n                    |\r\n");
             EndContext();
 #line 79 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -366,7 +467,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(2531, 24, true);
+            BeginContext(3326, 24, true);
             WriteLiteral("                        ");
             EndContext();
             BeginContext(2555, 60, false);
@@ -378,8 +479,8 @@ using Indiana.Models;
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_3.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_3);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_5.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_5);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -401,7 +502,7 @@ using Indiana.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             EndContext();
-            BeginContext(2615, 2, true);
+            BeginContext(3410, 2, true);
             WriteLiteral("\r\n");
             EndContext();
 #line 82 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -409,7 +510,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(2640, 42, true);
+            BeginContext(3435, 42, true);
             WriteLiteral("                </td>\r\n            </tr>\r\n");
             EndContext();
 #line 85 "F:\IndianaGroup\Indiana-Group\Seth\Indiana\Indiana\Views\LiquidatedCompanys\Index.cshtml"
@@ -417,7 +518,7 @@ using Indiana.Models;
 
 #line default
 #line hidden
-            BeginContext(2693, 24, true);
+            BeginContext(3488, 24, true);
             WriteLiteral("    </tbody>\r\n</table>\r\n");
             EndContext();
         }
