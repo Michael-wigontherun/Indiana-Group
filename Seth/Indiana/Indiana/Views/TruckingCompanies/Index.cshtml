@@ -7,11 +7,49 @@
 <h1>Index</h1>
 <!--Do not mess with this code below-->
 <form method="post" asp-action="Index">
-    <div class="form-group col" style="padding-right:1em;">
-        <input class="form-control select-custom-me" type="text" name="keyword" id="keyword" placeholder="Search" value="@ViewData["SearchString"]" />
+    <div class="form-row">
+        <div class="form-group col-6" style="padding-right:1em;">
+            <input class="form-control select-custom-me" type="text" name="keyword" id="keyword" placeholder="Search" value="@ViewData["SearchString"]" />
+        </div>
+        <div class="form-group col-3">
+            <button type="search" class="btn btn-primary">Search</button>
+        </div>
     </div>
-    <div class="form-group col">
-        <button type="search" class="btn btn-primary">Search</button>
+    <div class="form-row">
+        <div class="form-group" style="padding-right:1em;">
+            <label for="hmflag">HM flaged or not.</label>
+            <select name="hmflag" id="hmflag" class="custom-select">
+                <option value="">Select HM Flag</option>
+                @foreach (var item in ((List<string>)(ViewData["hmflaglist"])))
+                {
+                    if (item == ((string)(ViewData["currenthmflag"])))
+                    {
+                        <option value="@item" selected>@item</option>
+                    }
+                    else
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group" style="padding-right:1em;">
+            <label for="pcflag">PC flaged or not.</label>
+            <select name="pcflag" id="pcflag" class="custom-select">
+                <option value="">Select PC Flag</option>
+                @foreach (var item in ((List<string>)(ViewData["pcflaglist"])))
+                {
+                    if (item == ((string)(ViewData["currentpcflag"])))
+                    {
+                        <option value="@item" selected>@item</option>
+                    }
+                    else
+                    {
+                        <option value="@item">@item</option>
+                    }
+                }
+            </select>
+        </div>
     </div>
     <div class="form-row">
         @foreach (int i in (List<int>)(ViewData["pageList"]))
