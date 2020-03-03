@@ -18,14 +18,12 @@ public class DemoApplication {
 	public List<LiquidTable> compareTable() {
 		List response = new ArrayList<LiquidTable>();
 		List response2 = new ArrayList<TruckingTable>();
-		Connect database = new Connect();
 		String SQL;
 		SQL = "select * from LiquidatedCompanys";
 		LiquidTable table = new LiquidTable();
 		TruckingTable truck = new TruckingTable();
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(database.connection);
+            Connection conn = DriverManager.getConnection(ConnectionString.connectionString);
             Statement stmt = conn.createStatement();
 			ResultSet records = stmt.executeQuery(SQL);
 			while(records.next()){
