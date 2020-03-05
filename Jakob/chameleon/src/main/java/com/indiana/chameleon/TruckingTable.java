@@ -10,7 +10,7 @@ public class TruckingTable{
     String PHY_CITY_;
     String PHY_STATE_;
     String PHY_ZIP_;
-    String Address;
+    
     public String getUSDOT() {
         return USDOT;
     }
@@ -81,6 +81,18 @@ public class TruckingTable{
 
     public void setPHY_ZIP_(String pHY_ZIP_) {
         PHY_ZIP_ = pHY_ZIP_;
+    }
+
+    public TruckingTable() {
+        USDOT = "";
+        LegalName = "";
+        DBAName = "";
+        MCS150_Date = "";
+        GeoLocation = "";
+        PHY_STREET_ = "";
+        PHY_CITY_ = "";
+        PHY_STATE_ = "";
+        PHY_ZIP_ = "";
     }
     
 }

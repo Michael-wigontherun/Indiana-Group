@@ -45,7 +45,7 @@ public class DemoApplication {
 				table.adminID = records.getString("addminID");
 				response.add(table);
 			}
-			SQL = "select * from TruckingCompanies";
+			SQL = "select USDOT, LegalName, DBAName, MCS150_DATE_, PHY_STREET_, PHY_CITY_, PHY_STATE_, PHY_ZIP_, GeoLocation from TruckingCompanies";
 			ResultSet records2 = stmt.executeQuery(SQL);
 			while(records2.next()){
 				truck = new TruckingTable();
@@ -58,10 +58,10 @@ public class DemoApplication {
 				truck.PHY_STATE_ = records2.getString("PHY_STATE_");
 				truck.PHY_ZIP_ = records2.getString("PHY_ZIP_");
 				truck.GeoLocation = records2.getString("GeoLocation");
-				truck.Address = truck.PHY_STREET_ + " " + truck.PHY_CITY_ + ", " + truck.PHY_STATE_ + " " + truck.PHY_ZIP_;
 				response2.add(truck);
 				for(int x = 0; x < response.size(); x++){
 					cham = new Chameleon();
+					//If statments controll the parameters for chameleon
 					if ((truck.GeoLocation.equals(((LiquidTable) response.get(x)).GeoLocation))) {
 						cham.USDOT = truck.USDOT;
 						cham.adminID= "3/2/2020";

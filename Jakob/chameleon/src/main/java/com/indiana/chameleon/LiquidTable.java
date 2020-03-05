@@ -82,5 +82,17 @@ public class LiquidTable{
     public void setAdminID(String adminID) {
         this.adminID = adminID;
     }
+
+    public LiquidTable() {
+        USDOT = "";
+        LegalName = "";
+        DBAName = "";
+        Address = "";
+        OOSReason = "";
+        OOSDate = "";
+        Status = "";
+        GeoLocation = "";
+        adminID = "";
+    }
     
 }
