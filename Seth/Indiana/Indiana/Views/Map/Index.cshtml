@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Map";
+}
+<h1>Map</h1>
+<div id="map"></div>
+<!-- Replace the value of the key parameter with your own API key. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-gRm0nZea7Tr4w2aTYiaN6eu7OWxNvQ4&callback=initMap" async defer></script>
+
+<!--<iframe width="1850"
+        height="750"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA-gRm0nZea7Tr4w2aTYiaN6eu7OWxNvQ4
+                            &q=306+webcrest+mobile+manor,Follansbee+WV" allowfullscreen>
+</iframe>-->
+<!--<script>
+    function initMap() {
+        var location = @ViewData["latlong"];
+        var locations = location.split(":");
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: new google.maps.LatLng(-33.92, 151.25),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var marker, i;
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[0], locations[1]),
+            map: map
+        });
+    }
+</script>-->

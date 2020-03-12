@@ -392,3 +392,4 @@ D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\obj\Debug\net
 D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\obj\Debug\netcoreapp2.2\Indiana.dll
 D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\obj\Debug\netcoreapp2.2\Indiana.pdb
 D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\obj\Debug\netcoreapp2.2\Indiana.csproj.CopyComplete
+D:\Users\sethd\Documents\GitHub\Indiana-Group\Seth\Indiana\Indiana\obj\Debug\netcoreapp2.2\Razor\Views\Map\Index.cshtml.g.cs

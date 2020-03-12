@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Indiana.Models
 {
+    //Google Maps API key:AIzaSyA-gRm0nZea7Tr4w2aTYiaN6eu7OWxNvQ4
     public partial class TruckingCompanies
     {
         [Key]
