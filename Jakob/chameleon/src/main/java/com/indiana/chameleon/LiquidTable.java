@@ -1,5 +1,5 @@
 package com.indiana.chameleon;
-
+//CLASS IS SO THAT DATA FROM THE LIQUIDATEDCOMPANIES TABLE CAN BE USED
 public class LiquidTable{
     String USDOT;
     String LegalName;
@@ -81,6 +81,18 @@ public class LiquidTable{
 
     public void setAdminID(String adminID) {
         this.adminID = adminID;
+    }
+
+    public LiquidTable() {
+        USDOT = "";
+        LegalName = "";
+        DBAName = "";
+        Address = "";
+        OOSReason = "";
+        OOSDate = "";
+        Status = "";
+        GeoLocation = "";
+        adminID = "";
     }
     
 }
