@@ -1,5 +1,5 @@
 package com.indiana.chameleon;
-
+//CLASS IS SO THAT DATA FROM THE TRUCKING COMPANIES TABLE CAN BE USED
 public class TruckingTable{
     String USDOT;
     String LegalName;

@@ -14,11 +14,14 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
+	//returns the list of chameleon companies
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public List<LiquidTable> compareTable() {
+		//list of liquidatedTable
 		List response = new ArrayList<LiquidTable>();
+		//list of Trucking Table
 		List response2 = new ArrayList<TruckingTable>();
+		//list to hold chameleon companies
 		List response3 = new ArrayList<Chameleon>();
 		Connection conn;
 		String SQL;
@@ -32,6 +35,7 @@ public class DemoApplication {
 
             Statement stmt = conn.createStatement();
 			ResultSet records = stmt.executeQuery(SQL);
+			//fills liquidtable list
 			while(records.next()){
 				table = new LiquidTable();
 				table.USDOT = records.getString("USDOT");
@@ -47,6 +51,7 @@ public class DemoApplication {
 			}
 			SQL = "select USDOT, LegalName, DBAName, MCS150_DATE_, PHY_STREET_, PHY_CITY_, PHY_STATE_, PHY_ZIP_, GeoLocation from TruckingCompanies";
 			ResultSet records2 = stmt.executeQuery(SQL);
+			//fills trucking table list
 			while(records2.next()){
 				truck = new TruckingTable();
 				truck.USDOT = records2.getString("USDOT");
@@ -59,13 +64,17 @@ public class DemoApplication {
 				truck.PHY_ZIP_ = records2.getString("PHY_ZIP_");
 				truck.GeoLocation = records2.getString("GeoLocation");
 				response2.add(truck);
+				//checks for chameleon company and adds it to list
 				for(int x = 0; x < response.size(); x++){
 					cham = new Chameleon();
-					//If statments controll the parameters for chameleon
-					if ((truck.GeoLocation.equals(((LiquidTable) response.get(x)).GeoLocation))) {
-						cham.USDOT = truck.USDOT;
-						cham.adminID= "3/2/2020";
-						response3.add(cham);
+					//If statements controll the parameters for chameleon
+					if (!truck.LegalName.equals(((LiquidTable) response.get(x)).LegalName)) {
+						if((truck.GeoLocation.equals(((LiquidTable) response.get(x)).GeoLocation)) && !truck.GeoLocation.equals("-NA-")){
+							
+							cham.USDOT = truck.USDOT;
+							cham.adminID= "3/2/2020";
+							response3.add(cham);
+						}
 					}
 				}
 			}

@@ -1,5 +1,5 @@
 package com.indiana.chameleon;
-
+//DATA CAN HOLD THE USDOT IF THE CHAMELEON COMPANY INORDER TO BE INSERTED INTO TABLE
 public class Chameleon{
     String USDOT;
     String adminID;
