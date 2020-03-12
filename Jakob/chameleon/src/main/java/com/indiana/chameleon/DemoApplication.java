@@ -68,12 +68,33 @@ public class DemoApplication {
 				for(int x = 0; x < response.size(); x++){
 					cham = new Chameleon();
 					//If statements controll the parameters for chameleon
+					//makes sure legal names are different
 					if (!truck.LegalName.equals(((LiquidTable) response.get(x)).LegalName)) {
+						//checks if geolocation matches and is not null
 						if((truck.GeoLocation.equals(((LiquidTable) response.get(x)).GeoLocation)) && !truck.GeoLocation.equals("-NA-")){
-							
-							cham.USDOT = truck.USDOT;
-							cham.adminID= "3/2/2020";
-							response3.add(cham);
+							//checks to see if the OOSReason falls under suspitious reasons
+							if(((LiquidTable) response.get(x)).OOSReason.equals("New Entrant Revoked - Expedited Actions")){
+								cham.USDOT = truck.USDOT;
+								cham.adminID = "3/12/2020";
+								cham.percent = "90%";
+								response3.add(cham);
+							}
+							else{
+								cham.USDOT = truck.USDOT;
+								cham.adminID = "3/12/2020";
+								cham.percent = "40%";
+								response3.add(cham);
+							}
+						}
+						//checks to make sure geolocation is null
+						if(truck.GeoLocation.equals("-NA-")){
+							//checks to see if liquid table address contains street from trucking table
+							if(((LiquidTable) response.get(x)).Address.contains(truck.PHY_STREET_)){
+								cham.USDOT = truck.USDOT;
+								cham.adminID = "3/12/2020";
+								cham.percent = "20%";
+								response3.add(cham);
+							}
 						}
 					}
 				}
