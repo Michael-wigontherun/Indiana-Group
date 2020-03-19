@@ -76,6 +76,8 @@
                     |
                     <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
                     |
+                    <a asp-controller="Map" asp-action="Index">Map</a>
+                    |
                     @if (User.IsInRole("Administrator"))
                     {
                         <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>

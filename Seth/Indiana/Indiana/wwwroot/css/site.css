@@ -61,3 +61,6 @@ body {
 a{
     font-weight: bold;
 }
+#map {
+    height: 800px;
+}

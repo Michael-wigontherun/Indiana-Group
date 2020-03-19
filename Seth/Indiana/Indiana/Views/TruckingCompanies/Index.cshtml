@@ -141,99 +141,107 @@
             <th>
                 @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeoLocation)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in (List<TruckingCompanies>)(ViewData["List"]))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Usdot)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LegalName)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.Dbaname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CARRIER_OPERATION_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PHY_STREET_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.MAILING_STREET_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PHY_CITY_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.MAILING_CITY_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PHY_STATE_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.MAILING_STATE_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PHY_ZIP_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.MAILING_ZIP_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PHY_COUNTRY_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.MAILING_COUNTRY_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TELEPHONE_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.FAX_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.EMAIL_ADDRESS_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_YEAR_)
-                    <br />
-                    ---
-                    <br />
-                    @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADD_DATE_)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
-                </td>
-                <td>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
-                    }
-                    |
-                    <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
-                    |
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
-                    }
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usdot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LegalName)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.Dbaname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CARRIER_OPERATION_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PHY_STREET_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.MAILING_STREET_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PHY_CITY_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.MAILING_CITY_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PHY_STATE_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.MAILING_STATE_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PHY_ZIP_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.MAILING_ZIP_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PHY_COUNTRY_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.MAILING_COUNTRY_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TELEPHONE_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.FAX_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.EMAIL_ADDRESS_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_YEAR_)
+                <br />
+                ---
+                <br />
+                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADD_DATE_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeoLocation)
+            </td>
+            <td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
+                }
+                |
+                <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
+                |
+                <a asp-controller="Map" asp-action="Index" asp-route-id="@item.GeoLocation">Map</a>
+                |
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>
