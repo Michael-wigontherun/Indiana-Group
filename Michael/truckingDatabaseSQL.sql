@@ -40,6 +40,7 @@ go
 drop table ChameleonCompanies
 create table ChameleonCompanies(--Trucking companies that are oporational but are expected to be chameleon companies
 	USDOT varchar(10) primary key not null,
+	percentOCham varchar(10) not null,
 	addminID nvarchar(450) not null --this is link going to be linked with the AspNetUsers dont 
 									--add when you push data into this from the website this field say
 									--update[today's date mm-dd-yyyy]
