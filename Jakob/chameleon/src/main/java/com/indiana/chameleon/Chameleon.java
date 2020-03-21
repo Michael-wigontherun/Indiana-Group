@@ -3,14 +3,14 @@ package com.indiana.chameleon;
 public class Chameleon{
     String USDOT;
     String adminID;
-    String percent;
+    String percentOCham;
 
-    public String getPercent(){
-        return percent;
+    public String getpercentOCham(){
+        return percentOCham;
     }
 
-    public void setPercent(String Percent){
-        percent = Percent;
+    public void setpercentOCham(String percentOCham){
+        percentOCham = percentOCham;
     }
     
     public String getUSDOT() {
