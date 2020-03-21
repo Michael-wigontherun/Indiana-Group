@@ -11,10 +11,10 @@
     var lat;
     var lng;
 
-    var locations = @Html.DisplayFor(modelItem => item.GeoLocation)
+    //var locations = Html.DisplayFor(modelItem => item.GeoLocation)
 
-    lat = -47;
-    lng = 50;
+    lat = 41.070364;
+    lng = -85.110736;
 
     function initMap() {
         var myLatLng = { lat: lat, lng: lng };
@@ -24,17 +24,40 @@
             center: myLatLng
         });
 
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Hello World!'
-        });
+        var allLats = [41.070364, 41];
+        var allLngs = [-85.110736, -85];
+        for (var i = 0; i < allLats.length; i++) {
+            var myLatLng = { lat: allLats[i], lng: allLngs[i] };
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'GeoLocation: ' + allLats[i] + ':' + allLngs[i]
+            });
+        }
     }
 </script>
 
 <div id="map"></div>
 <!-- Replace the value of the key parameter with your own API key. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-gRm0nZea7Tr4w2aTYiaN6eu7OWxNvQ4&callback=initMap" async defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Code may be needed for later don't delete. -->
+
+
+
 
 <!--<iframe width="1850"
         height="750"
