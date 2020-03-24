@@ -8,32 +8,41 @@
 
 <script>
     var map;
-    var lat;
-    var lng;
+    var focusPointLat = 40.2672;
+    var focusPointLng = -86.1349;
 
-    //var locations = Html.DisplayFor(modelItem => item.GeoLocation)
-
-    lat = 41.070364;
-    lng = -85.110736;
+    var focusPointLatRadiusHigh = focusPointLat + 0.72463768115942;
+    var focusPointLngRadiusHigh = focusPointLng + 0.72463768115942;
+    var focusPointLatRadiusLow = focusPointLat - 0.72463768115942;
+    var focusPointLngRadiusLow = focusPointLng - 0.72463768115942;
 
     function initMap() {
-        var myLatLng = { lat: lat, lng: lng };
+        var focusPoint = { lat: focusPointLat, lng: focusPointLng };
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: myLatLng
+            zoom: 10,
+            center: focusPoint
         });
 
-        var allLats = [41.070364, 41];
-        var allLngs = [-85.110736, -85];
+        var allLats = [41.070364, 41, 45, 41.332];
+        var allLngs = [-85.110736, -85, -86, -85.432];
         for (var i = 0; i < allLats.length; i++) {
+
             var myLatLng = { lat: allLats[i], lng: allLngs[i] };
 
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'GeoLocation: ' + allLats[i] + ':' + allLngs[i]
-            });
+            if ((focusPointLat == 40.2672 && focusPointLat == -86.1349) || 
+                (allLats[i] <= focusPointLatRadiusHigh || allLngs[i] <= focusPointLngRadiusHigh || allLats[i] >= focusPointLatRadiusLow || allLngs[i] >= focusPointLngRadiusLow) ) {
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'GeoLocation: ' + allLats[i] + ':' + allLngs[i]
+                });
+            }
+            else {
+                
+
+                
+            }
         }
     }
 </script>
