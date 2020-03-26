@@ -20,7 +20,6 @@ namespace Indiana.Controllers
         {
             Database = context;
         }
-
         //this is a variable to change the amount of rows per page
         public int countPerPage = 100;
         public async Task<IActionResult> Index()
