@@ -25,6 +25,9 @@ public class DemoApplication {
 		List response2 = new ArrayList<TruckingTable>();
 		//list to hold chameleon companies
 		List response3 = new ArrayList<Chameleon>();
+		List response4 = new ArrayList<Chameleon>();
+		ArrayList<String> usdotID = new ArrayList();
+        usdotID.add("");
 		Connection conn;
 		String SQL;
 		SQL = "select * from LiquidatedCompanys";
@@ -80,7 +83,7 @@ public class DemoApplication {
 								if(truck.MCS150_Date.equals(((LiquidTable) response.get(x)).OOSDate)){
 									cham.USDOT = truck.USDOT;
 									cham.adminID = "update"+getDate();
-									cham.percentOCham = "90%";
+									cham.percentOCham = "80%";
 									response3.add(cham);
 								}
 								else{
@@ -110,6 +113,30 @@ public class DemoApplication {
 					}
 				}
 			}
+			//adds chameleon company data into database
+			for(int x = 0; x < response3.size(); x++){
+				if(usdotID.contains(((Chameleon)response3.get(x)).USDOT)){
+					SQL = "UPDATE ChameleonCompanies SET percentOCham = '" + ((Chameleon)response3.get(x)).percentOCham+"', addminID = '" + ((Chameleon)response3.get(x)).adminID+"' WHERE USDOT = '" +((Chameleon)response3.get(x)).USDOT+"'";
+				}
+				else{
+					SQL = "insert into ChameleonCompanies values('"+((Chameleon)response3.get(x)).USDOT+"', '" + ((Chameleon)response3.get(x)).percentOCham+"', '" + ((Chameleon)response3.get(x)).adminID+"')";
+					usdotID.add(((Chameleon)response3.get(x)).USDOT);
+				}
+				Statement stml = conn.createStatement();
+                stml.execute(SQL);
+			}
+			
+			/*Chameleon chamCheck = new Chameleon();
+			SQL = "select * from ChameleonCompanies";
+			ResultSet records4 = stmt.executeQuery(SQL);
+			//fills trucking table list
+			while(records4.next()){
+				chamCheck = new Chameleon();
+				chamCheck.USDOT = records4.getString("USDOT");
+				chamCheck.percentOCham = records4.getString("percentOCham");
+				chamCheck.adminID = records4.getString("addminID");
+				response4.add(chamCheck);
+			}*/
 		} 
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
