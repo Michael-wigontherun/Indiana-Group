@@ -4,12 +4,32 @@
     ViewData["Title"] = "Map";
 }
 <h1>Map</h1>
-<p id="latlong" hidden>@ViewData["latlong"]</p>
+<p id="latlong">@ViewData["latlong"]</p>
 
 <script>
+
     var map;
-    var focusPointLat = 40.2672;
-    var focusPointLng = -86.1349;
+    var locationSplitLat;
+    var locationSplitLng;
+
+    locationSplitLat = 40.2672;
+        locationSplitLng = -86.1349;
+    
+
+    if (1 == 0) {
+        locationSplitLat = 40.2672;
+        locationSplitLng = -86.1349;
+    }
+    else {
+        var location = document.getElementById("latlong").innerHTML;
+        var locationSplit = location.split(":");
+        locationSplitLat = parseFloat(locationSplit[0]);
+        locationSplitLng = parseFloat(locationSplit[1]);
+    }
+    
+
+    var focusPointLat = locationSplitLat;
+    var focusPointLng = locationSplitLng;
 
     var focusPointLatRadiusHigh = focusPointLat + 0.72463768115942;
     var focusPointLngRadiusHigh = focusPointLng + 0.72463768115942;
