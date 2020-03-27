@@ -4,8 +4,8 @@
     ViewData["Title"] = "Map";
 }
 <h1>Map</h1>
-<p id="latlong">@ViewData["latlong"]</p>
-
+<p id="lat">@ViewData["lat"]</p>
+<p id="long">@ViewData["long"]</p>
 <script>
 
     var map;
@@ -21,10 +21,9 @@
         locationSplitLng = -86.1349;
     }
     else {
-        var location = document.getElementById("latlong").innerHTML;
-        var locationSplit = location.split(":");
-        locationSplitLat = parseFloat(locationSplit[0]);
-        locationSplitLng = parseFloat(locationSplit[1]);
+        
+        locationSplitLat = parseFloat(document.getElementById("lat").innerHTML;);
+        locationSplitLng = parseFloat(document.getElementById("long").innerHTML;);
     }
     
 

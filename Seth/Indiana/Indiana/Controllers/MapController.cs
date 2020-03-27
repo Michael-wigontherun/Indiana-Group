@@ -23,7 +23,10 @@ namespace Indiana.Controllers
         // GET: Map
         public async Task<IActionResult> Index(string latlong)
         {
-            ViewData["latlong"] = latlong;
+            
+            string[] col = latlong.Split(":");
+            ViewData["lat"] = col[0];
+            ViewData["long"] = col[1];
             Debug.WriteLine($"\n\n{latlong}\n\n\n");
             return View();
         }
