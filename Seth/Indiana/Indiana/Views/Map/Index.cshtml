@@ -1,11 +1,12 @@
-﻿@model IEnumerable<Indiana.Models.TruckingCompanies>
-
+﻿
 @{
     ViewData["Title"] = "Map";
 }
 <h1>Map</h1>
-<p id="lat">@ViewData["lat"]</p>
-<p id="long">@ViewData["long"]</p>
+<p>Your Latitude</p>
+<p id="lat" hidden>@ViewData["lat"]</p>
+<p>Your Longitude</p>
+<p id="long" hidden>@ViewData["long"]</p>
 <script>
 
     var map;
@@ -13,7 +14,7 @@
     var locationSplitLng;
 
     locationSplitLat = 40.2672;
-        locationSplitLng = -86.1349;
+    locationSplitLng = -86.1349;
     
 
     if (1 == 0) {
@@ -43,23 +44,21 @@
             center: focusPoint
         });
 
-        var allLats = [41.070364, 41, 45, 41.332];
-        var allLngs = [-85.110736, -85, -86, -85.432];
+        var allLats = [focusPointLat, 41.070364, 41, 45, 41.332];
+        var allLngs = [focusPointLng, -85.110736, -85, -86, -85.432];
         for (var i = 0; i < allLats.length; i++) {
 
             var myLatLng = { lat: allLats[i], lng: allLngs[i] };
 
-            if ((focusPointLat == 40.2672 && focusPointLat == -86.1349) || 
-                (allLats[i] <= focusPointLatRadiusHigh || allLngs[i] <= focusPointLngRadiusHigh || allLats[i] >= focusPointLatRadiusLow || allLngs[i] >= focusPointLngRadiusLow) ) {
+            if (allLats[i] > focusPointLatRadiusHigh || allLngs[i] > focusPointLngRadiusHigh || allLats[i] < focusPointLatRadiusLow || allLngs[i] < focusPointLngRadiusLow ) {
+                
+            }
+            else {
                 var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
                     title: 'GeoLocation: ' + allLats[i] + ':' + allLngs[i]
                 });
-            }
-            else {
-                
-
                 
             }
         }
