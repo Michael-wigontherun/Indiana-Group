@@ -66,7 +66,7 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-<table class="table table-striped table-bordered table-hover table-sm">
+<table class="table table-bordered table-hover table-sm table-striped">
     <thead>
         <tr>
             <th>
@@ -141,10 +141,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GeoLocation)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -224,16 +220,13 @@
                 @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GeoLocation)
-            </td>
-            <td>
                 @if (User.IsInRole("Administrator"))
                 {
                     <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
                     <span>|</span>
                 }
                 <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
-                |
+                <span>|</span>
                 <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.GeoLocation">Map</a>
                 @if (User.IsInRole("Administrator"))
                 {

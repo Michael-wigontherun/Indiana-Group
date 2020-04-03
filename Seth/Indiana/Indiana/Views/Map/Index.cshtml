@@ -31,21 +31,22 @@
     var focusPointLat = locationSplitLat;
     var focusPointLng = locationSplitLng;
 
-    var focusPointLatRadiusHigh = focusPointLat + 0.72463768115942;
-    var focusPointLngRadiusHigh = focusPointLng + 0.72463768115942;
-    var focusPointLatRadiusLow = focusPointLat - 0.72463768115942;
-    var focusPointLngRadiusLow = focusPointLng - 0.72463768115942;
+    var focusPointLatRadiusHigh = focusPointLat + 0.5710999999999999;
+    var focusPointLngRadiusHigh = focusPointLng + 0.5710999999999999;
+    var focusPointLatRadiusLow = focusPointLat - 0.5710999999999999;
+    var focusPointLngRadiusLow = focusPointLng - 0.5710999999999999;
+
+    var focusPoint = { lat: focusPointLat, lng: focusPointLng };
 
     function initMap() {
-        var focusPoint = { lat: focusPointLat, lng: focusPointLng };
 
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
             center: focusPoint
         });
 
-        var allLats = [focusPointLat, 39.5067, 41.070364, 41, 45, 41.332];
-        var allLngs = [focusPointLng, -86.3559, -85.110736, -85, -86, -85.432];
+        var allLats = [focusPointLat, 39.5067, focusPointLatRadiusHigh, focusPointLatRadiusLow, 41.070364, 41, 45, 41.332];
+        var allLngs = [focusPointLng, -86.3559, focusPointLngRadiusHigh, focusPointLngRadiusLow, -85.110736, -85, -86, -85.432];
         for (var i = 0; i < allLats.length; i++) {
 
             var myLatLng = { lat: allLats[i], lng: allLngs[i] };
@@ -61,6 +62,25 @@
                 });
                 
             }
+        }
+        var citymap = {
+        focus: {
+          center: focusPoint,
+          population: 603502
+        }
+      };
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          var cityCircle = new google.maps.Circle({
+            strokeColor: '#00FFFF',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#00FFFF',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: 80467.2
+          });
         }
     }
 </script>
