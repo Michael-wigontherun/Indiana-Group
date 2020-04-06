@@ -4,11 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 style="background-color: lightgray">Create</h1>
 
-<h4>TruckingCompanies</h4>
+<h4 style="background-color: lightgray">TruckingCompanies</h4>
 <hr />
-<div class="row">
+<div class="row" style="background-color: lightgray">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -23,119 +23,119 @@
                 <span asp-validation-for="Dbaname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarrierOperation" class="control-label"></label>
-                <input asp-for="CarrierOperation" class="form-control" />
-                <span asp-validation-for="CarrierOperation" class="text-danger"></span>
+                <label asp-for="CARRIER_OPERATION_" class="control-label"></label>
+                <input asp-for="CARRIER_OPERATION_" class="form-control" />
+                <span asp-validation-for="CARRIER_OPERATION_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HmFlag" class="control-label"></label>
-                <input asp-for="HmFlag" class="form-control" />
-                <span asp-validation-for="HmFlag" class="text-danger"></span>
+                <label asp-for="HM_FLAG_" class="control-label"></label>
+                <input asp-for="HM_FLAG_" class="form-control" />
+                <span asp-validation-for="HM_FLAG_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PcFlag" class="control-label"></label>
-                <input asp-for="PcFlag" class="form-control" />
-                <span asp-validation-for="PcFlag" class="text-danger"></span>
+                <label asp-for="PC_FLAG_" class="control-label"></label>
+                <input asp-for="PC_FLAG_" class="form-control" />
+                <span asp-validation-for="PC_FLAG_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhyStreet" class="control-label"></label>
-                <input asp-for="PhyStreet" class="form-control" />
-                <span asp-validation-for="PhyStreet" class="text-danger"></span>
+                <label asp-for="PHY_STREET_" class="control-label"></label>
+                <input asp-for="PHY_STREET_" class="form-control" />
+                <span asp-validation-for="PHY_STREET_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhyCity" class="control-label"></label>
-                <input asp-for="PhyCity" class="form-control" />
-                <span asp-validation-for="PhyCity" class="text-danger"></span>
+                <label asp-for="PHY_CITY_" class="control-label"></label>
+                <input asp-for="PHY_CITY_" class="form-control" />
+                <span asp-validation-for="PHY_CITY_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhyState" class="control-label"></label>
-                <input asp-for="PhyState" class="form-control" />
-                <span asp-validation-for="PhyState" class="text-danger"></span>
+                <label asp-for="PHY_STATE_" class="control-label"></label>
+                <input asp-for="PHY_STATE_" class="form-control" />
+                <span asp-validation-for="PHY_STATE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhyZip" class="control-label"></label>
-                <input asp-for="PhyZip" class="form-control" />
-                <span asp-validation-for="PhyZip" class="text-danger"></span>
+                <label asp-for="PHY_ZIP_" class="control-label"></label>
+                <input asp-for="PHY_ZIP_" class="form-control" />
+                <span asp-validation-for="PHY_ZIP_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhyCountry" class="control-label"></label>
-                <input asp-for="PhyCountry" class="form-control" />
-                <span asp-validation-for="PhyCountry" class="text-danger"></span>
+                <label asp-for="PHY_COUNTRY_" class="control-label"></label>
+                <input asp-for="PHY_COUNTRY_" class="form-control" />
+                <span asp-validation-for="PHY_COUNTRY_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MailingStreet" class="control-label"></label>
-                <input asp-for="MailingStreet" class="form-control" />
-                <span asp-validation-for="MailingStreet" class="text-danger"></span>
+                <label asp-for="MAILING_STREET_" class="control-label"></label>
+                <input asp-for="MAILING_STREET_" class="form-control" />
+                <span asp-validation-for="MAILING_STREET_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MailingCity" class="control-label"></label>
-                <input asp-for="MailingCity" class="form-control" />
-                <span asp-validation-for="MailingCity" class="text-danger"></span>
+                <label asp-for="MAILING_CITY_" class="control-label"></label>
+                <input asp-for="MAILING_CITY_" class="form-control" />
+                <span asp-validation-for="MAILING_CITY_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MailingState" class="control-label"></label>
-                <input asp-for="MailingState" class="form-control" />
-                <span asp-validation-for="MailingState" class="text-danger"></span>
+                <label asp-for="MAILING_STATE_" class="control-label"></label>
+                <input asp-for="MAILING_STATE_" class="form-control" />
+                <span asp-validation-for="MAILING_STATE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MailingZip" class="control-label"></label>
-                <input asp-for="MailingZip" class="form-control" />
-                <span asp-validation-for="MailingZip" class="text-danger"></span>
+                <label asp-for="MAILING_ZIP_" class="control-label"></label>
+                <input asp-for="MAILING_ZIP_" class="form-control" />
+                <span asp-validation-for="MAILING_ZIP_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MailingCountry" class="control-label"></label>
-                <input asp-for="MailingCountry" class="form-control" />
-                <span asp-validation-for="MailingCountry" class="text-danger"></span>
+                <label asp-for="MAILING_COUNTRY_" class="control-label"></label>
+                <input asp-for="MAILING_COUNTRY_" class="form-control" />
+                <span asp-validation-for="MAILING_COUNTRY_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Telephone" class="control-label"></label>
-                <input asp-for="Telephone" class="form-control" />
-                <span asp-validation-for="Telephone" class="text-danger"></span>
+                <label asp-for="TELEPHONE_" class="control-label"></label>
+                <input asp-for="TELEPHONE_" class="form-control" />
+                <span asp-validation-for="TELEPHONE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fax" class="control-label"></label>
-                <input asp-for="Fax" class="form-control" />
-                <span asp-validation-for="Fax" class="text-danger"></span>
+                <label asp-for="FAX_" class="control-label"></label>
+                <input asp-for="FAX_" class="form-control" />
+                <span asp-validation-for="FAX_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmailAddress" class="control-label"></label>
-                <input asp-for="EmailAddress" class="form-control" />
-                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                <label asp-for="EMAIL_ADDRESS_" class="control-label"></label>
+                <input asp-for="EMAIL_ADDRESS_" class="form-control" />
+                <span asp-validation-for="EMAIL_ADDRESS_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Mcs150Date" class="control-label"></label>
-                <input asp-for="Mcs150Date" class="form-control" />
-                <span asp-validation-for="Mcs150Date" class="text-danger"></span>
+                <label asp-for="MCS150_DATE_" class="control-label"></label>
+                <input asp-for="MCS150_DATE_" class="form-control" />
+                <span asp-validation-for="MCS150_DATE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Mcs150Mileage" class="control-label"></label>
-                <input asp-for="Mcs150Mileage" class="form-control" />
-                <span asp-validation-for="Mcs150Mileage" class="text-danger"></span>
+                <label asp-for="MCS150_MILEAGE_" class="control-label"></label>
+                <input asp-for="MCS150_MILEAGE_" class="form-control" />
+                <span asp-validation-for="MCS150_MILEAGE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Mcs150MileageYear" class="control-label"></label>
-                <input asp-for="Mcs150MileageYear" class="form-control" />
-                <span asp-validation-for="Mcs150MileageYear" class="text-danger"></span>
+                <label asp-for="MCS150_MILEAGE_YEAR_" class="control-label"></label>
+                <input asp-for="MCS150_MILEAGE_YEAR_" class="form-control" />
+                <span asp-validation-for="MCS150_MILEAGE_YEAR_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AddDate" class="control-label"></label>
-                <input asp-for="AddDate" class="form-control" />
-                <span asp-validation-for="AddDate" class="text-danger"></span>
+                <label asp-for="ADD_DATE_" class="control-label"></label>
+                <input asp-for="ADD_DATE_" class="form-control" />
+                <span asp-validation-for="ADD_DATE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OicState" class="control-label"></label>
-                <input asp-for="OicState" class="form-control" />
-                <span asp-validation-for="OicState" class="text-danger"></span>
+                <label asp-for="OIC_STATE_" class="control-label"></label>
+                <input asp-for="OIC_STATE_" class="form-control" />
+                <span asp-validation-for="OIC_STATE_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NbrPowerUnit" class="control-label"></label>
-                <input asp-for="NbrPowerUnit" class="form-control" />
-                <span asp-validation-for="NbrPowerUnit" class="text-danger"></span>
+                <label asp-for="NBR_POWER_UNIT_" class="control-label"></label>
+                <input asp-for="NBR_POWER_UNIT_" class="form-control" />
+                <span asp-validation-for="NBR_POWER_UNIT_" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DriverTotal" class="control-label"></label>
-                <input asp-for="DriverTotal" class="form-control" />
-                <span asp-validation-for="DriverTotal" class="text-danger"></span>
+                <label asp-for="DRIVER_TOTAL_" class="control-label"></label>
+                <input asp-for="DRIVER_TOTAL_" class="form-control" />
+                <span asp-validation-for="DRIVER_TOTAL_" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="GeoLocation" class="control-label"></label>
@@ -143,9 +143,9 @@
                 <span asp-validation-for="GeoLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AddminId" class="control-label"></label>
-                <input asp-for="AddminId" class="form-control" />
-                <span asp-validation-for="AddminId" class="text-danger"></span>
+                <label asp-for="addminID" class="control-label"></label>
+                <input asp-for="addminID" class="form-control" />
+                <span asp-validation-for="addminID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

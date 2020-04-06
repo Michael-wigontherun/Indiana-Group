@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Indiana.Data;
 using Indiana.Models;
 using System.Security.Claims;
+using System.Diagnostics;
 
 namespace Indiana.Controllers
 {
@@ -19,7 +20,6 @@ namespace Indiana.Controllers
         {
             Database = context;
         }
-
         //this is a variable to change the amount of rows per page
         public int countPerPage = 100;
         public async Task<IActionResult> Index()
@@ -68,32 +68,32 @@ namespace Indiana.Controllers
                 list = await Database.TruckingCompanies
                     .Where(b => b.LegalName.Contains(keyword) == true ||
                     b.Dbaname.Contains(keyword) == true)
-                    .Where(b => b.HmFlag == hmflag)
-                    .Where(b => b.PcFlag == pcflag).ToListAsync();
+                    .Where(b => b.HM_FLAG_ == hmflag)
+                    .Where(b => b.PC_FLAG_ == pcflag).ToListAsync();
             }
             else if (keyword == "" && hmflag == "" && pcflag != "")
             {
                 list = await Database.TruckingCompanies
-                    .Where(b => b.PcFlag == pcflag).ToListAsync();
+                    .Where(b => b.PC_FLAG_ == pcflag).ToListAsync();
             }
             else if (keyword == "" && hmflag != "" && pcflag == "")
             {
                 list = await Database.TruckingCompanies
-                    .Where(b => b.HmFlag == hmflag).ToListAsync();
+                    .Where(b => b.HM_FLAG_ == hmflag).ToListAsync();
             }
             else if (keyword != "" && hmflag != "" && pcflag == "")
             {
                 list = await Database.TruckingCompanies
                     .Where(b => b.LegalName.Contains(keyword) == true ||
                     b.Dbaname.Contains(keyword) == true)
-                    .Where(b => b.HmFlag == hmflag).ToListAsync();
+                    .Where(b => b.HM_FLAG_ == hmflag).ToListAsync();
             }
             else if (keyword != "" && hmflag == "" && pcflag != "")
             {
                 list = await Database.TruckingCompanies
                     .Where(b => b.LegalName.Contains(keyword) == true ||
                     b.Dbaname.Contains(keyword) == true)
-                    .Where(b => b.PcFlag == pcflag).ToListAsync();
+                    .Where(b => b.PC_FLAG_ == pcflag).ToListAsync();
             }
             else if (keyword != "" && hmflag == "" && pcflag == "")
             {
@@ -149,7 +149,7 @@ namespace Indiana.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Usdot,LegalName,Dbaname,CarrierOperation,HmFlag,PcFlag,PhyStreet,PhyCity,PhyState,PhyZip,PhyCountry,MailingStreet,MailingCity,MailingState,MailingZip,MailingCountry,Telephone,Fax,EmailAddress,Mcs150Date,Mcs150Mileage,Mcs150MileageYear,AddDate,OicState,NbrPowerUnit,DriverTotal,GeoLocation,AddminId")] TruckingCompanies truckingCompanies)
+        public async Task<IActionResult> Create([Bind("Usdot,LegalName,Dbaname,CARRIER_OPERATION_,HM_FLAG_,PC_FLAG_,PHY_STREET_,PHY_CITY_,PHY_STATE_,PHY_ZIP_,PHY_COUNTRY_,MAILING_STREET_,MAILING_CITY_,MAILING_STATE_,MAILING_ZIP_,MAILING_COUNTRY_,TELEPHONE_,FAX_,EMAIL_ADDRESS_,MCS150_DATE_,MCS150_MILEAGE_,MCS150_MILEAGE_YEAR_,ADD_DATE_,OIC_STATE_,NBR_POWER_UNIT_,DRIVER_TOTAL_,GeoLocation,addminID")] TruckingCompanies truckingCompanies)
         {
             if (ModelState.IsValid)
             {
@@ -181,7 +181,7 @@ namespace Indiana.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Usdot,LegalName,Dbaname,CarrierOperation,HmFlag,PcFlag,PhyStreet,PhyCity,PhyState,PhyZip,PhyCountry,MailingStreet,MailingCity,MailingState,MailingZip,MailingCountry,Telephone,Fax,EmailAddress,Mcs150Date,Mcs150Mileage,Mcs150MileageYear,AddDate,OicState,NbrPowerUnit,DriverTotal,GeoLocation,AddminId")] TruckingCompanies truckingCompanies)
+        public async Task<IActionResult> Edit(string id, [Bind("Usdot,LegalName,Dbaname,CARRIER_OPERATION_,HM_FLAG_,PC_FLAG_,PHY_STREET_,PHY_CITY_,PHY_STATE_,PHY_ZIP_,PHY_COUNTRY_,MAILING_STREET_,MAILING_CITY_,MAILING_STATE_,MAILING_ZIP_,MAILING_COUNTRY_,TELEPHONE_,FAX_,EMAIL_ADDRESS_,MCS150_DATE_,MCS150_MILEAGE_,MCS150_MILEAGE_YEAR_,ADD_DATE_,OIC_STATE_,NBR_POWER_UNIT_,DRIVER_TOTAL_,GeoLocation,addminID")] TruckingCompanies truckingCompanies)
         {
             if (id != truckingCompanies.Usdot)
             {
@@ -337,3 +337,5 @@ namespace Indiana.Controllers
         }
     }
 }
+
+

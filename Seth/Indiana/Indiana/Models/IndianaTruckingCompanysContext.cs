@@ -41,7 +41,7 @@ namespace Indiana.Models
                     .IsUnicode(false)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.addminID)
+                entity.Property(e => e.AddminId)
                     .IsRequired()
                     .HasColumnName("addminID")
                     .HasMaxLength(450);

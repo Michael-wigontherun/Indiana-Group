@@ -14,5 +14,7 @@ namespace Indiana.Data
         {
         }
         public DbSet<Indiana.Models.TruckingCompanies> TruckingCompanies { get; set; }
+        public DbSet<Indiana.Models.ChameleonCompanies> ChameleonCompanies { get; set; }
+        public DbSet<Indiana.Models.LiquidatedCompanys> LiquidatedCompanys { get; set; }
     }
 }

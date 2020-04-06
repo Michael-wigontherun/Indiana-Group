@@ -230,17 +230,17 @@ namespace Indiana.Models
                     .IsUnicode(false)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.AddDate)
+                entity.Property(e => e.ADD_DATE_)
                     .HasColumnName("ADD_DATE_")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.AddminId)
+                entity.Property(e => e.addminID)
                     .IsRequired()
                     .HasColumnName("addminID")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.CarrierOperation)
+                entity.Property(e => e.CARRIER_OPERATION_)
                     .HasColumnName("CARRIER_OPERATION_")
                     .HasMaxLength(5)
                     .IsUnicode(false);
@@ -250,14 +250,14 @@ namespace Indiana.Models
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DriverTotal).HasColumnName("DRIVER_TOTAL_");
+                entity.Property(e => e.DRIVER_TOTAL_).HasColumnName("DRIVER_TOTAL_");
 
-                entity.Property(e => e.EmailAddress)
+                entity.Property(e => e.EMAIL_ADDRESS_)
                     .HasColumnName("EMAIL_ADDRESS_")
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Fax)
+                entity.Property(e => e.FAX_)
                     .HasColumnName("FAX_")
                     .HasMaxLength(14)
                     .IsUnicode(false);
@@ -267,7 +267,7 @@ namespace Indiana.Models
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.HmFlag)
+                entity.Property(e => e.HM_FLAG_)
                     .HasColumnName("HM_FLAG_")
                     .HasMaxLength(5)
                     .IsUnicode(false);
@@ -277,92 +277,92 @@ namespace Indiana.Models
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MailingCity)
+                entity.Property(e => e.MAILING_CITY_)
                     .IsRequired()
                     .HasColumnName("MAILING_CITY_")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MailingCountry)
+                entity.Property(e => e.MAILING_COUNTRY_)
                     .IsRequired()
                     .HasColumnName("MAILING_COUNTRY_")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MailingState)
+                entity.Property(e => e.MAILING_STATE_)
                     .IsRequired()
                     .HasColumnName("MAILING_STATE_")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MailingStreet)
+                entity.Property(e => e.MAILING_STREET_)
                     .IsRequired()
                     .HasColumnName("MAILING_STREET_")
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MailingZip)
+                entity.Property(e => e.MAILING_ZIP_)
                     .IsRequired()
                     .HasColumnName("MAILING_ZIP_")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Mcs150Date)
+                entity.Property(e => e.MCS150_DATE_)
                     .HasColumnName("MCS150_DATE_")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Mcs150Mileage).HasColumnName("MCS150_MILEAGE_");
+                entity.Property(e => e.MCS150_MILEAGE_).HasColumnName("MCS150_MILEAGE_");
 
-                entity.Property(e => e.Mcs150MileageYear)
+                entity.Property(e => e.MCS150_MILEAGE_YEAR_)
                     .HasColumnName("MCS150_MILEAGE_YEAR_")
                     .HasMaxLength(4)
                     .IsUnicode(false);
 
-                entity.Property(e => e.NbrPowerUnit).HasColumnName("NBR_POWER_UNIT_");
+                entity.Property(e => e.NBR_POWER_UNIT_).HasColumnName("NBR_POWER_UNIT_");
 
-                entity.Property(e => e.OicState)
+                entity.Property(e => e.OIC_STATE_)
                     .IsRequired()
                     .HasColumnName("OIC_STATE_")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PcFlag)
+                entity.Property(e => e.PC_FLAG_)
                     .HasColumnName("PC_FLAG_")
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PhyCity)
+                entity.Property(e => e.PHY_CITY_)
                     .IsRequired()
                     .HasColumnName("PHY_CITY_")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PhyCountry)
+                entity.Property(e => e.PHY_COUNTRY_)
                     .IsRequired()
                     .HasColumnName("PHY_COUNTRY_")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PhyState)
+                entity.Property(e => e.PHY_STATE_)
                     .IsRequired()
                     .HasColumnName("PHY_STATE_")
                     .HasMaxLength(2)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PhyStreet)
+                entity.Property(e => e.PHY_STREET_)
                     .IsRequired()
                     .HasColumnName("PHY_STREET_")
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PhyZip)
+                entity.Property(e => e.PHY_ZIP_)
                     .IsRequired()
                     .HasColumnName("PHY_ZIP_")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Telephone)
+                entity.Property(e => e.TELEPHONE_)
                     .HasColumnName("TELEPHONE_")
                     .HasMaxLength(14)
                     .IsUnicode(false);

@@ -10,23 +10,16 @@
 <script>
 
     var map;
-    var locationSplitLat;
-    var locationSplitLng;
+    var locationSplitLat = 40.2672;
+    var locationSplitLng = -86.1349;
 
-    locationSplitLat = 40.2672;
-    locationSplitLng = -86.1349;
-    
-
-    if (1 == 0) {
-        locationSplitLat = 40.2672;
-        locationSplitLng = -86.1349;
+    if (document.getElementById("lat").innerHTML == "") {
+        
     }
     else {
-        
         locationSplitLat = parseFloat(document.getElementById("lat").innerHTML);
         locationSplitLng = parseFloat(document.getElementById("long").innerHTML);
     }
-    
 
     var focusPointLat = locationSplitLat;
     var focusPointLng = locationSplitLng;
@@ -50,8 +43,20 @@
         for (var i = 0; i < allLats.length; i++) {
 
             var myLatLng = { lat: allLats[i], lng: allLngs[i] };
-
-            if (allLats[i] > focusPointLatRadiusHigh || allLngs[i] > focusPointLngRadiusHigh || allLats[i] < focusPointLatRadiusLow || allLngs[i] < focusPointLngRadiusLow ) {
+            var citymap = {
+                focus: {
+                    center: focusPoint,
+                    population: 603502
+                }
+                };
+            if (locationSplitLat == 40.2672) {
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'GeoLocation: ' + allLats[i] + ':' + allLngs[i]
+                });
+            }
+            else if (allLats[i] > focusPointLatRadiusHigh || allLngs[i] > focusPointLngRadiusHigh || allLats[i] < focusPointLatRadiusLow || allLngs[i] < focusPointLngRadiusLow ) {
                 
             }
             else {
@@ -60,75 +65,26 @@
                     map: map,
                     title: 'GeoLocation: ' + allLats[i] + ':' + allLngs[i]
                 });
-                
-            }
-        }
-        var citymap = {
-        focus: {
-          center: focusPoint,
-          population: 603502
-        }
-      };
-        for (var city in citymap) {
+                for (var city in citymap) {
           // Add the circle for this city to the map.
           var cityCircle = new google.maps.Circle({
             strokeColor: '#00FFFF',
             strokeOpacity: 0.8,
             strokeWeight: 2,
             fillColor: '#00FFFF',
-            fillOpacity: 0.35,
+            fillOpacity: 0.1,
             map: map,
             center: citymap[city].center,
             radius: 80467.2
           });
         }
+            }
+        }
+        
+        
     }
 </script>
 
 <div id="map"></div>
 <!-- Replace the value of the key parameter with your own API key. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-gRm0nZea7Tr4w2aTYiaN6eu7OWxNvQ4&callback=initMap" async defer></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Code may be needed for later don't delete. -->
-
-
-
-
-<!--<iframe width="1850"
-        height="750"
-        frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA-gRm0nZea7Tr4w2aTYiaN6eu7OWxNvQ4
-                            &q=306+webcrest+mobile+manor,Follansbee+WV" allowfullscreen>
-</iframe>-->
-<!--<script>
-    function initMap() {
-        var location = ViewData["latlong"];
-        var locations = location.split(":");
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: new google.maps.LatLng(-33.92, 151.25),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-
-        var marker, i;
-
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[0], locations[1]),
-            map: map
-        });
-    }
-</script>-->

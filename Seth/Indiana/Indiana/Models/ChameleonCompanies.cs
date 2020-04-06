@@ -8,6 +8,7 @@ namespace Indiana.Models
     {
         [Key]
         public string Usdot { get; set; }
-        public string addminID { get; set; }
+        public string PercentOcham { get; set; }
+        public string AddminId { get; set; }
     }
 }
