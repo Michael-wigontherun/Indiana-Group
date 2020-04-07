@@ -43,10 +43,7 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    background-image: url("/Images/truck.jpg");
-    background-size: cover;
-    background-position:center;
-    background-attachment: scroll;
+    
     margin-bottom: 60px;
 }
 .footer {
@@ -60,6 +57,9 @@ body {
 } 
 a{
     font-weight: bold;
+}
+.grayback{
+
 }
 #map {
     height: 800px;

@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Trucking Companies</h1>
+<div style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
+<h1 style=" padding-left: 5px;">Trucking Companies</h1>
 <!--Do not mess with this code below-->
 <form method="post" asp-action="Index">
     <div class="form-row">
-        <div class="form-group col-6" style="padding-right:1em;">
+        <div class="form-group col-6" style="padding-right:5em;  padding-left: 1em;">
             <input class="form-control select-custom-me" type="text" name="keyword" id="keyword" placeholder="Search" value="@ViewData["SearchString"]" />
         </div>
         <div class="form-group col-3">
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="form-group" style="padding-right:1em;">
+        <div class="form-group" style="padding-right:5em; padding-left: 1em;">
             <label for="hmflag">HM flaged or not.</label>
             <select name="hmflag" id="hmflag" class="custom-select">
                 <option value="">Select HM Flag</option>
@@ -33,7 +33,7 @@
                 }
             </select>
         </div>
-        <div class="form-group" style="padding-right:1em;">
+        <div class="form-group" style="padding-right:5em; padding-left: 1em;">
             <label for="pcflag">PC flaged or not.</label>
             <select name="pcflag" id="pcflag" class="custom-select">
                 <option value="">Select PC Flag</option>
@@ -55,7 +55,7 @@
         @foreach (int i in (List<int>)(ViewData["pageList"]))
         {
             <input type="radio" id="page{@i}" name="page" hidden value="@i" onchange="this.form.submit();">
-            <label class="btn-link" style="padding-right:5px" for="page{@i}">@i</label>
+            <label class="btn-link" style="padding-right:5px;  padding-left: 1em;" for="page{@i}">@i</label>
         }
     </div>
 </form>
