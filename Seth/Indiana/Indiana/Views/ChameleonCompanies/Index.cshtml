@@ -3,60 +3,62 @@
 @{
     ViewData["Title"] = "Index";
 }
-    <div style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
-        <h1 style="padding-left: 5px;">Chameleon Companies</h1>
+    <body style="background-image: url('Images/Indiana_Flag.png'); background-size: cover; background-position:center; background-attachment: fixed;">
+        <div style="background: rgba(211,211,211, 0.96); border-radius: 25px;">
+            <h1 style="padding-left: 5px;">Chameleon Companies</h1>
 
-        @if (User.IsInRole("Administrator"))
-        {
-            <p style="padding-left: 10px;">
-                <a asp-action="Create">Create New</a>
-            </p>
-        }
-        <table class="table table-bordered table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Usdot)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PercentOcham)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AddminId)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+            @if (User.IsInRole("Administrator"))
+            {
+                <p style="padding-left: 10px;">
+                    <a asp-action="Create">Create New</a>
+                </p>
+            }
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Usdot)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PercentOcham)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AddminId)
-                        </td>
-                        <td>
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
-                            }
-                            |
-                            <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
-                            |
-                            <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.Usdot">Map</a>
-                            |
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
-                            }
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Usdot)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PercentOcham)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AddminId)
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usdot)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PercentOcham)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AddminId)
+                            </td>
+                            <td>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
+                                }
+                                |
+                                <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
+                                |
+                                <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.Usdot">Map</a>
+                                |
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        </body>

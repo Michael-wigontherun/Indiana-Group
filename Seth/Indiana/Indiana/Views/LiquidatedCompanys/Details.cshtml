@@ -3,71 +3,75 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>LiquidatedCompanys</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LegalName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LegalName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dbaname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dbaname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Oosreason)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Oosreason)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Oosdate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Oosdate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GeoLocation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GeoLocation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.addminID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.addminID)
-        </dd>
-    </dl>
-</div>
-<div>
-    @if (User.IsInRole("Administrator"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Usdot">Edit</a>
-    }
-    |
-    <a asp-action="Index">Back to List</a>
-    |
-    <a asp-controller="Map" asp-action="Index">Map</a>
-    |
-</div>
+    <body style="background-image: url('Images/Indiana_Flag.png'); background-size: cover; background-position:center; background-attachment: fixed;">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
+                <h1 class="text-center">Details</h1>
+                <h4 class="text-center">Liquidated Companies</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.LegalName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.LegalName)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Dbaname)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Dbaname)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Oosreason)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Oosreason)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Oosdate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Oosdate)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.GeoLocation)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.GeoLocation)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.addminID)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.addminID)
+                    </dd>
+                </dl>
+                <div class="text-center">
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Usdot">Edit</a>
+                    }
+                    |
+                    <a asp-action="Index">Back to List</a>
+                    |
+                    <a asp-controller="Map" asp-action="Index">Map</a>
+                    |
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        </body>

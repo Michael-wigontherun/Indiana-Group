@@ -3,238 +3,240 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
-<h1 style=" padding-left: 5px;">Trucking Companies</h1>
-<!--Do not mess with this code below-->
-<form method="post" asp-action="Index">
-    <div class="form-row">
-        <div class="form-group col-6" style="padding-right:5em;  padding-left: 1em;">
-            <input class="form-control select-custom-me" type="text" name="keyword" id="keyword" placeholder="Search" value="@ViewData["SearchString"]" />
-        </div>
-        <div class="form-group col-3">
-            <button type="search" class="btn btn-primary">Search</button>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group" style="padding-right:5em; padding-left: 1em;">
-            <label for="hmflag">HM flaged or not.</label>
-            <select name="hmflag" id="hmflag" class="custom-select">
-                <option value="">Select HM Flag</option>
-                @foreach (var item in ((List<string>)(ViewData["hmflaglist"])))
-                {
-                    if (item == ((string)(ViewData["currenthmflag"])))
+    <body style="background-image: url('Images/Indiana_Flag.png'); background-size: cover; background-position:center; background-attachment: fixed;">
+        <div style="background: rgba(211,211,211, 0.96); border-radius: 25px;">
+            <h1 style=" padding-left: 5px;">Trucking Companies</h1>
+            <!--Do not mess with this code below-->
+            <form method="post" asp-action="Index">
+                <div class="form-row">
+                    <div class="form-group col-6" style="padding-right:5em;  padding-left: 1em;">
+                        <input class="form-control select-custom-me" type="text" name="keyword" id="keyword" placeholder="Search" value="@ViewData["SearchString"]" />
+                    </div>
+                    <div class="form-group col-3">
+                        <button type="search" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="padding-right:5em; padding-left: 1em;">
+                        <label for="hmflag">HM flaged or not.</label>
+                        <select name="hmflag" id="hmflag" class="custom-select">
+                            <option value="">Select HM Flag</option>
+                            @foreach (var item in ((List<string>)(ViewData["hmflaglist"])))
+                            {
+                                if (item == ((string)(ViewData["currenthmflag"])))
+                                {
+                                    <option value="@item" selected>@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group" style="padding-right:5em; padding-left: 1em;">
+                        <label for="pcflag">PC flaged or not.</label>
+                        <select name="pcflag" id="pcflag" class="custom-select">
+                            <option value="">Select PC Flag</option>
+                            @foreach (var item in ((List<string>)(ViewData["pcflaglist"])))
+                            {
+                                if (item == ((string)(ViewData["currentpcflag"])))
+                                {
+                                    <option value="@item" selected>@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    @foreach (int i in (List<int>)(ViewData["pageList"]))
                     {
-                        <option value="@item" selected>@item</option>
+                        <input type="radio" id="page{@i}" name="page" hidden value="@i" onchange="this.form.submit();">
+                        <label class="btn-link" style="padding-right:5px;  padding-left: 1em;" for="page{@i}">@i</label>
                     }
-                    else
+                </div>
+            </form>
+            <!--Do not mess with this code above-->
+            @if (User.IsInRole("Administrator"))
+            {
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+            }
+            <table class="table table-bordered table-hover table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Usdot)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LegalName)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.Dbaname)
+                        </th>
+                        <th>
+                            Carrier<br /> Operation
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PHY_STREET_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.MAILING_STREET_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PHY_CITY_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.MAILING_CITY_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PHY_STATE_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.MAILING_STATE_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PHY_ZIP_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.MAILING_ZIP_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PHY_COUNTRY_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.MAILING_COUNTRY_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TELEPHONE_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.FAX_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.EMAIL_ADDRESS_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MCS150_MILEAGE_YEAR_)
+                            <br />
+                            ---
+                            <br />
+                            @Html.DisplayNameFor(model => model.MCS150_MILEAGE_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ADD_DATE_)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (List<TruckingCompanies>)(ViewData["List"]))
                     {
-                        <option value="@item">@item</option>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usdot)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LegalName)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.Dbaname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CARRIER_OPERATION_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PHY_STREET_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.MAILING_STREET_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PHY_CITY_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.MAILING_CITY_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PHY_STATE_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.MAILING_STATE_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PHY_ZIP_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.MAILING_ZIP_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PHY_COUNTRY_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.MAILING_COUNTRY_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TELEPHONE_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.FAX_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.EMAIL_ADDRESS_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_YEAR_)
+                                <br />
+                                ---
+                                <br />
+                                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ADD_DATE_)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
+                            </td>
+                            <td>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
+                                    <span>|</span>
+                                }
+                                <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
+                                <span>|</span>
+                                <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.GeoLocation">Map</a>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <span>|</span>
+                                    <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
+                                }
+                            </td>
+                        </tr>
                     }
-                }
-            </select>
-        </div>
-        <div class="form-group" style="padding-right:5em; padding-left: 1em;">
-            <label for="pcflag">PC flaged or not.</label>
-            <select name="pcflag" id="pcflag" class="custom-select">
-                <option value="">Select PC Flag</option>
-                @foreach (var item in ((List<string>)(ViewData["pcflaglist"])))
-                {
-                    if (item == ((string)(ViewData["currentpcflag"])))
-                    {
-                        <option value="@item" selected>@item</option>
-                    }
-                    else
-                    {
-                        <option value="@item">@item</option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-    <div class="form-row">
-        @foreach (int i in (List<int>)(ViewData["pageList"]))
-        {
-            <input type="radio" id="page{@i}" name="page" hidden value="@i" onchange="this.form.submit();">
-            <label class="btn-link" style="padding-right:5px;  padding-left: 1em;" for="page{@i}">@i</label>
-        }
-    </div>
-</form>
-<!--Do not mess with this code above-->
-@if (User.IsInRole("Administrator"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-<table class="table table-bordered table-hover table-sm table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Usdot)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LegalName)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.Dbaname)
-            </th>
-            <th>
-                Carrier<br /> Operation
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PHY_STREET_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.MAILING_STREET_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PHY_CITY_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.MAILING_CITY_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PHY_STATE_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.MAILING_STATE_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PHY_ZIP_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.MAILING_ZIP_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PHY_COUNTRY_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.MAILING_COUNTRY_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TELEPHONE_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.FAX_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.EMAIL_ADDRESS_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MCS150_MILEAGE_YEAR_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayNameFor(model => model.MCS150_MILEAGE_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADD_DATE_)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in (List<TruckingCompanies>)(ViewData["List"]))
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usdot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LegalName)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.Dbaname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CARRIER_OPERATION_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_STREET_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_STREET_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_CITY_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_CITY_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_STATE_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_STATE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_ZIP_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_ZIP_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PHY_COUNTRY_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MAILING_COUNTRY_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TELEPHONE_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.FAX_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.EMAIL_ADDRESS_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_YEAR_)
-                <br />
-                ---
-                <br />
-                @Html.DisplayFor(modelItem => item.MCS150_MILEAGE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ADD_DATE_)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DRIVER_TOTAL_)
-            </td>
-            <td>
-                @if (User.IsInRole("Administrator"))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
-                    <span>|</span>
-                }
-                <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
-                <span>|</span>
-                <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.GeoLocation">Map</a>
-                @if (User.IsInRole("Administrator"))
-                {
-                    <span>|</span>
-                    <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
-                }
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
+            </body>

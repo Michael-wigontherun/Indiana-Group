@@ -9,9 +9,9 @@
     <div class="row">
         <div class="col-3"></div>
         <div class="col-md-6" style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
-            <h1>@ViewData["Title"]</h1>
+            <h1 class="text-center">@ViewData["Title"]</h1>
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h4>Create a new account.</h4>
+                <h4 class="text-center">Create a new account.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -29,7 +29,9 @@
                     <input asp-for="Input.ConfirmPassword" class="form-control" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
+                <div class="text-center">
                 <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
             </form>
         </div>
         <div class="col-3"></div>

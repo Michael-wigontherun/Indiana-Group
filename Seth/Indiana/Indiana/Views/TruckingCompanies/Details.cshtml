@@ -3,179 +3,181 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1 style="background-color: lightgray">Details</h1>
-
-<div style="background-color: lightgray">
-    <h4>TruckingCompanies</h4>
-    <hr />
-    <dl class="row" >
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LegalName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LegalName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dbaname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dbaname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CARRIER_OPERATION_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CARRIER_OPERATION_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HM_FLAG_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HM_FLAG_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PC_FLAG_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PC_FLAG_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PHY_STREET_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PHY_STREET_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PHY_CITY_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PHY_CITY_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PHY_STATE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PHY_STATE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PHY_ZIP_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PHY_ZIP_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PHY_COUNTRY_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PHY_COUNTRY_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MAILING_STREET_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MAILING_STREET_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MAILING_CITY_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MAILING_CITY_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MAILING_STATE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MAILING_STATE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MAILING_ZIP_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MAILING_ZIP_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MAILING_COUNTRY_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MAILING_COUNTRY_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TELEPHONE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TELEPHONE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FAX_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FAX_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EMAIL_ADDRESS_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EMAIL_ADDRESS_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MCS150_DATE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MCS150_DATE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MCS150_MILEAGE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MCS150_MILEAGE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MCS150_MILEAGE_YEAR_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MCS150_MILEAGE_YEAR_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ADD_DATE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ADD_DATE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OIC_STATE_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OIC_STATE_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NBR_POWER_UNIT_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NBR_POWER_UNIT_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DRIVER_TOTAL_)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GeoLocation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GeoLocation)
-        </dd>
-    </dl>
-</div>
-<div>
-    @if (User.IsInRole("Administrator"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Usdot">Edit</a>
-    }
-    |
-    <a asp-action="Index">Back to List</a>
-    |
-    <a asp-controller="Map" asp-action="Index" asp-route-latlong="item.GeoLocation">Map</a>
-    |
-</div>
+    <body style="background-image: url('Images/Indiana_Flag.png'); background-size: cover; background-position:center; background-attachment: fixed;">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
+                <h1 class="text-center">Details</h1>
+                <h4 class="text-center">Trucking Companies</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.LegalName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.LegalName)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Dbaname)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Dbaname)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.CARRIER_OPERATION_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.CARRIER_OPERATION_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.HM_FLAG_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.HM_FLAG_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PC_FLAG_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PC_FLAG_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PHY_STREET_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PHY_STREET_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PHY_CITY_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PHY_CITY_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PHY_STATE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PHY_STATE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PHY_ZIP_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PHY_ZIP_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PHY_COUNTRY_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PHY_COUNTRY_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MAILING_STREET_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MAILING_STREET_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MAILING_CITY_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MAILING_CITY_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MAILING_STATE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MAILING_STATE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MAILING_ZIP_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MAILING_ZIP_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MAILING_COUNTRY_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MAILING_COUNTRY_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.TELEPHONE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.TELEPHONE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.FAX_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.FAX_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.EMAIL_ADDRESS_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.EMAIL_ADDRESS_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MCS150_DATE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MCS150_DATE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MCS150_MILEAGE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MCS150_MILEAGE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.MCS150_MILEAGE_YEAR_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.MCS150_MILEAGE_YEAR_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.ADD_DATE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.ADD_DATE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.OIC_STATE_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.OIC_STATE_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.NBR_POWER_UNIT_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.NBR_POWER_UNIT_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.DRIVER_TOTAL_)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.DRIVER_TOTAL_)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.GeoLocation)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.GeoLocation)
+                    </dd>
+                </dl>
+                <div class="text-center">
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Usdot">Edit</a>
+                    }
+                    |
+                    <a asp-action="Index">Back to List</a>
+                    |
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        </body>
