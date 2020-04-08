@@ -25,7 +25,8 @@ public class DemoApplication {
 		List response2 = new ArrayList<TruckingTable>();
 		//list to hold chameleon companies
 		List response3 = new ArrayList<Chameleon>();
-		List response4 = new ArrayList<Chameleon>();
+		//used to check my work
+		//List response4 = new ArrayList<Chameleon>();
 		ArrayList<String> usdotID = new ArrayList();
         usdotID.add("");
 		Connection conn;
@@ -37,9 +38,9 @@ public class DemoApplication {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(ConnectionString.connectionString);
-
             Statement stmt = conn.createStatement();
 			ResultSet records = stmt.executeQuery(SQL);
+
 			//fills liquidtable list
 			while(records.next()){
 				table = new LiquidTable();
@@ -56,6 +57,7 @@ public class DemoApplication {
 			}
 			SQL = "select USDOT, LegalName, DBAName, MCS150_DATE_, PHY_STREET_, PHY_CITY_, PHY_STATE_, PHY_ZIP_, GeoLocation from TruckingCompanies";
 			ResultSet records2 = stmt.executeQuery(SQL);
+
 			//fills trucking table list
 			while(records2.next()){
 				truck = new TruckingTable();
@@ -70,16 +72,20 @@ public class DemoApplication {
 				truck.GeoLocation = records2.getString("GeoLocation");
 				response2.add(truck);
 				//checks for chameleon company and adds it to list
+
 				for(int x = 0; x < response.size(); x++){
 					cham = new Chameleon();
 					//If statements controll the parameters for chameleon
 					//makes sure legal names are different
+					//this if statement chain determines the likelyhood of being a chameleon company
+					//everything but legal names different adds 20% to the likelyhood
 					if (!truck.LegalName.equals(((LiquidTable) response.get(x)).LegalName)) {
 						//checks if geolocation matches and is not null
 						if((truck.GeoLocation.equals(((LiquidTable) response.get(x)).GeoLocation)) && !truck.GeoLocation.equals("-NA-")){
 							//checks to see if the OOSReason falls under suspitious reasons
 							if(((LiquidTable) response.get(x)).OOSReason.equals("New Entrant Revoked - Expedited Actions")){
 								//checks if the MCS150_Date = the OOSDate
+								//hits all parameters but nothing can be 100% certain
 								if(truck.MCS150_Date.equals(((LiquidTable) response.get(x)).OOSDate)){
 									cham.USDOT = truck.USDOT;
 									cham.adminID = "update"+getDate();
@@ -103,6 +109,7 @@ public class DemoApplication {
 						//checks to make sure geolocation is null
 						else if(truck.GeoLocation.equals("-NA-")){
 							//checks to see if liquid table address contains street from trucking table
+							//20% because it hits barely any parameters for chameleon company
 							if(((LiquidTable) response.get(x)).Address.contains(truck.PHY_STREET_)){
 								cham.USDOT = truck.USDOT;
 								cham.adminID = "update"+getDate();
@@ -113,6 +120,7 @@ public class DemoApplication {
 					}
 				}
 			}
+
 			//adds chameleon company data into database
 			for(int x = 0; x < response3.size(); x++){
 				if(usdotID.contains(((Chameleon)response3.get(x)).USDOT)){
@@ -125,7 +133,8 @@ public class DemoApplication {
 				Statement stml = conn.createStatement();
                 stml.execute(SQL);
 			}
-			
+
+			//Code used to double check that the data insertion worked
 			/*Chameleon chamCheck = new Chameleon();
 			SQL = "select * from ChameleonCompanies";
 			ResultSet records4 = stmt.executeQuery(SQL);
@@ -147,6 +156,8 @@ public class DemoApplication {
 		}
 		return response3;
 	}
+	
+	//get current date and puts it into a specific format
 	private String getDate(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.now();
