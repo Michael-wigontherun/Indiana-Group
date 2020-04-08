@@ -22,7 +22,15 @@ namespace Indiana.Controllers
         // GET: ChameleonCompanies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ChameleonCompanies.ToListAsync());
+            List<ChameleonCompanies> chameleonCompanies = await _context.ChameleonCompanies.ToListAsync();
+            List<TruckingCompanies> truckingCompanies = await _context.TruckingCompanies.ToListAsync();
+
+            for(int i = 0; i < chameleonCompanies.Count(); i++)
+            {
+                chameleonCompanies.ElementAt(i).TruckingCompanies = truckingCompanies.Find(c => c.Usdot == chameleonCompanies.ElementAt(i).Usdot);
+            }
+
+            return View(chameleonCompanies);
         }
 
         // GET: ChameleonCompanies/Details/5

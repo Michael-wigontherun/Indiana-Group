@@ -23,6 +23,21 @@ namespace Indiana.Controllers
         // GET: Map
         public async Task<IActionResult> Index(string latlong)
         {
+            string lats = "";
+            string lngs = "";
+            List<TruckingCompanies> truckingCompanies = await _context.TruckingCompanies.ToListAsync();
+            string[] geol;
+            for(int i = 0; i < truckingCompanies.Count(); i++)
+            {
+                geol = truckingCompanies.ElementAt(i).GeoLocation.Split(":");
+                if (geol.Length == 2)
+                {
+                    lats += geol[0] + ",";
+                    lngs += geol[1] + ",";
+                }
+            }
+            ViewData["lats"] = lats;
+            ViewData["lngs"] = lngs;
             try
             {
                 if (latlong.Contains(":") || latlong == null)
@@ -36,7 +51,6 @@ namespace Indiana.Controllers
             {
 
             }
-            Debug.WriteLine($"\n\n{latlong}\n\n\n");
             return View();
         }
     }

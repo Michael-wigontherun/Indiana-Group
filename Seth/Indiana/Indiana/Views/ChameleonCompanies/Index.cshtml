@@ -25,38 +25,44 @@
                         <th>
                             @Html.DisplayNameFor(model => model.AddminId)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TruckingCompanies.LegalName)
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Usdot)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PercentOcham)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AddminId)
-                            </td>
-                            <td>
-                                @if (User.IsInRole("Administrator"))
-                                {
-                                    <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
-                                }
-                                |
-                                <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
-                                |
-                                <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.Usdot">Map</a>
-                                |
-                                @if (User.IsInRole("Administrator"))
-                                {
-                                    <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
-                                }
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usdot)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PercentOcham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AddminId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TruckingCompanies.LegalName)
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.Usdot">Edit</a>
+                            }
+                            |
+                            <a asp-action="Details" asp-route-id="@item.Usdot">Details</a>
+                            |
+                            <a asp-controller="Map" asp-action="Index" asp-route-latlong="@item.TruckingCompanies.GeoLocation">Map</a>
+                            |
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <a asp-action="Delete" asp-route-id="@item.Usdot">Delete</a>
+                            }
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

@@ -11,9 +11,14 @@
                 <p id="lat" class="text-center">@ViewData["lat"]</p>
                 <p class="text-center">Your Longitude</p>
                 <p id="long" class="text-center">@ViewData["long"]</p>
+                <p hidden id="lats">@ViewData["lats"]</p>
+                <p hidden id="lngs">@ViewData["lngs"]</p>
             </div>
         </div>
         <script>
+            //these are the arrays containing the geolocations of every loaction
+            var AllLatsArrayString = (document.getElementById("lats").innerHTML).split(",");
+            var AllLngsArrayString = (document.getElementById("lngs").innerHTML).split(",");
 
             var map;
             var locationSplitLat = 40.2672;
