@@ -40,7 +40,7 @@ namespace Indiana.Controllers
             ViewData["lngs"] = lngs;
             try
             {
-                if (latlong.Contains(":") || latlong == null)
+                if (latlong.Contains(":") && latlong != null)
                 {
                     string[] col = latlong.Split(":");
                     ViewData["lat"] = col[0];
