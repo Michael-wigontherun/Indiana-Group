@@ -7,22 +7,28 @@
             <div class="col-lg-3"></div>
             <div class="text-center, col-lg-6" style="background: rgba(211,211,211, 0.94); border-radius: 25px;">
                 <h1 class="text-center">Indiana Trucking Companies</h1>
+                <p class="text-justify">
+                    A company that has artificially shut down their business so as to resurrect operations as a new legal entity is referred to as a Chameleon or Reincarnated company. This is usually done in 
+                    order to leave behind a record of damages or injuries -- attaining a new record without losing operational capacity.
+                </p>
+                <hr>
                 <h2 class="text-center">Chameleon</h2>
-                <p class="text-center">
-                    Shows which companies are suspected of being liquidated companies but have slightly different information.
-                    ex: (Legal name being changed or mailing address being changed).
+                <p class="text-justify">
+                    A list displaying companies which are suspected as being a chameleon/reincarnated company. These companies have been run through a comparison code, written by Data Manager Jakob Wagner,
+                    which checks for discrepincies -- such as having had the legal name of the company or mailing address change, or having the same street address or mailing address as another company. Each 
+                    company has been assigned a percentage based on this information, and then added to our database.
                 </p>
                 <h2 class="text-center">Trucking</h2>
-                <p class="text-center">
-                    Shows all trucking companies within the state of Indiana.
+                <p class="text-justify">
+                    A list of all active Motor carriers, originally provided by Lee Cottrell in the form of a CSV file, who are recognized by the Federal Motor Carrier Safety Administration.
+                    A CSV reader was created by our Git Master, Michael Flett - which read the information from this CSV, parsed it into data-types available within SQL, and
+                    added the new, clean data into our database.
                 </p>
                 <h2 class="text-center">Liquidated</h2>
-                <p class="text-center">
-                    Shows all of the companies that should be liquidated.
-                </p>
-                <h2 class="text-center">Map</h2>
-                <p class="text-center">
-                    Shows all of the trucking companies locations using google maps API.
+                <p class="text-justify">
+                    A list of all companies within the state of Indiana who have been issued an Out of Service Order by the Federal Motor Carrier Safety Administration.
+                    Original table available <a href="https://li-public.fmcsa.dot.gov/LIVIEW/pkg_oos_process.prc_list?pv_vpath=LIVIEW&pv_show_all=N&pn_dotno=&pn_docket=&pv_legalname=&s_state=ALUS">here</a>.
+                    Information was scraped by Data Manager Jakob Wagner, cleaned as to be presentable, and to fit data-types within SQL.
                 </p>
                 <div class="col-lg-3"></div>
             </div>
